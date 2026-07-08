@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carl-Emil Kjellstrand — Projects</title>
+  <title>CV for Carl-Emil Kjellstrand</title>
   <style>
     :root { color-scheme: light dark; }
     * { box-sizing: border-box; }
@@ -15,18 +15,45 @@
       color: #e6edf3;
       line-height: 1.55;
     }
+    a { color: #58a6ff; text-decoration: none; }
     header {
       max-width: 960px;
       margin: 0 auto;
       padding: 4rem 1.5rem 1rem;
     }
-    header h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); margin: 0 0 0.4rem; }
-    header p { margin: 0; opacity: 0.65; font-size: 1.05rem; }
-    header a { color: #58a6ff; text-decoration: none; }
+    header h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); margin: 0 0 0.3rem; }
+    header .role {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #7d8590;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    header .contact {
+      margin-top: 0.7rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1rem;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
     main {
       max-width: 960px;
       margin: 0 auto;
       padding: 1.5rem 1.5rem 4rem;
+    }
+    .about p { margin: 0 0 1rem; opacity: 0.85; }
+    .section-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7d8590;
+      margin: 2.5rem 0 1.1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #30363d;
+    }
+    .projects {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.1rem;
@@ -41,18 +68,42 @@
       transition: border-color 0.15s ease, transform 0.15s ease;
     }
     .card:hover { border-color: #58a6ff; transform: translateY(-2px); }
-    .card h2 { margin: 0 0 0.3rem; font-size: 1.2rem; }
-    .card h2 a { color: #e6edf3; text-decoration: none; }
-    .card h2 a:hover { color: #58a6ff; }
+    .card h3 { margin: 0 0 0.5rem; font-size: 1.2rem; }
+    .card h3 a { color: #e6edf3; }
+    .card h3 a:hover { color: #58a6ff; }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
     .lang {
-      display: inline-block;
       font-size: 0.75rem;
       font-weight: 600;
       color: #7d8590;
       letter-spacing: 0.03em;
       text-transform: uppercase;
-      margin-bottom: 0.6rem;
     }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+    .status.active { color: #3fb950; }
+    .status.active::before { background: #3fb950; box-shadow: 0 0 6px rgba(63, 185, 80, 0.6); }
+    .status.passive { color: #7d8590; }
+    .status.passive::before { background: #7d8590; }
     .card p { margin: 0 0 1rem; font-size: 0.95rem; opacity: 0.8; flex: 1; }
     .links { display: flex; flex-wrap: wrap; gap: 0.6rem; }
     .links a, .links button {
@@ -69,6 +120,32 @@
     }
     .links a:hover, .links button:hover { background: #21262d; }
     .links a.primary { border-color: #238636; color: #3fb950; }
+    .job {
+      padding: 1rem 0;
+      border-bottom: 1px solid #21262d;
+    }
+    .job:last-child { border-bottom: none; }
+    .job-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.2rem 1rem;
+      margin-bottom: 0.4rem;
+    }
+    .job-role { font-weight: 600; }
+    .job-date { font-size: 0.85rem; color: #7d8590; white-space: nowrap; }
+    .job p { margin: 0 0 0.5rem; font-size: 0.93rem; opacity: 0.8; }
+    .tech { font-size: 0.82rem; color: #7d8590; font-style: italic; }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .info-grid .label {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .info-grid p { margin: 0; opacity: 0.8; font-size: 0.93rem; }
     .modal {
       position: fixed;
       inset: 0;
@@ -107,82 +184,222 @@
       opacity: 0.5;
       font-size: 0.85rem;
     }
-    footer a { color: #58a6ff; text-decoration: none; }
   </style>
 </head>
 <body>
   <header>
     <h1>Carl-Emil Kjellstrand</h1>
-    <p>A few things I've been building. More on <a href="https://github.com/carlemil">GitHub</a>.</p>
+    <div class="role">Software Developer</div>
+    <div class="contact">
+      <span>Malmö, Sweden</span>
+      <a href="mailto:carl-emil.kjellstrand@thinnikatech.se">carl-emil.kjellstrand@thinnikatech.se</a>
+      <a href="https://github.com/carlemil">github.com/carlemil</a>
+    </div>
   </header>
 
   <main>
-    <article class="card">
-      <h2><a href="https://github.com/carlemil/Markera">Markera</a></h2>
-      <span class="lang">Kotlin</span>
-      <p>Kotlin Multiplatform + Compose app that detects bullet-hole positions in target images using a YOLOv8 ONNX model.</p>
-      <div class="links">
-        <button type="button" data-video="assets/markera.mp4">Video</button>
-        <a href="https://github.com/carlemil/Markera">GitHub</a>
-      </div>
-    </article>
+    <section class="about">
+      <p>I am a senior developer with more than 20 years of professional experience building software across mobile, backend, and cloud platforms. My core strength is Android and Kotlin development, but I work comfortably across the full stack and pick up new languages, tools, and ecosystems quickly — most recently using Kotlin Multiplatform and Compose Multiplatform to share code and UI across Android and iOS from a single codebase.</p>
+      <p>I have made AI a central part of how I work, relying on Claude Code daily to write, review, and refactor code faster and to prototype ideas with much shorter turnaround. I also apply AI beyond day-to-day coding: in a personal project, <a href="https://github.com/carlemil/Markera">Markera</a>, I'm building a Kotlin Multiplatform app that automatically scores precision-shooting series from a single photo of the target — running an on-device YOLOv8 ONNX model to detect shot holes, reading the printed ring digits with ML Kit, and locating the target centre geometrically to compute the score.</p>
+      <p>I am well-versed in development methodologies such as Agile, Scrum, Kanban, and test-driven development, and I have a good understanding of how to balance technical and business requirements, backed by substantial international and cross-cultural experience. Over the years I have taken on a range of roles, including senior Android developer, scrum master, technical project owner, and Android Competence Lead at Jayway.</p>
+    </section>
 
-    <article class="card">
-      <h2><a href="https://github.com/carlemil/OneLife">OneLife</a></h2>
-      <span class="lang">Python</span>
-      <p>A browser-played text adventure told as a stream of interactions with AI-driven agents — talk your way through gates and solve woven puzzles.</p>
-      <div class="links">
-        <a class="primary" href="https://onelifegame.duckdns.org/">Play</a>
-        <a href="https://github.com/carlemil/OneLife">GitHub</a>
-      </div>
-    </article>
+    <h2 class="section-title">Projects</h2>
+    <div class="projects">
+      <article class="card">
+        <div class="card-meta">
+          <span class="lang">Kotlin</span>
+          <span class="status active">Active</span>
+        </div>
+        <h3><a href="https://github.com/carlemil/Markera">Markera</a></h3>
+        <p>Kotlin Multiplatform + Compose app that detects bullet-hole positions in target images using a YOLOv8 ONNX model.</p>
+        <div class="links">
+          <button type="button" data-video="assets/markera.mp4">Video</button>
+          <a href="https://github.com/carlemil/Markera">GitHub</a>
+        </div>
+      </article>
 
-    <article class="card">
-      <h2><a href="https://github.com/carlemil/FieldShootingTimer">FieldShootingTimer</a></h2>
-      <span class="lang">Kotlin</span>
-      <p>A customizable shooting-practice timer that plays an audible sequence of range commands to keep training sessions structured. Available on Google Play and the App Store.</p>
-      <div class="links">
-        <a class="primary" href="https://carlemil.github.io/FieldShootingTimer/">iOS/Android</a>
-        <a href="https://github.com/carlemil/FieldShootingTimer">GitHub</a>
-      </div>
-    </article>
+      <article class="card">
+        <div class="card-meta">
+          <span class="lang">Python</span>
+          <span class="status active">Active</span>
+        </div>
+        <h3><a href="https://github.com/carlemil/OneLife">OneLife</a></h3>
+        <p>A browser-played text adventure told as a stream of interactions with AI-driven agents — talk your way through gates and solve woven puzzles.</p>
+        <div class="links">
+          <a class="primary" href="https://onelifegame.duckdns.org/">Play</a>
+          <a href="https://github.com/carlemil/OneLife">GitHub</a>
+        </div>
+      </article>
 
-    <article class="card">
-      <h2><a href="https://github.com/carlemil/webshooter">appshooter</a></h2>
-      <span class="lang">Kotlin</span>
-      <p>A tool that helps associations and their members manage shooting competitions.</p>
-      <div class="links">
-        <a class="primary" href="https://play.google.com/store/apps/details?id=se.kjellstrand.webshooter&hl=en">Android</a>
-        <a href="https://github.com/carlemil/webshooter">GitHub</a>
-      </div>
-    </article>
+      <article class="card">
+        <div class="card-meta">
+          <span class="lang">Kotlin</span>
+          <span class="status active">Active</span>
+        </div>
+        <h3><a href="https://github.com/carlemil/FieldShootingTimer">FieldShootingTimer</a></h3>
+        <p>A customizable shooting-practice timer that plays an audible sequence of range commands to keep training sessions structured. Available on Google Play and the App Store.</p>
+        <div class="links">
+          <a class="primary" href="https://carlemil.github.io/FieldShootingTimer/">iOS/Android</a>
+          <a href="https://github.com/carlemil/FieldShootingTimer">GitHub</a>
+        </div>
+      </article>
 
-    <article class="card">
-      <h2><a href="https://github.com/carlemil/ColorMatch">ColorMatch</a></h2>
-      <span class="lang">Kotlin</span>
-      <p>An Android app where you try to match a color to an image.</p>
-      <div class="links">
-        <a href="https://github.com/carlemil/ColorMatch">GitHub</a>
-      </div>
-    </article>
+      <article class="card">
+        <div class="card-meta">
+          <span class="lang">Kotlin</span>
+          <span class="status active">Active</span>
+        </div>
+        <h3><a href="https://github.com/carlemil/webshooter">appshooter</a></h3>
+        <p>A tool that helps associations and their members manage shooting competitions.</p>
+        <div class="links">
+          <a class="primary" href="https://play.google.com/store/apps/details?id=se.kjellstrand.webshooter&hl=en">Android</a>
+          <a href="https://github.com/carlemil/webshooter">GitHub</a>
+        </div>
+      </article>
 
-    <article class="card">
-      <h2><a href="https://github.com/carlemil/LSystemCamera">LSystemCamera</a></h2>
-      <span class="lang">Kotlin</span>
-      <p>An Android experiment combining L-system fractals with the device camera.</p>
-      <div class="links">
-        <a href="https://github.com/carlemil/LSystemCamera">GitHub</a>
-      </div>
-    </article>
+      <article class="card">
+        <div class="card-meta">
+          <span class="lang">Kotlin</span>
+          <span class="status passive">Passive</span>
+        </div>
+        <h3><a href="https://github.com/carlemil/ColorMatch">ColorMatch</a></h3>
+        <p>An Android app where you try to match a color to an image.</p>
+        <div class="links">
+          <a href="https://github.com/carlemil/ColorMatch">GitHub</a>
+        </div>
+      </article>
 
-    <article class="card">
-      <h2><a href="https://github.com/carlemil/LMSLHT-web-js-client">LMSLHT-web-js-client</a></h2>
-      <span class="lang">JavaScript</span>
-      <p>A web / JavaScript client for LMSLHT.</p>
-      <div class="links">
-        <a href="https://github.com/carlemil/LMSLHT-web-js-client">GitHub</a>
+      <article class="card">
+        <div class="card-meta">
+          <span class="lang">Kotlin</span>
+          <span class="status passive">Passive</span>
+        </div>
+        <h3><a href="https://github.com/carlemil/LSystemCamera">LSystemCamera</a></h3>
+        <p>An Android experiment combining L-system fractals with the device camera.</p>
+        <div class="links">
+          <a href="https://github.com/carlemil/LSystemCamera">GitHub</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-meta">
+          <span class="lang">JavaScript</span>
+          <span class="status passive">Passive</span>
+        </div>
+        <h3><a href="https://github.com/carlemil/LMSLHT-web-js-client">LMSLHT-web-js-client</a></h3>
+        <p>A web / JavaScript client for LMSLHT.</p>
+        <div class="links">
+          <a href="https://github.com/carlemil/LMSLHT-web-js-client">GitHub</a>
+        </div>
+      </article>
+    </div>
+
+    <h2 class="section-title">Experience</h2>
+    <div class="experience">
+      <div class="job">
+        <div class="job-head">
+          <span class="job-role">Inter IKEA — Senior Android Developer (Consultant)</span>
+          <span class="job-date">Dec 2024 – Jun 2026 · Malmö</span>
+        </div>
+        <p>On the team behind IKEA's ROSS Shoppable App, I build the consumer app in Kotlin and Jetpack Compose using IKEA's Skapa design system, on a server-driven UI architecture that renders the interface dynamically from JSON layouts so we can ship features without app releases. I've developed reusable Compose components, debugged complex authentication (Auth0/CIAM) and analytics (Episod) flows, integrated with our .NET backend, and contributed to CI/CD through Azure Pipelines — working test-driven and taking ownership from design to production.</p>
+        <span class="tech">Kotlin, Jetpack Compose, .NET, Azure Pipelines, BigQuery, Looker Studio, Git, Jira, Android, Claude Code, GitHub Copilot</span>
       </div>
-    </article>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-role">Home — Parental leave</span>
+          <span class="job-date">Mar 2024 – Dec 2024 · Södra Sandby</span>
+        </div>
+        <p>Getting to know my daughter full time!</p>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-role">Tactel — Senior Android Developer (Consultant)</span>
+          <span class="job-date">Sep 2019 – Mar 2024 · Malmö</span>
+        </div>
+        <p>Worked on two major projects. As senior developer on Japan Airlines' new In-Flight Entertainment system, I delivered development tasks, mentored junior colleagues, and proposed product and process improvements as the team grew from 6 to ~20 members by the v1.0 release. Earlier, I developed the corporate Android app for Swedbank's business customers, collaborating with multidisciplinary teams (4–12 members) to launch a high-quality solution that significantly improved the user experience.</p>
+        <span class="tech">Kotlin, Git, Jenkins, Jira, Android, Gerrit, Bitbucket, ChatGPT</span>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-role">Thinnika Tech (TT) — Founder and Senior Developer</span>
+          <span class="job-date">Sep 2018 – Present · Malmö</span>
+        </div>
+        <p>Started a consulting company, both to work through and to employ other developers, together with Masar and Yousuf. We are building an app for parents to keep track of their kids' money and weekly allowance. With our time being limited, this is a long-running project, mostly used to make sure we keep up to date with the tech stack.</p>
+        <span class="tech">Kotlin, Compose, Coroutines, Flow, GitHub, ChatGPT</span>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-role">S9 — Senior Developer</span>
+          <span class="job-date">Apr 2018 – Sep 2018 · Malmö</span>
+        </div>
+        <p>Consulting at Sony on a backend migration of locally running code to AWS. Part of a team of around 10 developers picking tasks from our ticket system. Covering for a colleague on parental leave, I picked tasks I could complete without needing too much help, to avoid putting strain on the team.</p>
+        <span class="tech">Spring Boot, AWS, Ansible, Bash, Regex, Python, Yaml, CI, TDD, Gerrit</span>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-role">Øredev — Program Committee member</span>
+          <span class="job-date">Feb 2017 – Nov 2022 · Malmö</span>
+        </div>
+        <p>Øredev is a multi-track conference attracting 1300+ participants and 100+ speakers to a beautiful old industrial location in central Malmö. As part of the Speakers Committee, our role was to find and invite speakers and to review the submitted talks.</p>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-role">Jayway — Senior Developer</span>
+          <span class="job-date">Aug 2013 – Apr 2018 · Malmö</span>
+        </div>
+        <p>Consulting, mostly on Android-related assignments, as competence lead for the Android team and part-time fun fixer — organiser of events such as pistol shooting, chilli-sauce tasting evenings, and regular dinners and lunches for the team.</p>
+        <span class="tech">Java, Kotlin, Git, Jenkins, Jira, GitHub, Android Studio</span>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-role">Golden Gekko — Android Developer</span>
+          <span class="job-date">Oct 2010 – Jul 2013 · Phnom Penh, Düsseldorf, Barcelona</span>
+        </div>
+        <p>Worked as an Android developer and Technical Project Owner for three years with clients such as O2, Vodafone, and Heathrow.</p>
+        <span class="tech">Java, Maven, Git, Jira, Scrum, CI, CD, TDD</span>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-role">Purple Scout AB — Backend Developer</span>
+          <span class="job-date">Aug 2008 – Aug 2010 · Malmö</span>
+        </div>
+        <p>Part of the team that developed a front-end for the PacketLogic product produced by Procera, split between being scrum master and Java/Python developer. Also did a short evaluation project (testing video decoder performance) for Axis, and set up the syslog and MSSQL database for the ST Ericsson tools team.</p>
+        <span class="tech">Java, Python, Scrum, CI, CD, TDD, Nano, Make, Deb, MsSql, Syslog</span>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-role">Tactel AB — Test and App Developer</span>
+          <span class="job-date">Mar 2005 – May 2008 · Malmö</span>
+        </div>
+        <p>Built J2ME mobile-TV apps and a framework for creating J2ME apps quickly using XML layouts and a simple scripting language for interactions, together with two colleagues. Wrote a test tool in Perl for automating a FOTA test suite.</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">Education, Languages &amp; Skills</h2>
+    <div class="info-grid">
+      <div>
+        <div class="label">Education</div>
+        <p>Lund University — Master of Computer Science (1998–2003)</p>
+      </div>
+      <div>
+        <div class="label">Languages</div>
+        <p>Swedish (Native) · English (Professional) · Russian (Beginner)</p>
+      </div>
+      <div>
+        <div class="label">Top skills</div>
+        <p>Claude Code · Android · Kotlin · Agile · Teambuilding</p>
+      </div>
+    </div>
   </main>
 
   <footer>

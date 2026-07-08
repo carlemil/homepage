@@ -102,8 +102,8 @@
     }
     .status.active { color: #3fb950; }
     .status.active::before { background: #3fb950; box-shadow: 0 0 6px rgba(63, 185, 80, 0.6); }
-    .status.passive { color: #7d8590; }
-    .status.passive::before { background: #7d8590; }
+    .status.archived { color: #7d8590; }
+    .status.archived::before { background: #7d8590; }
     .card p { margin: 0 0 1rem; font-size: 0.95rem; opacity: 0.8; flex: 1; }
     .links { display: flex; flex-wrap: wrap; gap: 0.6rem; }
     .links a, .links button {
@@ -119,7 +119,7 @@
       transition: background 0.15s ease;
     }
     .links a:hover, .links button:hover { background: #21262d; }
-    .links a.primary { border-color: #238636; color: #3fb950; }
+    .links a.primary, .links button.primary { border-color: #238636; color: #3fb950; }
     .job {
       padding: 1rem 0;
       border-bottom: 1px solid #21262d;
@@ -191,7 +191,7 @@
     <h1>Carl-Emil Kjellstrand</h1>
     <div class="role">Software Developer</div>
     <div class="contact">
-      <span>Malmö, Sweden</span>
+      <span>Södra Sandby, Sweden</span>
       <a href="mailto:carl-emil.kjellstrand@thinnikatech.se">carl-emil.kjellstrand@thinnikatech.se</a>
       <a href="https://github.com/carlemil">github.com/carlemil</a>
     </div>
@@ -214,7 +214,7 @@
         <h3><a href="https://github.com/carlemil/Markera">Markera</a></h3>
         <p>Kotlin Multiplatform + Compose app that detects bullet-hole positions in target images using a YOLOv8 ONNX model.</p>
         <div class="links">
-          <button type="button" data-video="assets/markera.mp4">Video</button>
+          <button type="button" class="primary" data-video="assets/markera.mp4">Video</button>
           <a href="https://github.com/carlemil/Markera">GitHub</a>
         </div>
       </article>
@@ -261,7 +261,7 @@
       <article class="card">
         <div class="card-meta">
           <span class="lang">Kotlin</span>
-          <span class="status passive">Passive</span>
+          <span class="status archived">Archived</span>
         </div>
         <h3><a href="https://github.com/carlemil/ColorMatch">ColorMatch</a></h3>
         <p>An Android app where you try to match a color to an image.</p>
@@ -273,7 +273,7 @@
       <article class="card">
         <div class="card-meta">
           <span class="lang">Kotlin</span>
-          <span class="status passive">Passive</span>
+          <span class="status archived">Archived</span>
         </div>
         <h3><a href="https://github.com/carlemil/LSystemCamera">LSystemCamera</a></h3>
         <p>An Android experiment combining L-system fractals with the device camera.</p>
@@ -285,7 +285,7 @@
       <article class="card">
         <div class="card-meta">
           <span class="lang">JavaScript</span>
-          <span class="status passive">Passive</span>
+          <span class="status archived">Archived</span>
         </div>
         <h3><a href="https://github.com/carlemil/LMSLHT-web-js-client">LMSLHT-web-js-client</a></h3>
         <p>A web / JavaScript client for LMSLHT.</p>

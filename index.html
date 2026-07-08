@@ -191,7 +191,7 @@
 
   <div class="modal" id="videoModal">
     <button type="button" class="modal-close" aria-label="Close">&times;</button>
-    <video id="modalVideo" controls autoplay loop playsinline></video>
+    <video id="modalVideo" controls autoplay playsinline></video>
   </div>
 
   <script>
@@ -212,6 +212,12 @@
 
       document.querySelectorAll('[data-video]').forEach(function (btn) {
         btn.addEventListener('click', function () { open(btn.dataset.video); });
+      });
+      video.addEventListener('click', function () {
+        if (video.ended) {
+          video.currentTime = 0;
+          video.play();
+        }
       });
       modal.querySelector('.modal-close').addEventListener('click', close);
       modal.addEventListener('click', function (e) {

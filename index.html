@@ -157,6 +157,12 @@
       z-index: 100;
     }
     .modal.open { display: flex; }
+    .modal iframe {
+      width: min(90vw, 160vh);
+      aspect-ratio: 16 / 9;
+      border-radius: 10px;
+      border: 1px solid #30363d;
+    }
     .modal video, .modal img {
       max-width: 100%;
       max-height: 90vh;
@@ -281,7 +287,7 @@
         <p>A shot timer for Swedish field shooting that calls out the standardized range commands from a dial you set by pinch and drag, with training and competition modes. One Kotlin/Compose Multiplatform codebase shipped to both Google Play and the App Store.</p>
         <div class="links">
           <a class="primary" href="https://carlemil.github.io/FieldShootingTimer/">iOS/Android</a>
-          <a href="https://www.youtube.com/watch?v=tJ_Sblakruw">Video</a>
+          <button type="button" data-youtube="tJ_SbIakruw">Video</button>
           <a href="https://github.com/carlemil/FieldShootingTimer">GitHub</a>
         </div>
       </article>
@@ -455,6 +461,7 @@
   <div class="modal" id="mediaModal">
     <button type="button" class="modal-close" aria-label="Close">&times;</button>
     <video id="modalVideo" controls autoplay playsinline hidden></video>
+    <iframe id="modalYoutube" title="YouTube video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen hidden></iframe>
     <img id="modalImage" alt="" hidden>
     <div id="modalGallery" class="modal-gallery" hidden></div>
   </div>
@@ -465,17 +472,28 @@
       const video = document.getElementById('modalVideo');
       const image = document.getElementById('modalImage');
       const gallery = document.getElementById('modalGallery');
+      const youtube = document.getElementById('modalYoutube');
 
       function openVideo(src) {
         image.hidden = true;
         gallery.hidden = true;
+        youtube.hidden = true;
         video.hidden = false;
         video.src = src;
+        modal.classList.add('open');
+      }
+      function openYoutube(id) {
+        video.hidden = true;
+        image.hidden = true;
+        gallery.hidden = true;
+        youtube.hidden = false;
+        youtube.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
         modal.classList.add('open');
       }
       function openImage(src) {
         video.hidden = true;
         gallery.hidden = true;
+        youtube.hidden = true;
         image.hidden = false;
         image.src = src;
         modal.classList.add('open');
@@ -483,6 +501,7 @@
       function openGallery(srcs) {
         video.hidden = true;
         image.hidden = true;
+        youtube.hidden = true;
         gallery.innerHTML = '';
         srcs.forEach(function (src) {
           const img = document.createElement('img');
@@ -498,12 +517,16 @@
         video.pause();
         video.removeAttribute('src');
         video.load();
+        youtube.removeAttribute('src');
         image.removeAttribute('src');
         gallery.innerHTML = '';
       }
 
       document.querySelectorAll('[data-video]').forEach(function (btn) {
         btn.addEventListener('click', function () { openVideo(btn.dataset.video); });
+      });
+      document.querySelectorAll('[data-youtube]').forEach(function (btn) {
+        btn.addEventListener('click', function () { openYoutube(btn.dataset.youtube); });
       });
       document.querySelectorAll('[data-image]').forEach(function (btn) {
         btn.addEventListener('click', function () { openImage(btn.dataset.image); });

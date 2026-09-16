@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markera: finding the centre, the rings and the holes</title>
+  <style>
+    :root { color-scheme: light dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      line-height: 1.6;
+    }
+    a { color: #58a6ff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 0.5rem;
+    }
+    header .back {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7d8590;
+    }
+    header .back a { color: #7d8590; }
+    header .back a:hover { color: #58a6ff; }
+    header h1 { font-size: clamp(1.7rem, 4.5vw, 2.4rem); margin: 0.9rem 0 0.4rem; }
+    header .standfirst { opacity: 0.8; margin: 0; }
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 4rem;
+    }
+    h2 {
+      font-size: 1.15rem;
+      margin: 2.8rem 0 0.2rem;
+      padding-top: 1.6rem;
+      border-top: 1px solid #30363d;
+    }
+    h2 .verdict {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+    .shipped { color: #3fb950; }
+    .dropped { color: #f85149; }
+    .partial { color: #d29922; }
+    p { margin: 0.9rem 0; opacity: 0.88; }
+    .lede { opacity: 1; }
+    figure {
+      margin: 1.6rem 0;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 0.9rem;
+    }
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 7px;
+      background: #0d1117;
+    }
+    figcaption {
+      font-size: 0.86rem;
+      color: #9da7b3;
+      margin-top: 0.75rem;
+      line-height: 1.5;
+    }
+    .pair {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0.9rem;
+    }
+    .pair figure { margin: 0; }
+    .key {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-left: 3px solid #58a6ff;
+      border-radius: 8px;
+      padding: 0.9rem 1.1rem;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+    }
+    .key p { margin: 0.35rem 0; }
+    .key .title {
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      color: #7d8590;
+      margin-bottom: 0.5rem;
+    }
+    .swatch {
+      display: inline-block;
+      width: 0.65rem;
+      height: 0.65rem;
+      border-radius: 50%;
+      margin-right: 0.4rem;
+      vertical-align: baseline;
+    }
+    ul { opacity: 0.88; padding-left: 1.2rem; }
+    li { margin: 0.4rem 0; }
+    footer {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+      font-size: 0.85rem;
+      color: #7d8590;
+    }
+    footer p { opacity: 1; }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="back"><a href="index.html">&larr; Carl-Emil Kjellstrand</a></p>
+    <h1>Markera: seven ways to find a target</h1>
+    <p class="standfirst">Scoring a precision-shooting series from one photo needs three things: the centre of the rings, the scale, and the holes. Getting the holes was the easy part. Here is everything that was tried for the other two, photographed running on an emulator.</p>
+  </header>
+
+  <main>
+    <p class="lede"><a href="https://github.com/carlemil/Markera">Markera</a> turns a phone photo of a paper target into a scored series. A YOLOv8 model finds the bullet holes, and that part worked early and never really stopped working. The hard problem was geometry. A hole 40 mm from the centre is a 9 or an 8 depending on where the centre actually is and how much the camera tilt has squashed the rings, and a millimetre of error in the centre moves a borderline shot a whole ring.</p>
+
+    <p>Every screenshot below is a real run on an Android emulator. Each historical version was checked out into its own git worktree, given a frame source that replays the same three photographs instead of a camera, and extended with debug drawing so a still frame shows what the algorithm was actually looking at. Two of the approaches never ran on a phone at all when they were written, and had to be wired onto the scan path to be photographed. That is noted where it applies.</p>
+
+    <div class="key">
+      <p class="title">The three test photographs</p>
+      <p><strong>Clean</strong> is a well-lit target square to the camera, filling the frame. <strong>Tilt</strong> is the same kind of target shot obliquely and further away, with a crease across the paper. <strong>Pasters</strong> is a heavily reused target where dozens of black patches cover old holes, including some that touch the ring boundary.</p>
+    </div>
+
+    <h2><span class="verdict partial">Partly shipped &middot; June 2026</span>1. Holes plus a detected centre</h2>
+
+    <p>The first pipeline thresholded the image, took the largest dark blob, fit an ellipse to it by pixel moments, and treated that ellipse as the black 6/7 ring. From the ellipse it recovered a camera pose and warped the whole photo flat before measuring distances. It is a clean idea: a circle seen at an angle projects to an ellipse, so recovering the ellipse recovers the tilt.</p>
+
+    <div class="pair">
+      <figure>
+        <img src="assets/markera/a1_calib_clean.jpg" alt="Clean target with four green hole boxes and no ring or centre marked">
+        <figcaption>Clean frame. The model found four of the five holes, but the blob fit reported no ring at all, so there is no ellipse, no centre cross and no score. The log line reads <em>no 7-ring blob found</em>, and scoring silently fell back to an assumed centre.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/markera/a1_calib_tilt.jpg" alt="Perspective-corrected target with a cyan ellipse on the black ring and a cyan centre cross">
+        <figcaption>Tilt frame. Here it worked: the cyan ellipse sits on the 6/7 boundary, the cyan cross marks the recovered centre, and the image shown is the perspective-corrected version, which is why the oblique photo looks square. No holes survived the model on the rectified image.</figcaption>
+      </figure>
+    </div>
+
+    <p>That pair is the whole problem in two pictures. The geometry either worked beautifully or vanished, with nothing in between and no way for the app to tell which it had got. Worse, on a live camera the blob shifted frame to frame, so the centre jittered and scores flickered. The hole detector from this era is still the first step of the pipeline today. The scoring shortcut built on top of it was replaced.</p>
+
+    <h2><span class="verdict dropped">Never built</span>2. Train the model to output scores directly</h2>
+
+    <p>The tempting shortcut: skip geometry entirely and train the detector to emit a ring value per hole. It scored well on held-out validation images and poorly in real use. Low scores are rare in a dataset of decent shooting, so the model essentially guessed them, and the only fix is a much larger dataset of bad targets, which is slow and unpleasant to collect. There is nothing to photograph because it never reached the app.</p>
+
+    <h2><span class="verdict shipped">Shipped &middot; in use today</span>3. The centre from the printed digits</h2>
+
+    <p>Paper targets have their ring values printed on them, in a horizontal row and a vertical row that cross at the centre. On-device OCR reads them, the outer 6 to 9 are kept because they sit at well-aligned positions, a line is fitted through each row, and the two lines are intersected.</p>
+
+    <figure>
+      <img src="assets/markera/a3_digits_tilt.jpg" alt="Target with cyan boxes around each printed digit and two yellow lines crossing at a red cross">
+      <figcaption>Every cyan box is a digit the OCR recognised, including several outside the black. The two yellow lines are fitted through the horizontal and vertical digit rows, and the red cross is their intersection. The digits are physically printed relative to the true centre, so this estimate does not care about lighting, pasters or how much of the black is left.</figcaption>
+    </figure>
+
+    <p>Two details make it survive real photographs. The row split is median-based, so a single misread digit cannot drag a row off. And a row of only two digits is accepted only when the pair straddles the centre. When the black is so heavily pasted that the digits cannot be read, it returns no centre rather than guessing. This has been in the app since June 2026 and has not needed changing.</p>
+
+    <h2><span class="verdict dropped">Dropped</span>4. The 6/7 ring from the dark blob</h2>
+
+    <p>With the centre solved, the remaining unknown was the scale, which means finding the black 6/7 boundary. The first attempt reused the idea from approach 1 but with a size prior: threshold, find connected dark components, and pick the blob whose radius is closest to what the viewfinder guide implies.</p>
+
+    <figure>
+      <img src="assets/markera/a4_blob_tilt.jpg" alt="Target with a small amber rectangle around the inner rings and a faint large rectangle spanning the frame">
+      <figcaption>Tilt frame, and a textbook failure. The amber rectangle is the blob the selector chose: a small central region, not the black disc. The faint large rectangle is another candidate spanning most of the paper. No ellipse was produced. Every dark candidate the threshold produced is outlined, so you can see the selector had nothing good to choose from.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="assets/markera/a4_blob_pasters.jpg" alt="Heavily pasted target with an amber box extending past the black disc and a green ellipse slightly too large">
+      <figcaption>Pasters frame. Black patches touching the rim merged into the disc, so the chosen blob bleeds beyond the boundary and the green ellipse comes out too large and off to one side. Every hole is then measured against a ring that is in the wrong place.</figcaption>
+    </figure>
+
+    <p>The root cause is a mismatch of what is being fitted. The blob is a filled region, and the thing that matters is its edge. Anything that adds or removes area, a paster, a shadow, a crease, moves the fitted ellipse even when the edge itself is perfectly visible. The size prior removed the worst false positives but could not fix that. The code was deleted in September 2026.</p>
+
+    <h2><span class="verdict dropped">Dropped</span>5. Fitting the edge with RANSAC</h2>
+
+    <p>The obvious correction is to fit the edge directly. This version estimated the disc radius from a brightness profile, collected gradient edge pixels in a band around it, and ran RANSAC to fit a conic through them, rejecting outliers. It is a much better-posed problem and the fits are geometrically excellent.</p>
+
+    <div class="pair">
+      <figure>
+        <img src="assets/markera/a5_ransac_clean.jpg" alt="Target with scattered orange dots and a magenta ring of inliers on a printed white ring inside the black">
+        <figcaption>Clean frame. The orange dots are gradient edge candidates, the magenta ones the inliers RANSAC settled on. The fit is tight, smooth and on entirely the wrong circle: it locked onto a printed white ring line inside the black. The scores came out 9, 8, 7, 7, exactly one ring low across the board.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/markera/a5_ransac_tilt.jpg" alt="Target with orange dots on both the black rim and the printed paper rings, green ellipse outside the black disc">
+        <figcaption>Tilt frame. Candidates appear on the black rim and on the printed rings out in the paper, and the fit drifted outward onto those. The green ellipse encloses the black disc instead of tracing it.</figcaption>
+      </figure>
+    </div>
+
+    <p>This is the failure mode that killed the approach. A target is a set of concentric circles, so a fitter that only knows about edges has many equally good answers and no way to prefer the right one. On real scans roughly 30 percent of fits landed on the true 6/7 ring. Scoring needs about 95 percent. The radial edge sampling and robust ellipse fit were kept and reused; the standalone detector was not.</p>
+
+    <div class="key">
+      <p class="title">Reading approaches 4 and 5</p>
+      <p>Neither of these ever ran inside the app when it was written. Both lived only in a desktop evaluation module and its tests. To photograph them on the emulator, each was wired onto the live scan path at its own historical commit and given debug drawing. The algorithms are unchanged; only the place they run is new.</p>
+    </div>
+
+    <h2><span class="verdict dropped">Dropped</span>6. Digits locate the ring, the rim shapes it</h2>
+
+    <p>The insight that broke the deadlock: the digits already say which ring is which. A digit labelled 8 sits at a known fraction of the 6/7 radius, so mapping each recognised digit outward by its own label gives an estimate of where the boundary is, and the median of those estimates ignores misreads. That produces a circle at the right radius. The ellipse shape is then recovered by scanning outward from that circle for the black-to-white edge.</p>
+
+    <div class="pair">
+      <figure>
+        <img src="assets/markera/a6_clean_sq.jpg" alt="Clean target with a green ellipse sitting inside the black disc rather than on its edge">
+        <figcaption>Clean frame. The green ellipse is a good ellipse in the wrong place: it settled well inside the black, around the 7 ring, rather than on the disc edge.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/markera/a6_tilt_sq.jpg" alt="Tilted target with a green ellipse noticeably smaller than the black disc">
+        <figcaption>Tilt frame, the same failure and larger. The centre and the digit lines are right. The edge scan simply stopped at the first strong transition it met on the way out.</figcaption>
+      </figure>
+    </div>
+
+    <p>An earlier version of this had derived the entire ellipse, centre, axes and tilt, from the digit points alone, self-calibrating the ring-width fraction with a parameter sweep. It passed all 38 dataset photos and then broke badly at high camera tilt, where the free sweep pushed an inner digit about twice too far out and a five-parameter conic fit on a handful of one-sided points degenerated into slivers. Fixing the ring-width fraction from the published target specification and taking only the radius from the digits was the fix, and it is the version photographed here.</p>
+
+    <p>It still was not good enough. On 37 real scans the rim snap landed on the rim about 3 times. The problem is that the scan follows the whole boundary at once, so one bad sector, a crease, a shadow, a paster on the rim, drags the entire fit. The digit radius seed survives in the app today as a sanity check on the probe result.</p>
+
+    <h2><span class="verdict shipped">Shipped &middot; in use today</span>7. Four probe disks that walk to the rim</h2>
+
+    <p>The version that works gives up on fitting the boundary globally and measures it at exactly four points instead. From the digit centre, four starting points are placed left, right, up and down along the digit rows, each at the 6/7 distance that side's own digits predict, so a tilted target's near side starts further out. A 50 pixel disk sits on each start and counts its dark pixels. A disk centred exactly on the rim comes out very slightly more light than dark, because the black curves away from it. Each disk steps in or out by the amount that ratio implies until it stops moving, and an ellipse is drawn through the four final centres.</p>
+
+    <figure>
+      <img src="assets/markera/a7_probe_tilt.jpg" alt="Tilted target with four magenta disks on the black rim and a green ellipse exactly on the boundary">
+      <figcaption>Tilt frame, the case approaches 4, 5 and 6 all failed. The four magenta disks have settled on the black-to-white rim, and the green ellipse through them traces the 6/7 boundary exactly, including the perspective squash. Amber rings mark where each disk started, from the digit prediction.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="assets/markera/a7_probe_clean.jpg" alt="Clean target with probe disks, numbered hole labels and a total score of 46">
+      <figcaption>The full pipeline. Probes on the rim, holes boxed and labelled with their ring value, and the series scored: 10, 9, 9, 9, 9 for 46. The grey bands top and bottom are padding added by the test harness, not part of the photograph.</figcaption>
+    </figure>
+
+    <p>It works because it only ever needs the rim to be visible at four places the digits have already pinned down. Interior pasters, other printed rings and the paper edge are never sampled, so they cannot compete. In the first run on a real phone every probe landed on the rim in 40 of 42 scans. There is no fallback: an implausible probe ellipse means no ring and no automatic score, which is the honest answer.</p>
+
+    <h2><span class="verdict shipped">Shipped &middot; in use today</span>8. Scoring from the geometry</h2>
+
+    <p>With a centre, an ellipse and a set of hole boxes, the rest is arithmetic. Each hole's offset is rotated onto the ellipse axes and the short axis is stretched back out, which undoes the perspective. Pixels convert to millimetres against the published specification, a 100 mm radius to the black edge and a ring every 25 mm outward. Scoring gauges by the hole's edge, so a shot whose edge breaks a line counts as the higher ring, which is how it is done on paper.</p>
+
+    <figure>
+      <img src="assets/markera/a7_userview_tilt.jpg" alt="Target with only a green ring and a red centre cross, no debug graphics">
+      <figcaption>What a user actually sees, with the debug overlay switched off. The five best hits pre-fill the pickers and stay editable, because the user is the final authority on their own series.</figcaption>
+    </figure>
+
+    <h2 style="border-top:1px solid #30363d">What the detour was worth</h2>
+
+    <p>Approaches 1, 4, 5 and 6 all tried to recover the ring boundary from the image as a whole, and every one of them was defeated by the same thing: a paper target is covered in circles, and an algorithm that only understands edges and blobs has no way to know which circle it has found. The fix was not a better fitter. It was noticing that the target prints the answer on itself, and using the digits to decide both where to look and what to look for.</p>
+
+    <p>The three surviving pieces are the hole detector from the very first version, the digit-based centre, and the four probe disks. Everything else was deleted.</p>
+  </main>
+
+  <footer>
+    <p>Source, including the full approach log this page is drawn from, is at <a href="https://github.com/carlemil/Markera">github.com/carlemil/Markera</a>.</p>
+  </footer>
+</body>
+</html>

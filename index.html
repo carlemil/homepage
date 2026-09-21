@@ -227,6 +227,19 @@
     <div class="projects">
       <article class="card">
         <div class="card-meta">
+          <span class="lang">Python</span>
+          <span class="status active">Active</span>
+        </div>
+        <h3><a href="https://github.com/carlemil/tickets">Tickets</a></h3>
+        <p>A personal Jira replacement: one lane board (todo → plan → develop → test → verify → done) that I drive in the browser and an AI agent drives over MCP, both against the same SQLite file, with every move attributed in an append-only event log. The agent picks up a card, runs headless Claude Code in that project's own git worktree, and walks it along — plan mode first, where the reply is split into a plan and open questions so the card waits for me instead of guessing; then develop; then test, which must end in a pass before the branch is pushed and the card reaches verify. One process, two dependencies, no build step.</p>
+        <div class="links">
+          <button type="button" class="primary" data-image="assets/tickets.png">Screenshot</button>
+          <a href="https://github.com/carlemil/tickets">GitHub</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-meta">
           <span class="lang">TypeScript</span>
           <span class="status active">Active</span>
         </div>

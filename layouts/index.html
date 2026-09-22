@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout previews · Carl-Emil Kjellstrand</title>
+  <style>
+    :root { color-scheme: light dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      line-height: 1.55;
+    }
+    a { color: #58a6ff; text-decoration: none; }
+    header {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 1rem;
+    }
+    header h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); margin: 0 0 0.3rem; }
+    header .role {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #7d8590;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    header .contact {
+      margin-top: 0.7rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1rem;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.5rem 1.5rem 4rem;
+    }
+    .about p { margin: 0 0 1rem; opacity: 0.85; }
+    .section-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7d8590;
+      margin: 2.5rem 0 1.1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #30363d;
+    }
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.1rem;
+    }
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 1.25rem 1.35rem;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+    .card:hover { border-color: #58a6ff; transform: translateY(-2px); }
+    .card h3 { margin: 0 0 0.5rem; font-size: 1.2rem; }
+    .card h3 a { color: #e6edf3; }
+    .card h3 a:hover { color: #58a6ff; }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+    .lang {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #7d8590;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+    .status.active { color: #3fb950; }
+    .status.active::before { background: #3fb950; box-shadow: 0 0 6px rgba(63, 185, 80, 0.6); }
+    .status.archived { color: #7d8590; }
+    .status.archived::before { background: #7d8590; }
+    .card p { margin: 0 0 1rem; font-size: 0.95rem; opacity: 0.8; flex: 1; }
+    .links { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .links a, .links button {
+      font-family: inherit;
+      font-size: 0.85rem;
+      color: #58a6ff;
+      text-decoration: none;
+      background: none;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: 0.3rem 0.7rem;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .links a:hover, .links button:hover { background: #21262d; }
+    .links a.primary, .links button.primary { border-color: #238636; color: #3fb950; }
+    .job {
+      padding: 1rem 0;
+      border-bottom: 1px solid #21262d;
+    }
+    .job:last-child { border-bottom: none; }
+    .job-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.2rem 1rem;
+      margin-bottom: 0.4rem;
+    }
+    .job-role { font-weight: 600; }
+    .job-date { font-size: 0.85rem; color: #7d8590; white-space: nowrap; }
+    .job p { margin: 0 0 0.5rem; font-size: 0.93rem; opacity: 0.8; }
+    .tech { font-size: 0.82rem; color: #7d8590; font-style: italic; }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .info-grid .label {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .info-grid p { margin: 0; opacity: 0.8; font-size: 0.93rem; }
+    header, main { max-width: 1300px; }
+    .projects { grid-template-columns: repeat(auto-fill, minmax(384px, 1fr)); }
+    .thumb {
+      width: 384px;
+      max-width: 100%;
+      height: 300px;
+      overflow: hidden;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      margin-bottom: 0.9rem;
+      background: #0d1117;
+    }
+    .thumb iframe {
+      width: 1280px;
+      height: 1000px;
+      border: 0;
+      transform: scale(0.3);
+      transform-origin: 0 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Layout previews</h1>
+    <div class="role">Pick the one you like</div>
+    <div class="contact"><span>Ten mixes of four ideas: A nav + hero · B sidebar · C projects first · D timeline</span><a href="../index.html">current page</a></div>
+  </header>
+  <main>
+    <div class="projects">
+      <article class="card">
+        <div class="thumb"><iframe src="01-nav-hero.html" title="Nav + hero" loading="eager" tabindex="-1"></iframe></div>
+        <div class="card-meta"><span class="lang">Layout 1 · A</span></div>
+        <h3><a href="01-nav-hero.html">1. Nav + hero</a></h3>
+        <p>Slim sticky nav (name + Projects · Experience · Skills · GitHub) and a larger hero with a one-line pitch; contact links as pills.</p>
+        <div class="links"><a class="primary" href="01-nav-hero.html">Open</a></div>
+      </article>
+      <article class="card">
+        <div class="thumb"><iframe src="02-timeline.html" title="Timeline" loading="eager" tabindex="-1"></iframe></div>
+        <div class="card-meta"><span class="lang">Layout 2 · D</span></div>
+        <h3><a href="02-timeline.html">2. Timeline</a></h3>
+        <p>Today's page, but Experience is a vertical timeline: green dot for the current role, grey for past ones, dates in a left gutter.</p>
+        <div class="links"><a class="primary" href="02-timeline.html">Open</a></div>
+      </article>
+      <article class="card">
+        <div class="thumb"><iframe src="03-nav-hero-timeline.html" title="Nav + hero + timeline" loading="eager" tabindex="-1"></iframe></div>
+        <div class="card-meta"><span class="lang">Layout 3 · A+D</span></div>
+        <h3><a href="03-nav-hero-timeline.html">3. Nav + hero + timeline</a></h3>
+        <p>Layouts 1 and 2 together.</p>
+        <div class="links"><a class="primary" href="03-nav-hero-timeline.html">Open</a></div>
+      </article>
+      <article class="card">
+        <div class="thumb"><iframe src="04-sidebar.html" title="Sidebar" loading="eager" tabindex="-1"></iframe></div>
+        <div class="card-meta"><span class="lang">Layout 4 · B</span></div>
+        <h3><a href="04-sidebar.html">4. Sidebar</a></h3>
+        <p>Two columns: a sticky left sidebar with name, contact, section links, education, languages and skills; About, Projects (2 across) and Experience on the right.</p>
+        <div class="links"><a class="primary" href="04-sidebar.html">Open</a></div>
+      </article>
+      <article class="card">
+        <div class="thumb"><iframe src="05-sidebar-timeline.html" title="Sidebar + timeline" loading="eager" tabindex="-1"></iframe></div>
+        <div class="card-meta"><span class="lang">Layout 5 · B+D</span></div>
+        <h3><a href="05-sidebar-timeline.html">5. Sidebar + timeline</a></h3>
+        <p>Layout 4 with the Experience timeline.</p>
+        <div class="links"><a class="primary" href="05-sidebar-timeline.html">Open</a></div>
+      </article>
+      <article class="card">
+        <div class="thumb"><iframe src="06-projects-first.html" title="Projects first" loading="eager" tabindex="-1"></iframe></div>
+        <div class="card-meta"><span class="lang">Layout 6 · C</span></div>
+        <h3><a href="06-projects-first.html">6. Projects first</a></h3>
+        <p>Projects first (active ones leading), then a short About and Experience; long texts behind a “more” toggle.</p>
+        <div class="links"><a class="primary" href="06-projects-first.html">Open</a></div>
+      </article>
+      <article class="card">
+        <div class="thumb"><iframe src="07-nav-projects-first.html" title="Nav + projects first" loading="eager" tabindex="-1"></iframe></div>
+        <div class="card-meta"><span class="lang">Layout 7 · A+C</span></div>
+        <h3><a href="07-nav-projects-first.html">7. Nav + projects first</a></h3>
+        <p>Nav + hero, then projects first with “more” toggles.</p>
+        <div class="links"><a class="primary" href="07-nav-projects-first.html">Open</a></div>
+      </article>
+      <article class="card">
+        <div class="thumb"><iframe src="08-sidebar-projects-first.html" title="Sidebar + projects first" loading="eager" tabindex="-1"></iframe></div>
+        <div class="card-meta"><span class="lang">Layout 8 · B+C</span></div>
+        <h3><a href="08-sidebar-projects-first.html">8. Sidebar + projects first</a></h3>
+        <p>Sidebar, and the right side opens with Projects.</p>
+        <div class="links"><a class="primary" href="08-sidebar-projects-first.html">Open</a></div>
+      </article>
+      <article class="card">
+        <div class="thumb"><iframe src="09-projects-first-timeline.html" title="Projects first + timeline" loading="eager" tabindex="-1"></iframe></div>
+        <div class="card-meta"><span class="lang">Layout 9 · C+D</span></div>
+        <h3><a href="09-projects-first-timeline.html">9. Projects first + timeline</a></h3>
+        <p>Projects first with “more” toggles, plus the Experience timeline.</p>
+        <div class="links"><a class="primary" href="09-projects-first-timeline.html">Open</a></div>
+      </article>
+      <article class="card">
+        <div class="thumb"><iframe src="10-nav-projects-timeline.html" title="Nav + projects first + timeline" loading="eager" tabindex="-1"></iframe></div>
+        <div class="card-meta"><span class="lang">Layout 10 · A+C+D</span></div>
+        <h3><a href="10-nav-projects-timeline.html">10. Nav + projects first + timeline</a></h3>
+        <p>Everything except the sidebar.</p>
+        <div class="links"><a class="primary" href="10-nav-projects-timeline.html">Open</a></div>
+      </article>
+    </div>
+  </main>
+</body>
+</html>

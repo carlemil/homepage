@@ -38,7 +38,8 @@
       <div>
         <div class="kicker">The approach</div>
         <h2>Let the printed digits decide</h2>
-        <p>On-device OCR (ML Kit on Android, Apple Vision on iOS) reads the printed ring digits; lines through the horizontal and vertical rows cross at the true centre. Four probe disks then walk from where the digits predict the 6/7 ring to the actual black-to-white rim, and an ellipse through them undoes the perspective for edge-gauged scoring.</p>
+        <p>Two on-device models split the work. <b>YOLOv8</b>, exported to ONNX so the same model runs on both Android and iOS, finds the bullet holes and returns a box around each one. It says where the holes are, but not what they score.</p>
+        <p><b>ML Kit</b> text recognition on Android and <b>Apple Vision</b> on iOS are the platforms' built-in OCR engines. They read the ring digits printed on the target, and those digits give the geometry: lines through the horizontal and vertical rows cross at the true centre. Four probe disks then walk from where the digits predict the 6/7 ring to the actual black-to-white rim, and an ellipse through them undoes the perspective for edge-gauged scoring.</p>
         <p>Seven approaches were tried; three pieces survived. <a href="../markera-detection.html">How that detection was arrived at, with screenshots of every approach that failed first.</a></p>
       </div>
       <img class="media" src="../assets/markera/a7_probe_tilt.jpg" alt="Four probe disks settled on the rim of a tilted target">
@@ -48,7 +49,9 @@
       <div>
         <div class="kicker">The result</div>
         <h2>40 of 42 scans on the rim</h2>
-        <p>In the first run on a real phone every probe landed on the rim in 40 of 42 scans. The five best hits pre-fill the pickers and stay editable, because the shooter is the final authority on their own series.</p>
+        <p>The last step made the difference. The earlier attempts fitted the black 6/7 boundary from the whole image at once, and a target is covered in look-alike circles, so they kept locking onto the wrong one. An edge fit hit the true ring on about 30 percent of real scans, and snapping the whole rim at once landed on it only about 3 times in 37, because one crease or paster on the edge dragged the entire fit.</p>
+        <p>The probes measure the 6/7 circle at just four points instead. Each one starts where that side's digits say the rim should be, then walks in or out until it sits exactly on the black-to-white edge. Other printed rings, pasters inside the black and the paper edge are never sampled, so they cannot pull the result away.</p>
+        <p>In the first run on a real phone every probe landed on the rim in 40 of 42 scans. When the probe ellipse looks implausible, the app shows no automatic score rather than a wrong one. The five best hits pre-fill the pickers and stay editable, because the shooter is the final authority on their own series.</p>
       </div>
       <video class="media" src="../assets/markera.mp4" controls muted playsinline preload="metadata"></video>
     </section>

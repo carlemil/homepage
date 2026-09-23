@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markera · Carl-Emil Kjellstrand</title>
+  <link rel="stylesheet" href="project.css">
+</head>
+<body>
+  <header class="hero">
+    <img src="../assets/markera/a7_userview_tilt.jpg" alt="">
+    <div class="over wrap">
+      <a class="back" href="../index.html#projects">Carl-Emil Kjellstrand</a>
+      <h1>Markera</h1>
+      <p>Score a precision-shooting series from one photo of the target.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="glance">
+      <div><b>Stack</b>Kotlin Multiplatform, Compose, YOLOv8 ONNX, ML Kit / Apple Vision</div>
+      <div><b>Platforms</b>Android (Google Play) · iOS (TestFlight)</div>
+      <div><b>Started</b>2026</div>
+      <div><b>Status</b><span class="status active">Active</span></div>
+      <div><b>Links</b><a href="https://play.google.com/store/apps/details?id=se.kjellstrand.markera">Play</a> · <a href="https://github.com/carlemil/Markera">GitHub</a></div>
+    </div>
+
+    <section class="cs">
+      <div>
+        <div class="kicker">The problem</div>
+        <h2>Which ring is it, really?</h2>
+        <p>A YOLOv8 model finds the bullet holes, and that part worked early. The hard problem was geometry: a hole 40&nbsp;mm from the centre is a 9 or an 8 depending on where the centre actually is and how much the camera tilted — and a paper target is covered in look-alike circles.</p>
+      </div>
+      <img class="media" src="../assets/markera/a5_ransac_clean.jpg" alt="An edge fit locked onto a printed ring inside the black">
+    </section>
+
+    <section class="cs flip">
+      <div>
+        <div class="kicker">The approach</div>
+        <h2>Let the printed digits decide</h2>
+        <p>On-device OCR (ML Kit on Android, Apple Vision on iOS) reads the printed ring digits; lines through the horizontal and vertical rows cross at the true centre. Four probe disks then walk from where the digits predict the 6/7 ring to the actual black-to-white rim, and an ellipse through them undoes the perspective for edge-gauged scoring.</p>
+        <p>Seven approaches were tried; three pieces survived. <a href="../markera-detection.html">How that detection was arrived at, with screenshots of every approach that failed first.</a></p>
+      </div>
+      <img class="media" src="../assets/markera/a7_probe_tilt.jpg" alt="Four probe disks settled on the rim of a tilted target">
+    </section>
+
+    <section class="cs">
+      <div>
+        <div class="kicker">The result</div>
+        <h2>40 of 42 scans on the rim</h2>
+        <p>In the first run on a real phone every probe landed on the rim in 40 of 42 scans. The five best hits pre-fill the pickers and stay editable, because the shooter is the final authority on their own series.</p>
+      </div>
+      <video class="media" src="../assets/markera.mp4" controls muted playsinline preload="metadata"></video>
+    </section>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The app</div>
+        <h2>History and statistics</h2>
+        <p>Each series is tagged with a caliber, from a shared list of 24 that also scales the hit-dot overlay, and an optional free-text label. Series sync to its own backend and build a local history grouped by day and filterable by caliber, tag and date range, with zip export.</p>
+        <p>A statistics screen plots filtered groups on a zoomable drawn target with mean and median impact markers, or charts any measure over time with trend, mean and ±1 SD lines. Settings add a language switch and light/dark theme.</p>
+      </div>
+    </section>
+
+    <div class="links">
+      <a class="btn primary" href="https://play.google.com/store/apps/details?id=se.kjellstrand.markera">Google Play</a>
+      <a class="btn" href="https://github.com/carlemil/Markera">GitHub</a>
+      <a class="btn" href="../markera-detection.html">Detection write-up</a>
+    </div>
+    <p class="related">Related: <a href="fieldshootingtimer.html">FieldShootingTimer</a> · <a href="appshooter.html">appshooter</a></p>
+  </main>
+
+  <footer><p>Built with GitHub Pages · <a href="https://github.com/carlemil/homepage">source</a></p></footer>
+</body>
+</html>

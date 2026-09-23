@@ -5,11 +5,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this is
 
 Personal homepage / CV for Carl-Emil Kjellstrand, deployed via GitHub Pages. The
-entire site is a single self-contained `index.html` — all CSS is in one `<style>`
-block and all JavaScript in one `<script>` block. There is no build step, no
-dependencies, no framework, and no automated tests — a change is checked by
-looking at the rendered page. `assets/` holds the images and videos referenced
-by project cards. `markera-detection.html` is a standalone write-up page.
+main page is a self-contained `index.html` with all its CSS in one `<style>`
+block and no JavaScript. Each project has its own page in `projects/<name>.html`,
+all sharing `projects/project.css`. There is no build step, no dependencies, no
+framework, and no automated tests — a change is checked by looking at the
+rendered page. `assets/` holds the images and videos. `markera-detection.html`
+is a standalone write-up page.
 
 ## Local development
 
@@ -40,9 +41,8 @@ Then read both and report two things: (1) what was asked for is visibly there,
 and (2) the rest of the page looks exactly as before. `git diff main...HEAD` says
 what should have changed; the screenshots are what proves nothing else did.
 Anything that moved, vanished or restyled unasked is a failure — fix it first.
-Screenshot `markera-detection.html` the same way when it was touched. A change
-that adds media also needs the modal opened and looked at: `python -m
-http.server` in the worktree, then click that card's button.
+Screenshot `markera-detection.html` and any touched `projects/*.html` page the
+same way.
 
 ## Architecture notes
 
@@ -50,16 +50,15 @@ http.server` in the worktree, then click that card's button.
   `#58a6ff` links, etc.). `color-scheme: light dark` is declared but the palette is
   fixed dark — reuse the existing hex values rather than introducing new ones.
 
-- **Project cards** are static `<article class="card">` elements. Each has a
-  `.lang` tag, a `.status` (`active` or `archived`, which drives the colored status
-  dot via CSS), a description, and a `.links` row.
+- **Project cards** on the main page are static `<a class="card">` elements, the
+  whole card linking to `projects/<name>.html`. Each has a `.thumb` (an image,
+  a `video` with `#t=2`, or a `.placeholder` div with two letters), a `.lang` tag,
+  a `.status` (`active` or `archived`, which drives the colored status dot via
+  CSS), a one-sentence summary, and a "Read more" label.
 
-- **The modal media viewer** is the one piece of interactivity. Cards open images
-  or video in a shared modal (`#mediaModal`) via `data-*` attributes on `<button>`
-  elements — the script wires these up by attribute, so adding media to a card
-  needs no JS changes, only the right attribute:
-  - `data-video="assets/x.mp4"` → video player
-  - `data-image="assets/x.png"` → single image
-  - `data-images="assets/a.jpg,assets/b.jpg"` → comma-separated scrolling gallery
-
-  Modal closes on the `×` button, backdrop click, or Escape.
+- **Project pages** are case studies: a `.hero` image (or `.hero.plain` without
+  one), an `.glance` facts box (stack, platforms, started, status, links), then
+  `.cs` sections of text beside an `img/video/iframe.media` (`.cs.flip` swaps
+  sides, `.cs.text` is text only), a `.links` button row and a `.related` line.
+  The full project text lives here; the card keeps only the summary. Adding a
+  project means a new card and a new page.

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaleBindery · Carl-Emil Kjellstrand</title>
+  <link rel="stylesheet" href="project.css">
+</head>
+<body>
+  <header class="hero plain">
+    <div class="over wrap">
+      <a class="back" href="../index.html#projects">Carl-Emil Kjellstrand</a>
+      <h1>TaleBindery</h1>
+      <p>A story idea and photos of the real people in it, turned into an illustrated picture book.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="glance">
+      <div><b>Stack</b>TypeScript, Next.js, Fastify, BullMQ, Postgres, S3</div>
+      <div><b>Models</b>Claude writes, Gemini draws</div>
+      <div><b>Billing</b>Stripe</div>
+      <div><b>Status</b><span class="status active">Active</span></div>
+      <div><b>Links</b>Not yet deployed</div>
+    </div>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The trade-off</div>
+        <h2>Cheap text, deliberate renders</h2>
+        <p>Storyboard text is cheap to revise and the image run is not, so the whole stack — Next.js web, Fastify API, BullMQ workers over Postgres and S3 — is built to keep iteration free and make the paid render step deliberate and pinned.</p>
+      </div>
+    </section>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The characters</div>
+        <h2>Recognizable on every page</h2>
+        <p>Character sheets rendered from the photos keep each person recognizable page to page, and every picture a page was ever drawn stays available to choose from. Claude writes the story, Gemini draws it, Stripe bills it.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer><p>Built with GitHub Pages · <a href="https://github.com/carlemil/homepage">source</a></p></footer>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project page mockups</title>
+  <link rel="stylesheet" href="base.css">
+  <style>
+    .wrap { max-width: 1300px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(600px, 1fr)); gap: 1.2rem; padding-bottom: 4rem; }
+    @media (max-width: 660px) { .grid { grid-template-columns: 1fr; } }
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 1.1rem 1.25rem; }
+    .card h3 { margin: 0.2rem 0 0.4rem; }
+    .card p { margin: 0 0 0.8rem; font-size: 0.93rem; opacity: 0.8; }
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 0.9rem; }
+    .thumb { position: relative; height: 220px; overflow: hidden; border: 1px solid #30363d; border-radius: 8px; background: #0d1117; }
+    .thumb iframe { width: 1280px; height: 1000px; border: 0; transform: scale(0.215); transform-origin: 0 0; pointer-events: none; }
+    .thumb span { position: absolute; left: 0.4rem; bottom: 0.4rem; font-size: 0.7rem; background: #161b22; border: 1px solid #30363d; border-radius: 4px; padding: 0 0.4rem; color: #7d8590; }
+  </style>
+</head>
+<body>
+  <header class="wrap site-head">
+    <h1>Project page mockups</h1>
+    <div class="role">Short summary + "Read more" → a rich project page</div>
+    <p class="muted" style="font-size:0.9rem">Each mockup pairs a way of listing projects with a way of telling one project's full story. Markera is the sample project page in all ten; every "Read more" opens it. Mix and match — any list style works with any project page. <a href="../index.html">Current page</a> · <a href="../layouts/index.html">page layout previews</a></p>
+  </header>
+  <main class="wrap">
+    <div class="grid" id="grid"></div>
+  </main>
+  <script>
+    const M = [
+      ['01-cards-article', 'Cards + long read', "Today's cards cut to one sentence with a Read more link. Project page: a single-column article with an inline video and captioned figures."],
+      ['02-thumbs-casestudy', 'Thumbnails + case study', 'Screenshot-led cards, whole card clickable. Project page: hero image, an "at a glance" facts box, then problem → approach → result.'],
+      ['03-rows-sidebar', 'Rows + sidebar', 'A dense one-row-per-project list. Project page: sticky sidebar with stack, links and a table of contents beside the story.'],
+      ['04-featured-magazine', 'Featured + magazine', 'One featured project with video, the rest as small tiles. Project page: huge title, full-bleed video, pull quote, two-column text.'],
+      ['05-media-tabs', 'Media rows + tabs', 'Horizontal cards with media left and tech tags. Project page: Overview · How it works · Gallery · Links tabs (pure CSS).'],
+      ['06-index-docs', 'Index + docs', 'A plain table, name is the link. Project page: rendered-README look with a TOC, badges, a callout and a code block.'],
+      ['07-mosaic-gallery', 'Mosaic + gallery', 'Picture mosaic, summary slides up on hover. Project page: a masonry wall of screenshots and video with short notes between.'],
+      ['08-timeline-journey', 'Timeline + journey', 'Projects on a timeline by year. Project page: the build as a journey, each attempt a step marked shipped / dropped with its screenshot.'],
+      ['09-peek-story', 'Peek + story', 'Cards with an in-place "Peek" (picture + links) and a "Full story" link. Project page: full-screen, scroll-snapping chapters.'],
+      ['10-repo-cards', 'Repo cards + repo page', 'GitHub pinned-repo cards with topics and language dot. Project page: README left, About / links / related projects right.'],
+    ];
+    document.getElementById('grid').innerHTML = M.map(([f, t, d], i) => `
+      <article class="card">
+        <div class="pair">
+          <a class="thumb" href="${f}.html"><iframe src="${f}.html" title="${t} list" tabindex="-1"></iframe><span>list</span></a>
+          <a class="thumb" href="${f}.html#markera"><iframe src="${f}.html#markera" title="${t} project page" tabindex="-1"></iframe><span>project page</span></a>
+        </div>
+        <span class="lang">Mockup ${i + 1}</span>
+        <h3><a href="${f}.html">${i + 1}. ${t}</a></h3>
+        <p>${d}</p>
+        <div class="links"><a class="btn primary" href="${f}.html">Open list</a><a class="btn" href="${f}.html#markera">Open project page</a></div>
+      </article>`).join('');
+  </script>
+</body>
+</html>

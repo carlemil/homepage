@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>6 · Index + docs</title>
+  <link rel="stylesheet" href="base.css">
+  <style>
+    table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+    th { text-align: left; font-size: 0.72rem; color: #7d8590; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.5rem 0.6rem; border-bottom: 1px solid #30363d; }
+    td { padding: 0.7rem 0.6rem; border-bottom: 1px solid #21262d; vertical-align: top; }
+    tr:hover td { background: #161b22; }
+    td.y { color: #7d8590; font-variant-numeric: tabular-nums; }
+    td.n a { color: #e6edf3; font-weight: 600; }
+    td.n a:hover { color: #58a6ff; }
+    td.s { opacity: 0.8; }
+    @media (max-width: 640px) { td.y, th.y, td.l, th.l { display: none; } }
+
+    .docs { display: grid; grid-template-columns: 200px 1fr; gap: 2.5rem; padding: 1.5rem 0 4rem; }
+    .toc { position: sticky; top: 1rem; align-self: start; font-size: 0.88rem; border-left: 1px solid #30363d; padding-left: 1rem; display: grid; gap: 0.4rem; }
+    .toc b { font-size: 0.72rem; color: #7d8590; text-transform: uppercase; letter-spacing: 0.06em; }
+    .md h1 { font-size: 2rem; margin: 0 0 0.5rem; padding-bottom: 0.4rem; border-bottom: 1px solid #30363d; }
+    .md h2 { font-size: 1.35rem; margin: 2rem 0 0.6rem; padding-bottom: 0.3rem; border-bottom: 1px solid #21262d; }
+    .md p, .md li { opacity: 0.88; }
+    .md code { background: #161b22; border: 1px solid #30363d; border-radius: 5px; padding: 0.05rem 0.35rem; font-size: 0.85em; }
+    pre { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 1rem; overflow-x: auto; font-size: 0.85rem; }
+    .callout { border-left: 4px solid #58a6ff; background: #161b22; padding: 0.7rem 1rem; border-radius: 0 8px 8px 0; margin: 1rem 0; }
+    .badges span { display: inline-block; font-size: 0.75rem; background: #21262d; border-radius: 4px; padding: 0.1rem 0.5rem; margin: 0 0.3rem 0.3rem 0; }
+    @media (max-width: 760px) { .docs { grid-template-columns: 1fr; } .toc { position: static; } }
+  </style>
+</head>
+<body>
+  <header class="wrap site-head"><h1>Carl-Emil Kjellstrand</h1><div class="role">Software Developer</div></header>
+
+  <main class="wrap list">
+    <div class="mock-note">Mockup 6 — no cards at all: a plain index table, the name is the "read more" link. The project page reads like a rendered README with a table of contents and code.</div>
+    <h2 class="section-title">Projects</h2>
+    <table><thead><tr><th class="y">Year</th><th>Project</th><th class="l">Stack</th><th>What it is</th></tr></thead><tbody id="tbody"></tbody></table>
+  </main>
+
+  <div class="detail wrap" id="markera">
+    <a class="back" href="#">All projects</a>
+    <div class="docs">
+      <nav class="toc"><b>On this page</b><a href="#d-over">Overview</a><a href="#d-pipe">Pipeline</a><a href="#d-demo">Demo</a><a href="#d-links">Links</a></nav>
+      <div class="md">
+        <h1>Markera</h1>
+        <div class="badges"><span>Kotlin Multiplatform</span><span>Compose</span><span>YOLOv8 ONNX</span><span>ML Kit</span><span>Apple Vision</span><span>Android · iOS</span></div>
+        <h2 id="d-over">Overview</h2>
+        <p>Scores precision-shooting series from a single photo of the target. All detection is on-device.</p>
+        <div class="callout">Seven approaches were tried for finding the rings. The full log, with screenshots of each, is in <a href="../markera-detection.html">the detection write-up</a>.</div>
+        <h2 id="d-pipe">Pipeline</h2>
+        <ol>
+          <li><code>HoleDetector</code> — YOLOv8 boxes every hole.</li>
+          <li><code>DigitCentre</code> — OCR the ring digits, fit a line per row, intersect.</li>
+          <li><code>RimProbes</code> — four disks walk to the 6/7 rim; fit an ellipse.</li>
+          <li><code>Scorer</code> — rotate onto ellipse axes, un-squash, gauge by edge.</li>
+        </ol>
+<pre>val centre = digitRows.horizontal intersect digitRows.vertical
+val rim    = probes.map { it.walkToEdge(image) }.fitEllipse()
+val score  = holes.map { rim.ringValue(it.edgeNearestCentre()) }</pre>
+        <p class="muted" style="font-size:0.85rem">(Illustrative, not the real source.)</p>
+        <h2 id="d-demo">Demo</h2>
+        <video src="../assets/markera.mp4" controls muted playsinline preload="metadata" style="max-height:60vh;border-radius:8px;border:1px solid #30363d"></video>
+        <h2 id="d-links">Links</h2>
+        <ul>
+          <li><a href="https://play.google.com/store/apps/details?id=se.kjellstrand.markera">Google Play</a> · iOS on TestFlight</li>
+          <li><a href="https://github.com/carlemil/Markera">github.com/carlemil/Markera</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    render('#tbody', p => `
+      <tr>
+        <td class="y">${p.year}</td>
+        <td class="n"><a href="${MORE}">${p.name}</a><br>${status(p)}</td>
+        <td class="l lang">${p.lang}</td>
+        <td class="s">${p.summary}</td>
+      </tr>`);
+  </script>
+</body>
+</html>

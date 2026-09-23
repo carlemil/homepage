@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>8 · Timeline + journey</title>
+  <link rel="stylesheet" href="base.css">
+  <style>
+    .year { display: grid; grid-template-columns: 80px 1fr; gap: 1rem; }
+    .year > h3 { margin: 0.9rem 0 0; font-size: 1.4rem; color: #7d8590; font-variant-numeric: tabular-nums; }
+    .items { border-left: 2px solid #30363d; padding: 0.5rem 0 1rem 1.4rem; }
+    .it { position: relative; padding: 0.6rem 0; }
+    .it::before { content: ""; position: absolute; left: calc(-1.4rem - 7px); top: 1.05rem; width: 12px; height: 12px; border-radius: 50%; background: #0d1117; border: 2px solid #3fb950; }
+    .it.archived::before { border-color: #7d8590; }
+    .it h4 { margin: 0; font-size: 1.05rem; display: flex; gap: 0.7rem; align-items: baseline; flex-wrap: wrap; }
+    .it p { margin: 0.2rem 0 0; opacity: 0.8; font-size: 0.92rem; }
+
+    .jhead h1 { font-size: 2.4rem; margin: 1rem 0 0.2rem; }
+    .jhead p { opacity: 0.85; max-width: 640px; }
+    .steps { border-left: 2px solid #30363d; margin: 2rem 0 2rem 0.5rem; padding-left: 1.8rem; }
+    .step { position: relative; padding-bottom: 2.2rem; }
+    .step::before { content: ""; position: absolute; left: calc(-1.8rem - 8px); top: 0.3rem; width: 14px; height: 14px; border-radius: 50%; background: #7d8590; }
+    .step.ship::before { background: #3fb950; box-shadow: 0 0 8px rgba(63, 185, 80, 0.6); }
+    .step.drop::before { background: #f85149; }
+    .badge { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.1rem 0.5rem; border-radius: 999px; border: 1px solid currentColor; }
+    .ship .badge { color: #3fb950; } .drop .badge { color: #f85149; } .never .badge { color: #7d8590; }
+    .step h2 { margin: 0.4rem 0 0.3rem; font-size: 1.2rem; }
+    .step p { margin: 0 0 0.6rem; opacity: 0.85; max-width: 640px; }
+    .step img { max-width: 420px; border-radius: 8px; border: 1px solid #30363d; }
+  </style>
+</head>
+<body>
+  <header class="wrap site-head"><h1>Carl-Emil Kjellstrand</h1><div class="role">Software Developer</div></header>
+
+  <main class="wrap list">
+    <div class="mock-note">Mockup 8 — projects on a timeline by year (GitHub repo start year), each with a one-liner and "Read more". The project page tells the build as a journey: every attempt is a step, marked shipped or dropped.</div>
+    <h2 class="section-title">Projects</h2>
+    <div id="tl"></div>
+  </main>
+
+  <div class="detail wrap" id="markera">
+    <a class="back" href="#">All projects</a>
+    <div class="jhead">
+      <span class="lang">Kotlin Multiplatform · 2026</span> <span class="status active">Active</span>
+      <h1>Markera</h1>
+      <p>Scoring a shooting series from one photo needs the centre, the scale and the holes. The holes were easy. This is how the other two were found.</p>
+      <div class="links"><a class="btn primary" href="https://play.google.com/store/apps/details?id=se.kjellstrand.markera">Google Play</a><a class="btn" href="https://github.com/carlemil/Markera">GitHub</a></div>
+    </div>
+    <div class="steps">
+      <div class="step drop"><span class="badge">Partly shipped</span><h2>1. Largest dark blob as the ring</h2><p>Worked beautifully or vanished, with nothing in between. The hole detector from this version is still in the app.</p><img src="../assets/markera/a1_calib_tilt.jpg" alt=""></div>
+      <div class="step never"><span class="badge">Never built</span><h2>2. Train the model to output scores</h2><p>Low scores are rare in good shooting, so the model would just guess them.</p></div>
+      <div class="step ship"><span class="badge">Shipped</span><h2>3. Centre from the printed digits</h2><p>OCR the ring numbers; lines through the two rows cross at the true centre.</p><img src="../assets/markera/a3_digits_tilt.jpg" alt=""></div>
+      <div class="step drop"><span class="badge">Dropped</span><h2>4–6. Blob, RANSAC, rim scan</h2><p>Each found a circle. A target is all circles; none could tell which.</p><img src="../assets/markera/a5_ransac_tilt.jpg" alt=""></div>
+      <div class="step ship"><span class="badge">Shipped</span><h2>7. Four probe disks</h2><p>Probe only where the digits say the rim must be. 40 of 42 real scans on the rim.</p><video src="../assets/markera.mp4" controls muted playsinline preload="metadata" style="max-width:420px;border-radius:8px;border:1px solid #30363d"></video></div>
+    </div>
+    <p style="margin-bottom:4rem"><a href="../markera-detection.html">Full write-up with every screenshot →</a></p>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    const years = [...new Set(PROJECTS.map(p => p.year))].sort((a, b) => b - a);
+    document.getElementById('tl').innerHTML = years.map(y => `
+      <div class="year"><h3>${y}</h3><div class="items">${PROJECTS.filter(p => p.year === y).map(p => `
+        <div class="it ${p.status}">
+          <h4>${p.name} <span class="lang">${p.lang}</span> <a class="more" href="${MORE}">Read more</a></h4>
+          <p>${p.summary}</p>
+        </div>`).join('')}</div></div>`).join('');
+  </script>
+</body>
+</html>

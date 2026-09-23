@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5 · Media rows + tabs</title>
+  <link rel="stylesheet" href="base.css">
+  <style>
+    .stack { display: grid; gap: 1rem; }
+    .h { display: grid; grid-template-columns: 220px 1fr; background: #161b22; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; }
+    .h .pic { width: 100%; height: 100%; min-height: 140px; object-fit: cover; object-position: top; border-right: 1px solid #30363d; }
+    .h .body { padding: 1rem 1.3rem; }
+    .h h3 { margin: 0.2rem 0 0.3rem; }
+    .h p { margin: 0 0 0.7rem; opacity: 0.8; font-size: 0.93rem; }
+    .tags span { font-size: 0.75rem; border: 1px solid #30363d; border-radius: 999px; padding: 0.1rem 0.6rem; margin-right: 0.3rem; color: #7d8590; }
+    @media (max-width: 600px) { .h { grid-template-columns: 1fr; } .h .pic { aspect-ratio: 16/9; border-right: none; } }
+
+    .phead { padding: 1rem 0 1.2rem; display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem; }
+    .phead h1 { margin: 0.3rem 0 0; font-size: 2.2rem; }
+    .tabs input { position: absolute; opacity: 0; }
+    .tabs label { display: inline-block; padding: 0.6rem 1rem; cursor: pointer; color: #7d8590; border-bottom: 2px solid transparent; font-weight: 600; }
+    .tabbar { border-bottom: 1px solid #30363d; margin-bottom: 1.5rem; }
+    .pane { display: none; padding-bottom: 4rem; }
+    #t1:checked ~ .tabbar [for=t1], #t2:checked ~ .tabbar [for=t2], #t3:checked ~ .tabbar [for=t3], #t4:checked ~ .tabbar [for=t4] { color: #e6edf3; border-color: #f78166; }
+    #t1:checked ~ .p1, #t2:checked ~ .p2, #t3:checked ~ .p3, #t4:checked ~ .p4 { display: block; }
+    .pane p { opacity: 0.88; max-width: 700px; }
+    .gal { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+    .linklist a { display: flex; justify-content: space-between; padding: 0.9rem 1rem; border: 1px solid #30363d; border-radius: 10px; margin-bottom: 0.6rem; color: #e6edf3; }
+    .linklist a:hover { border-color: #58a6ff; text-decoration: none; }
+    .linklist small { color: #7d8590; }
+  </style>
+</head>
+<body>
+  <header class="wrap site-head"><h1>Carl-Emil Kjellstrand</h1><div class="role">Software Developer</div></header>
+
+  <main class="wrap list">
+    <div class="mock-note">Mockup 5 — horizontal rows with the media on the left and tech tags. The project page splits into tabs: Overview · How it works · Gallery · Links.</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="stack" id="stack"></div>
+  </main>
+
+  <div class="detail wrap" id="markera">
+    <a class="back" href="#">All projects</a>
+    <div class="phead">
+      <div><span class="lang">Kotlin Multiplatform</span> <span class="status active">Active</span><h1>Markera</h1></div>
+      <div class="links"><a class="btn primary" href="https://play.google.com/store/apps/details?id=se.kjellstrand.markera">Google Play</a><a class="btn" href="https://github.com/carlemil/Markera">GitHub</a></div>
+    </div>
+    <div class="tabs">
+      <input type="radio" name="tab" id="t1" checked><input type="radio" name="tab" id="t2"><input type="radio" name="tab" id="t3"><input type="radio" name="tab" id="t4">
+      <div class="tabbar"><label for="t1">Overview</label><label for="t2">How it works</label><label for="t3">Gallery</label><label for="t4">Links</label></div>
+      <section class="pane p1">
+        <p>Score a precision-shooting series from one phone photo of the target. Series are tagged by caliber, synced, grouped by day, and plotted on a zoomable target with mean and median impact markers.</p>
+        <video src="../assets/markera.mp4" controls muted playsinline preload="metadata" style="max-height:60vh;border-radius:10px;border:1px solid #30363d"></video>
+      </section>
+      <section class="pane p2">
+        <p><b>1. Holes.</b> An on-device YOLOv8 ONNX model boxes every hole.</p>
+        <p><b>2. Centre.</b> OCR reads the printed ring digits; lines through the two rows intersect at the centre.</p>
+        <p><b>3. Scale.</b> Four probe disks walk from the predicted 6/7 radius to the actual rim; an ellipse through them undoes the tilt.</p>
+        <p><b>4. Score.</b> Each hole is rotated onto the ellipse axes, un-squashed, converted to millimetres and edge-gauged.</p>
+        <figure style="max-width:520px"><img src="../assets/markera/a7_probe_clean.jpg" alt=""><figcaption>Probes, holes and score: 10, 9, 9, 9, 9 = 46.</figcaption></figure>
+      </section>
+      <section class="pane p3">
+        <div class="gal">
+          <figure><img src="../assets/markera/a1_calib_tilt.jpg" alt=""><figcaption>Approach 1 — blob ellipse</figcaption></figure>
+          <figure><img src="../assets/markera/a3_digits_tilt.jpg" alt=""><figcaption>Approach 3 — digit centre</figcaption></figure>
+          <figure><img src="../assets/markera/a5_ransac_clean.jpg" alt=""><figcaption>Approach 5 — RANSAC</figcaption></figure>
+          <figure><img src="../assets/markera/a7_probe_tilt.jpg" alt=""><figcaption>Approach 7 — probe disks</figcaption></figure>
+        </div>
+      </section>
+      <section class="pane p4 linklist">
+        <a href="https://play.google.com/store/apps/details?id=se.kjellstrand.markera">Google Play <small>Android app</small></a>
+        <a href="https://github.com/carlemil/Markera">GitHub <small>carlemil/Markera</small></a>
+        <a href="../markera-detection.html">Detection write-up <small>seven approaches, with screenshots</small></a>
+        <a href="https://github.com/carlemil/FieldShootingTimer">Related: FieldShootingTimer <small>same sport, same stack</small></a>
+      </section>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    render('#stack', p => `
+      <article class="h">
+        ${thumb(p, 'pic')}
+        <div class="body">
+          <div style="display:flex;justify-content:space-between"><span class="lang">${p.lang}</span>${status(p)}</div>
+          <h3>${p.name}</h3>
+          <p>${p.summary}</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+            <div class="tags">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>
+            <a class="more" href="${MORE}">Read more</a>
+          </div>
+        </div>
+      </article>`);
+  </script>
+</body>
+</html>

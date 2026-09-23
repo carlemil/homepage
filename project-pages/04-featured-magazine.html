@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4 · Featured + magazine</title>
+  <link rel="stylesheet" href="base.css">
+  <style>
+    .feature { display: grid; grid-template-columns: 1.3fr 1fr; background: #161b22; border: 1px solid #30363d; border-radius: 14px; overflow: hidden; margin-bottom: 1.2rem; }
+    .feature video { width: 100%; height: 420px; max-height: none; object-fit: cover; object-position: top; }
+    .feature .body { padding: 1.8rem; display: flex; flex-direction: column; justify-content: center; }
+    .feature h3 { font-size: 1.8rem; margin: 0.4rem 0; }
+    .feature p { opacity: 0.85; font-size: 1.02rem; }
+    .small { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1rem; }
+    .mini { border: 1px solid #30363d; border-radius: 10px; padding: 0.9rem 1rem; }
+    .mini:hover { border-color: #58a6ff; }
+    .mini h4 { margin: 0.2rem 0; }
+    .mini p { margin: 0 0 0.5rem; font-size: 0.85rem; opacity: 0.75; }
+    @media (max-width: 760px) { .feature { grid-template-columns: 1fr; } }
+
+    .mag h1 { font-size: clamp(2.6rem, 9vw, 5.5rem); line-height: 1; margin: 1.5rem 0 0.8rem; letter-spacing: -0.02em; }
+    .mag .dek { font-size: 1.3rem; max-width: 640px; opacity: 0.85; }
+    .bleed { margin: 2rem 0; background: #000; border-top: 1px solid #30363d; border-bottom: 1px solid #30363d; }
+    .bleed video { margin: 0 auto; max-height: 70vh; }
+    .cols { columns: 2 300px; column-gap: 2.5rem; }
+    .cols p { margin-top: 0; opacity: 0.88; }
+    .cols p:first-child::first-letter { float: left; font-size: 3.4rem; line-height: 0.9; padding-right: 0.4rem; font-weight: 700; color: #58a6ff; }
+    blockquote { margin: 2.5rem 0; padding: 0 0 0 1.2rem; border-left: 4px solid #3fb950; font-size: 1.6rem; line-height: 1.3; font-weight: 600; }
+    .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  </style>
+</head>
+<body>
+  <header class="wrap site-head"><h1>Carl-Emil Kjellstrand</h1><div class="role">Software Developer</div></header>
+
+  <main class="wrap list">
+    <div class="mock-note">Mockup 4 — one featured project up top with a playing video, the rest as small tiles. The project page is a magazine spread: huge title, full-bleed video, pull quote, two-column text.</div>
+    <h2 class="section-title">Projects</h2>
+    <div id="feature"></div>
+    <div class="small" id="small"></div>
+  </main>
+
+  <article class="detail" id="markera">
+    <div class="wrap mag">
+      <a class="back" href="#">All projects</a>
+      <div class="kicker" style="margin-top:1.5rem">Kotlin Multiplatform · Computer vision · 2026</div>
+      <h1>Markera</h1>
+      <p class="dek">A paper target is covered in circles. Teaching a phone which one it is looking at took seven attempts.</p>
+    </div>
+    <div class="bleed"><video src="../assets/markera.mp4" controls muted playsinline preload="metadata"></video></div>
+    <div class="wrap mag">
+      <div class="cols">
+        <p>Markera turns a phone photo of a paper target into a scored series. A YOLOv8 model finds the bullet holes, and that part worked early and never really stopped working. The hard problem was geometry.</p>
+        <p>The first pipeline took the largest dark blob and called it the black ring. On one photo it worked beautifully; on the next it vanished. Fitting edges with RANSAC gave tight, smooth fits on entirely the wrong circle.</p>
+        <p>The fix was to stop asking the image as a whole. The printed digits already say which ring is which, so they pin the centre, and four small probes only ever look at the rim where the digits say it must be.</p>
+      </div>
+      <blockquote>“The three surviving pieces are the hole detector, the digit-based centre, and the four probe disks. Everything else was deleted.”</blockquote>
+      <div class="duo">
+        <figure><img src="../assets/markera/a5_ransac_tilt.jpg" alt=""><figcaption>Before: RANSAC drifts onto the outer rings.</figcaption></figure>
+        <figure><img src="../assets/markera/a7_probe_tilt.jpg" alt=""><figcaption>After: probes settle on the rim.</figcaption></figure>
+      </div>
+      <p class="links" style="margin:2rem 0 4rem"><a class="btn primary" href="https://play.google.com/store/apps/details?id=se.kjellstrand.markera">Google Play</a><a class="btn" href="https://github.com/carlemil/Markera">GitHub</a><a class="btn" href="../markera-detection.html">Read the full write-up</a></p>
+    </div>
+  </article>
+
+  <script src="data.js"></script>
+  <script>
+    const f = PROJECTS.find(p => p.id === 'markera');
+    document.getElementById('feature').innerHTML = `
+      <article class="feature">
+        <video src="../assets/markera.mp4#t=4" muted playsinline preload="metadata"></video>
+        <div class="body">
+          <div class="kicker">Featured · ${f.lang}</div>
+          <h3>${f.name}</h3>
+          <p>${f.summary}</p>
+          <div class="links"><a class="btn primary" href="${MORE}">Read the story</a><a class="btn" href="${f.gh}">GitHub</a></div>
+        </div>
+      </article>`;
+    document.getElementById('small').innerHTML = PROJECTS.filter(p => p !== f).map(p => `
+      <div class="mini">
+        <div style="display:flex;justify-content:space-between"><span class="lang">${p.lang}</span>${status(p)}</div>
+        <h4>${p.name}</h4>
+        <p>${p.summary}</p>
+        <a class="more" href="${MORE}">Read more</a>
+      </div>`).join('');
+  </script>
+</body>
+</html>

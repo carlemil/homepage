@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1 · Cards + long read</title>
+  <link rel="stylesheet" href="base.css">
+  <style>
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.1rem; }
+    .card {
+      background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+      padding: 1.2rem 1.3rem; display: flex; flex-direction: column;
+    }
+    .card:hover { border-color: #58a6ff; }
+    .card-meta { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+    .card h3 { margin: 0 0 0.4rem; font-size: 1.15rem; }
+    .card p { margin: 0 0 1rem; font-size: 0.93rem; opacity: 0.8; flex: 1; }
+    .card .foot { display: flex; justify-content: space-between; align-items: center; }
+
+    .article { max-width: 700px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+    .article h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); margin: 0.6rem 0 0.4rem; }
+    .standfirst { font-size: 1.15rem; opacity: 0.85; margin: 0 0 1rem; }
+    .byline { font-size: 0.85rem; color: #7d8590; display: flex; gap: 1rem; flex-wrap: wrap; }
+    .article h2 { font-size: 1.3rem; margin: 2.2rem 0 0.6rem; }
+    .article p { opacity: 0.88; }
+    .end-links { border-top: 1px solid #30363d; margin-top: 2.5rem; padding-top: 1.2rem; }
+  </style>
+</head>
+<body>
+  <header class="wrap site-head"><h1>Carl-Emil Kjellstrand</h1><div class="role">Software Developer</div></header>
+
+  <main class="wrap list">
+    <div class="mock-note">Mockup 1 — today's cards, summary cut to one sentence, a "Read more" link per card. The project page is a long-read article.</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <article class="detail" id="markera">
+    <div class="article">
+      <a class="back" href="#">All projects</a>
+      <h1>Markera</h1>
+      <p class="standfirst">Scoring a precision-shooting series from a single phone photo of the target — every step on the device.</p>
+      <div class="byline"><span>Kotlin Multiplatform</span><span>Android · iOS</span><span class="status active">Active</span><span>2026</span></div>
+
+      <figure>
+        <video src="../assets/markera.mp4" controls muted playsinline preload="metadata"></video>
+        <figcaption>Scanning a target and getting the series scored.</figcaption>
+      </figure>
+
+      <p>Markera turns a phone photo of a paper target into a scored series. A YOLOv8 model finds the bullet holes, and that part worked early and never really stopped working. The hard problem was geometry: a hole 40&nbsp;mm from the centre is a 9 or an 8 depending on where the centre actually is.</p>
+
+      <h2>Finding the centre</h2>
+      <p>Paper targets have their ring values printed in a horizontal and a vertical row that cross at the centre. On-device OCR reads them, a line is fitted through each row, and the two lines are intersected.</p>
+      <figure>
+        <img src="../assets/markera/a3_digits_tilt.jpg" alt="OCR digit boxes and fitted lines">
+        <figcaption>Cyan boxes are recognised digits; the red cross is where the two fitted rows meet.</figcaption>
+      </figure>
+
+      <h2>Four probes walk to the rim</h2>
+      <p>Instead of fitting the whole ring boundary, four probe disks start where the digits predict the 6/7 ring and settle onto the black-to-white rim. An ellipse through them undoes the perspective.</p>
+      <figure>
+        <img src="../assets/markera/a7_probe_tilt.jpg" alt="Probe disks on the rim">
+        <figcaption>On a tilted target — the case three earlier approaches failed.</figcaption>
+      </figure>
+      <p>The full story of the seven approaches is in <a href="../markera-detection.html">the detection write-up</a>.</p>
+
+      <div class="end-links links">
+        <a class="btn primary" href="https://play.google.com/store/apps/details?id=se.kjellstrand.markera">Google Play</a>
+        <a class="btn" href="https://github.com/carlemil/Markera">GitHub</a>
+        <a class="btn" href="../markera-detection.html">Detection write-up</a>
+      </div>
+    </div>
+  </article>
+
+  <script src="data.js"></script>
+  <script>
+    render('#grid', p => `
+      <article class="card">
+        <div class="card-meta"><span class="lang">${p.lang}</span>${status(p)}</div>
+        <h3>${p.name}</h3>
+        <p>${p.summary}</p>
+        <div class="foot"><a class="more" href="${MORE}">Read more</a>${p.gh ? `<a class="muted" href="${p.gh}">GitHub</a>` : ''}</div>
+      </article>`);
+  </script>
+</body>
+</html>

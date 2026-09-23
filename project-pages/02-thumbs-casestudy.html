@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2 · Thumbnails + case study</title>
+  <link rel="stylesheet" href="base.css">
+  <style>
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.2rem; }
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; color: inherit; }
+    .card:hover { border-color: #58a6ff; text-decoration: none; }
+    .card .pic { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-bottom: 1px solid #30363d; }
+    .card .body { padding: 1rem 1.2rem 1.2rem; display: flex; flex-direction: column; flex: 1; }
+    .card h3 { margin: 0.3rem 0 0.3rem; font-size: 1.1rem; }
+    .card p { margin: 0 0 0.9rem; font-size: 0.9rem; opacity: 0.8; flex: 1; }
+
+    .hero { position: relative; height: 380px; overflow: hidden; border-bottom: 1px solid #30363d; }
+    .hero img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.45); }
+    .hero .over { position: absolute; inset: auto 0 0 0; padding: 2rem 0; }
+    .hero h1 { font-size: clamp(2rem, 6vw, 3.2rem); margin: 0; }
+    .hero p { margin: 0.3rem 0 0; font-size: 1.1rem; max-width: 600px; }
+    .glance { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 1.2rem; margin: -2rem 0 2rem; position: relative; }
+    .glance div b { display: block; font-size: 0.72rem; color: #7d8590; text-transform: uppercase; letter-spacing: 0.06em; }
+    .cs { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; margin: 2.5rem 0; }
+    .cs h2 { margin: 0 0 0.5rem; font-size: 1.25rem; }
+    .cs p { opacity: 0.85; margin: 0; }
+    .cs.flip > :first-child { order: 2; }
+    @media (max-width: 700px) { .cs { grid-template-columns: 1fr; } .cs.flip > :first-child { order: 0; } }
+  </style>
+</head>
+<body>
+  <header class="wrap site-head"><h1>Carl-Emil Kjellstrand</h1><div class="role">Software Developer</div></header>
+
+  <main class="wrap list">
+    <div class="mock-note">Mockup 2 — each card leads with a screenshot and the whole card is the "Read more" link. The project page is a case study with an "at a glance" box.</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <article class="detail" id="markera">
+    <div class="hero">
+      <img src="../assets/markera/a7_userview_tilt.jpg" alt="">
+      <div class="over wrap"><a class="back" href="#">All projects</a><h1>Markera</h1><p>Score a shooting series from one photo of the target.</p></div>
+    </div>
+    <div class="wrap">
+      <div class="glance">
+        <div><b>Role</b>Solo — design, ML, app</div>
+        <div><b>Stack</b>Kotlin Multiplatform, Compose, YOLOv8 ONNX, ML Kit / Vision</div>
+        <div><b>Platforms</b>Android (Play) · iOS (TestFlight)</div>
+        <div><b>Status</b><span class="status active">Active</span></div>
+        <div><b>Links</b><a href="https://play.google.com/store/apps/details?id=se.kjellstrand.markera">Play</a> · <a href="https://github.com/carlemil/Markera">GitHub</a></div>
+      </div>
+
+      <section class="cs">
+        <div><div class="kicker">The problem</div><h2>Which ring is it, really?</h2><p>Holes are easy to find. Whether a hole is a 9 or an 8 depends on exactly where the centre is and how much the camera tilted — and a paper target is covered in look-alike circles.</p></div>
+        <img src="../assets/markera/a5_ransac_clean.jpg" alt="RANSAC fitting the wrong ring" style="border-radius:10px;border:1px solid #30363d">
+      </section>
+      <section class="cs flip">
+        <div><div class="kicker">The approach</div><h2>Let the printed digits decide</h2><p>OCR reads the ring numbers, their rows cross at the centre, and four probe disks walk from the predicted 6/7 radius to the actual rim. Seven approaches were tried; three pieces survived.</p></div>
+        <img src="../assets/markera/a7_probe_tilt.jpg" alt="Probe disks on the rim" style="border-radius:10px;border:1px solid #30363d">
+      </section>
+      <section class="cs">
+        <div><div class="kicker">The result</div><h2>40 of 42 scans on the rim</h2><p>First run on a real phone: every probe landed on the rim in 40 of 42 scans. Series sync, get tagged by caliber and feed a statistics screen.</p></div>
+        <video src="../assets/markera.mp4" controls muted playsinline preload="metadata" style="border-radius:10px;border:1px solid #30363d"></video>
+      </section>
+      <p class="links" style="margin-bottom:4rem"><a class="btn primary" href="https://play.google.com/store/apps/details?id=se.kjellstrand.markera">Get it on Google Play</a><a class="btn" href="https://github.com/carlemil/Markera">Source on GitHub</a><a class="btn" href="../markera-detection.html">All seven approaches</a></p>
+    </div>
+  </article>
+
+  <script src="data.js"></script>
+  <script>
+    render('#grid', p => `
+      <a class="card" href="${MORE}">
+        ${thumb(p, 'pic')}
+        <div class="body">
+          <div style="display:flex;justify-content:space-between"><span class="lang">${p.lang}</span>${status(p)}</div>
+          <h3>${p.name}</h3>
+          <p>${p.summary}</p>
+          <span class="more" style="color:#58a6ff">Read more</span>
+        </div>
+      </a>`);
+  </script>
+</body>
+</html>

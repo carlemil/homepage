@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10 · Repo cards + repo page</title>
+  <link rel="stylesheet" href="base.css">
+  <style>
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+    .repo { border: 1px solid #30363d; border-radius: 6px; padding: 1rem; display: flex; flex-direction: column; }
+    .repo .top { display: flex; align-items: center; gap: 0.5rem; }
+    .repo .top a { font-weight: 600; }
+    .pill { font-size: 0.72rem; border: 1px solid #30363d; border-radius: 999px; padding: 0 0.5rem; color: #7d8590; }
+    .repo p { font-size: 0.87rem; color: #9198a1; margin: 0.5rem 0 0.8rem; flex: 1; }
+    .topics a { display: inline-block; font-size: 0.72rem; background: rgba(56, 139, 253, 0.1); color: #58a6ff; border-radius: 999px; padding: 0.1rem 0.6rem; margin: 0 0.25rem 0.3rem 0; }
+    .repo .foot { display: flex; gap: 1rem; font-size: 0.8rem; color: #7d8590; align-items: center; margin-top: 0.3rem; }
+    .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 0.3rem; vertical-align: -1px; }
+
+    .rhead { display: flex; align-items: center; gap: 0.6rem; font-size: 1.25rem; padding: 1rem 0; border-bottom: 1px solid #30363d; flex-wrap: wrap; }
+    .rhead .owner { color: #58a6ff; } .rhead b { color: #58a6ff; }
+    .rbody { display: grid; grid-template-columns: 1fr 280px; gap: 2rem; padding: 1.5rem 0 4rem; }
+    .readme { border: 1px solid #30363d; border-radius: 6px; }
+    .readme .bar { padding: 0.6rem 1rem; border-bottom: 1px solid #30363d; font-size: 0.85rem; font-weight: 600; }
+    .readme .md { padding: 1.2rem 1.6rem; }
+    .readme h1 { margin: 0 0 0.6rem; padding-bottom: 0.3rem; border-bottom: 1px solid #21262d; }
+    .readme h2 { font-size: 1.3rem; padding-bottom: 0.3rem; border-bottom: 1px solid #21262d; }
+    .readme p, .readme li { opacity: 0.9; }
+    .about h3 { font-size: 1rem; margin: 0 0 0.6rem; }
+    .about p { font-size: 0.92rem; margin: 0 0 0.8rem; }
+    .about .row { font-size: 0.87rem; color: #9198a1; margin: 0.4rem 0; }
+    .about hr { border: 0; border-top: 1px solid #21262d; margin: 1.1rem 0; }
+    .langbar { height: 8px; border-radius: 4px; overflow: hidden; display: flex; margin: 0.5rem 0; }
+    @media (max-width: 800px) { .rbody { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="wrap site-head"><h1>Carl-Emil Kjellstrand</h1><div class="role">Software Developer</div></header>
+
+  <main class="wrap list">
+    <div class="mock-note">Mockup 10 — leans into the GitHub look the palette already borrows: pinned-repo style cards with topics and a language dot. The project page mimics a repo page: README on the left, "About" with links on the right.</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <div class="detail wrap" id="markera">
+    <a class="back" href="#">All projects</a>
+    <div class="rhead"><span class="owner">carlemil</span> / <b>Markera</b> <span class="pill">Public</span> <span class="status active">Active</span></div>
+    <div class="rbody">
+      <div class="readme">
+        <div class="bar">README</div>
+        <div class="md">
+          <h1>Markera</h1>
+          <p>Score precision-shooting series from a single photo of the target. Kotlin Multiplatform + Compose for Android and iOS.</p>
+          <video src="../assets/markera.mp4" controls muted playsinline preload="metadata" style="max-height:55vh;border-radius:6px;border:1px solid #30363d"></video>
+          <h2>How it works</h2>
+          <ul>
+            <li><b>Holes</b> — on-device YOLOv8 ONNX model.</li>
+            <li><b>Centre</b> — OCR of the printed ring digits (ML Kit / Apple Vision), two fitted rows intersected.</li>
+            <li><b>Scale</b> — four probe disks settle on the 6/7 rim; an ellipse through them undoes perspective.</li>
+          </ul>
+          <figure><img src="../assets/markera/a7_probe_clean.jpg" alt="" style="max-width:480px"><figcaption>Full pipeline: 10, 9, 9, 9, 9 = 46.</figcaption></figure>
+          <h2>Features</h2>
+          <ul><li>24 calibers, free-text tags</li><li>Synced history grouped by day, zip export</li><li>Statistics: zoomable target, mean/median impact, trends ±1 SD</li><li>Light/dark theme, language switch</li></ul>
+        </div>
+      </div>
+      <aside class="about">
+        <h3>About</h3>
+        <p>Scores a shooting series from one phone photo — on-device.</p>
+        <div class="topics"><a href="#">kotlin-multiplatform</a><a href="#">compose</a><a href="#">yolov8</a><a href="#">onnx</a><a href="#">ocr</a><a href="#">computer-vision</a></div>
+        <div class="row">🔗 <a href="https://play.google.com/store/apps/details?id=se.kjellstrand.markera">Google Play</a></div>
+        <div class="row">📱 iOS on TestFlight</div>
+        <div class="row">📄 <a href="../markera-detection.html">Detection write-up</a></div>
+        <hr>
+        <h3>Languages</h3>
+        <div class="langbar"><span style="width:85%;background:#a97bff"></span><span style="width:10%;background:#f05138"></span><span style="width:5%;background:#3572a5"></span></div>
+        <div class="row"><span class="dot" style="background:#a97bff"></span>Kotlin <span class="dot" style="background:#f05138;margin-left:0.8rem"></span>Swift <span class="dot" style="background:#3572a5;margin-left:0.8rem"></span>Python</div>
+        <p class="muted" style="font-size:0.75rem">(split is illustrative)</p>
+        <hr>
+        <h3>Related</h3>
+        <div class="row"><a href="https://github.com/carlemil/FieldShootingTimer">FieldShootingTimer</a> — same sport</div>
+        <div class="row"><a href="https://github.com/carlemil/webshooter">appshooter</a> — same stack</div>
+        <hr>
+        <a class="btn" href="https://github.com/carlemil/Markera">View on GitHub</a>
+      </aside>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    // Linguist colors — mockup-only, the only new hex values.
+    const LANG = { Kotlin: '#a97bff', Python: '#3572a5', TypeScript: '#3178c6', JavaScript: '#f1e05a' };
+    render('#grid', p => `
+      <article class="repo">
+        <div class="top">📦 <a href="${MORE}">${p.name}</a><span class="pill">${p.status === 'active' ? 'Active' : 'Archived'}</span></div>
+        <p>${p.summary}</p>
+        <div class="topics">${p.tags.map(t => `<a href="#">${t.toLowerCase().replace(/ /g, '-')}</a>`).join('')}</div>
+        <div class="foot"><span><span class="dot" style="background:${LANG[p.lang]}"></span>${p.lang}</span><span>${p.year}</span><a class="more" href="${MORE}" style="margin-left:auto">Read more</a></div>
+      </article>`);
+  </script>
+</body>
+</html>

@@ -128,6 +128,8 @@
     .status.active::before { background: #3fb950; box-shadow: 0 0 6px rgba(63, 185, 80, 0.6); }
     .status.archived { color: #7d8590; }
     .status.archived::before { background: #7d8590; }
+    .status.halted { color: #d29922; }
+    .status.halted::before { background: #d29922; }
     .card p { margin: 0 0 1rem; font-size: 0.95rem; opacity: 0.8; flex: 1; }
     .job {
       padding: 1rem 0;
@@ -187,7 +189,7 @@
       <a class="card" href="projects/tickets.html">
         <img class="thumb" src="assets/tickets.png" alt="">
         <div class="card-body">
-          <div class="card-meta"><span class="lang">Python</span><span class="status active">Active</span></div>
+          <div class="card-meta"><span class="lang">Python</span><span class="status halted">Halted</span></div>
           <h3>Tickets</h3>
           <p>A personal Jira replacement: a lane board I drag cards around on while Claude Code agents work the same cards over MCP.</p>
           <span class="more">Read more</span>

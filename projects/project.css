@@ -64,6 +64,8 @@ img, video, iframe { display: block; max-width: 100%; }
 .status.archived::before { background: #7d8590; }
 .status.halted { color: #d29922; }
 .status.halted::before { background: #d29922; }
+.status.dormant { color: #7d8590; }
+.status.dormant::before { border: 1.5px solid #7d8590; box-sizing: border-box; }
 .notice { background: #161b22; border: 1px solid #30363d; border-left: 3px solid #d29922; border-radius: 6px; padding: 0.8rem 1rem; }
 .cs { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; margin: 2.5rem 0; }
 .cs.text { grid-template-columns: 1fr; max-width: 700px; }

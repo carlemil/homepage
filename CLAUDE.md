@@ -53,7 +53,7 @@ same way.
 - **Project cards** on the main page are static `<a class="card">` elements, the
   whole card linking to `projects/<name>.html`. Each has a `.thumb` (an image,
   a `video` with `#t=2`, or a `.placeholder` div with two letters), a `.lang` tag,
-  a `.status` (`active` or `archived`, which drives the colored status dot via
+  a `.status` (`active`, `halted`, `dormant` or `archived`, which drives the colored status dot via
   CSS), a one-sentence summary, and a "Read more" label.
 
 - **Project pages** are case studies: a `.hero` image (or `.hero.plain` without

@@ -11,32 +11,32 @@
     <div class="over wrap">
       <a class="back" href="../index.html#projects">Carl-Emil Kjellstrand</a>
       <h1>TaleBindery</h1>
-      <p>A story idea and photos of the real people in it, turned into an illustrated picture book.</p>
+      <p>A roll of your own photos turned into a picture book, with the story written around them, one photo per page.</p>
     </div>
   </header>
 
   <main class="wrap">
     <div class="glance">
       <div><b>Stack</b>TypeScript, Next.js, Fastify, BullMQ, Postgres, S3</div>
-      <div><b>Models</b>Claude writes, Gemini draws</div>
-      <div><b>Billing</b>Stripe</div>
+      <div><b>Models</b>Claude checks, frames and writes</div>
+      <div><b>Billing</b>Stripe, printing by Lulu</div>
       <div><b>Status</b><span class="status active">Active</span></div>
-      <div><b>Links</b>Not yet deployed</div>
+      <div><b>Links</b><a href="https://talebindery.com">talebindery.com</a></div>
     </div>
 
     <section class="cs text">
       <div>
-        <div class="kicker">The trade-off</div>
-        <h2>Cheap text, deliberate renders</h2>
-        <p>Storyboard text is cheap to revise and the image run is not, so the whole stack — Next.js web, Fastify API, BullMQ workers over Postgres and S3 — is built to keep iteration free and make the paid render step deliberate and pinned.</p>
+        <div class="kicker">The photos</div>
+        <h2>Your pictures, not generated ones</h2>
+        <p>No picture is generated. Every page shows one of your own photos, cropped the way you framed it and laid out in the design you picked. The model only works with text and vision: it checks each upload, suggests crops, picks and orders up to 60 photos from as many as 200, and writes each page's words.</p>
       </div>
     </section>
 
     <section class="cs text">
       <div>
-        <div class="kicker">The characters</div>
-        <h2>Recognizable on every page</h2>
-        <p>Character sheets rendered from the photos keep each person recognizable page to page, and every picture a page was ever drawn stays available to choose from. Claude writes the story, Gemini draws it, Stripe bills it.</p>
+        <div class="kicker">The book</div>
+        <h2>Edit until it reads right, then print</h2>
+        <p>Revise by instruction ("make the ending quieter"), rewrite or swap a single page, and reorder freely; every change is a new storyboard version, so the history is the undo. Buying the book unlocks the PDF, and Lulu prints and ships it as a hardcover, paperback or booklet. Next.js web, a Fastify API and BullMQ workers over Postgres and S3, with Claude writing and Stripe billing.</p>
       </div>
     </section>
   </main>

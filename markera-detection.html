@@ -229,7 +229,7 @@
 
     <h2><span class="verdict shipped">Shipped &middot; in use today</span>7. Four probe disks that walk to the rim</h2>
 
-    <p>The version that works gives up on fitting the boundary globally and measures it at exactly four points instead. From the digit centre, four starting points are placed left, right, up and down along the digit rows, each at the 6/7 distance that side's own digits predict, so a tilted target's near side starts further out. A 50 pixel disk sits on each start and counts its dark pixels. A disk centred exactly on the rim comes out very slightly more light than dark, because the black curves away from it. Each disk steps in or out by the amount that ratio implies until it stops moving, and an ellipse is drawn through the four final centres.</p>
+    <p>The version that works gives up on fitting the boundary globally and measures it at exactly four points instead. From the digit centre, four starting points are placed left, right, up and down along the digit rows, each at the 6/7 distance that side's own digits predict, so a tilted target's near side starts further out. A 50 pixel disk sits on each start and counts its dark pixels. A disk centred exactly on the rim comes out very slightly more light than dark, because the black curves away from it. Each disk steps in or out by the amount that ratio implies until it stops moving. The four final centres are the photo's image of four known points on the paper, 100 mm left, right, above and below the centre, and four known points are exactly what it takes to pin down the full perspective map from photo to target, a homography. The 6/7 ellipse is that map's image of the 100 mm circle.</p>
 
     <figure>
       <img src="assets/markera/a7_probe_tilt.jpg" alt="Tilted target with four magenta disks on the black rim and a green ellipse exactly on the boundary">
@@ -245,7 +245,9 @@
 
     <h2><span class="verdict shipped">Shipped &middot; in use today</span>8. Scoring from the geometry</h2>
 
-    <p>With a centre, an ellipse and a set of hole boxes, the rest is arithmetic. Each hole's offset is rotated onto the ellipse axes and the short axis is stretched back out, which undoes the perspective. Pixels convert to millimetres against the published specification, a 100 mm radius to the black edge and a ring every 25 mm outward. Scoring gauges by the hole's edge, so a shot whose edge breaks a line counts as the higher ring, which is how it is done on paper.</p>
+    <p>With a centre, the homography and a set of hole boxes, the rest is arithmetic. Each hole is mapped through the full perspective into millimetres on the target, measured against the published specification, a 100 mm radius to the black edge and a ring every 25 mm outward. Scoring gauges by the hole's edge, so a shot whose edge breaks a line counts as the higher ring, which is how it is done on paper. The rings drawn on the photo come from the same map, so what is drawn and what is scored always agree.</p>
+
+    <p>The first version of this step was simpler: rotate each hole's offset onto the ellipse axes and stretch the short axis back out. That is the weak-perspective model, and it holds near the centre. A real tilted camera also slides each ring's ellipse towards the near side, more the bigger the ring, roughly with the radius squared. In the history view that showed up plainly: the outer rings drew further and further outside the printed lines, and far-out holes measured slightly off. The fix, in October 2026, was the true homography. New scans get it straight from the four probes. Older saved series kept only the ellipse and the centre, and they recover the same map from those two: the centre's polar line with respect to the ellipse is the target's vanishing line, and sending that line to infinity flattens the plane. On the phone the outer rings now sit on the printed lines, and old series keep the scores they were saved with.</p>
 
     <figure>
       <img src="assets/markera/a7_userview_tilt.jpg" alt="Target with only a green ring and a red centre cross, no debug graphics">
@@ -256,7 +258,7 @@
 
     <p>Approaches 1, 4, 5 and 6 all tried to recover the ring boundary from the image as a whole, and every one of them was defeated by the same thing: a paper target is covered in circles, and an algorithm that only understands edges and blobs has no way to know which circle it has found. The fix was not a better fitter. It was noticing that the target prints the answer on itself, and using the digits to decide both where to look and what to look for.</p>
 
-    <p>The three surviving pieces are the hole detector from the very first version, the digit-based centre, and the four probe disks. Everything else was deleted.</p>
+    <p>The surviving pieces are the hole detector from the very first version, the digit-based centre, the four probe disks, and the homography built from them. Everything else was deleted.</p>
   </main>
 
   <footer>

@@ -12,7 +12,7 @@
     <div class="over wrap">
       <a class="back" href="../index.html#projects">Carl-Emil Kjellstrand</a>
       <h1>Tickets</h1>
-      <p>A personal Jira replacement that Claude Code agents work alongside me.</p>
+      <p>A personal lane board for handing coding tasks to Claude Code and reviewing what comes back.</p>
     </div>
   </header>
 
@@ -29,16 +29,24 @@
       <div>
         <div class="kicker">The board</div>
         <h2>Six lanes, one SQLite file</h2>
-        <p>A lane board — todo, plan, develop, test, verify, done — that I drag cards around in the browser while Claude Code agents work the same cards over MCP, both against one SQLite file.</p>
+        <p>A lane board — todo, plan, develop, test, verify, done — that sits beside Jira for the local loop. I write cards and drag them in the browser, Claude Code works the same cards over MCP, and both share one SQLite file. Each project has its own tab, and the board reloads itself the moment anyone else writes.</p>
       </div>
       <img class="media" src="../assets/tickets.png" alt="The Tickets lane board">
     </section>
 
     <section class="cs text">
       <div>
+        <div class="kicker">The skills</div>
+        <h2>Start, stop, open</h2>
+        <p>Running <code>/tickets-start</code> in a Claude Code session opened in a project sets the repo up where needed — the MCP server, the test and deploy rules in its <code>CLAUDE.md</code>, the project on the board — and then works the board every 15 minutes for as long as the session stays open. <code>/tickets-stop</code> ends the loop, and <code>/tickets-open-board</code> brings the board up in the browser.</p>
+      </div>
+    </section>
+
+    <section class="cs text">
+      <div>
         <div class="kicker">The agents</div>
-        <h2>Plan, ask, build, deploy</h2>
-        <p>A card assigned to the agent, or left on auto advance, gets headless Claude run in the project's own git worktree: it plans first and hands back questions for me to answer, then builds, tests and pushes the card's branch, and deploys from verify.</p>
+        <h2>Plan, ask, build, test, land</h2>
+        <p>Each run takes every ready card through to verify, up to three at once, and every stage starts a fresh subagent with the whole card pasted in. It plans first and leaves open questions on the card as clickable options; I answer, and the next run replans with them. Then it builds on a <code>card/&lt;id&gt;</code> branch in its own worktree, ticking the card's checklist as it goes, reviews with <code>/code-review</code> plus the project's tests, merges or opens a pull request, and deploys. Verify is mine.</p>
       </div>
     </section>
 
@@ -46,7 +54,7 @@
       <div>
         <div class="kicker">The log</div>
         <h2>Who did what</h2>
-        <p>Every write appends an event with its actor, so each card carries who did what. One process, two dependencies, no build step — and this page is built on it, card by card.</p>
+        <p>Every write appends an event with its actor, so each card carries who did what and links to the Claude Code session that worked it, ready to resume. One local process and two dependencies — and this page is built on it, card by card.</p>
       </div>
     </section>
 

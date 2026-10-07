@@ -155,7 +155,7 @@
 
     <p>That pair is the whole problem in two pictures. The geometry either worked beautifully or vanished, with nothing in between and no way for the app to tell which it had got. Worse, on a live camera the blob shifted frame to frame, so the centre jittered and scores flickered. The hole detector from this era is still the first step of the pipeline today. The scoring shortcut built on top of it was replaced.</p>
 
-    <h2><span class="verdict dropped">Never built</span>2. Train the model to output scores directly</h2>
+    <h2><span class="verdict dropped">Built and tested &middot; not in production</span>2. Train the model to output scores directly</h2>
 
     <p>The tempting shortcut: skip geometry entirely and train the detector to emit a ring value per hole. It scored well on held-out validation images and poorly in real use. Low scores are rare in a dataset of decent shooting, so the model essentially guessed them, and the only fix is a much larger dataset of bad targets, which is slow and unpleasant to collect. There is nothing to photograph because it never reached the app.</p>
 

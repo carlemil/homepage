@@ -39,7 +39,7 @@
         <div class="kicker">The approach</div>
         <h2>Let the printed digits decide</h2>
         <p>Two on-device models split the work. <b>YOLOv8</b>, exported to ONNX so the same model runs on both Android and iOS, finds the bullet holes and returns a box around each one. It says where the holes are, but not what they score.</p>
-        <p><b>ML Kit</b> text recognition on Android and <b>Apple Vision</b> on iOS are the platforms' built-in OCR engines. They read the ring digits printed on the target, and those digits give the geometry: lines through the horizontal and vertical rows cross at the true centre. Four probe disks then walk from where the digits predict the 6/7 ring to the actual black-to-white rim, and an ellipse through them undoes the perspective for edge-gauged scoring.</p>
+        <p><b>ML Kit</b> text recognition on Android and <b>Apple Vision</b> on iOS are the platforms' built-in OCR engines. They read the ring digits printed on the target, and those digits give the geometry: lines through the horizontal and vertical rows cross at the true centre. Four probe disks then walk from where the digits predict the 6/7 ring to the actual black-to-white rim. Those four rim points pin down the full perspective map from photo to paper, and every hole goes through it for edge-gauged scoring.</p>
         <p>Seven approaches were tried; three pieces survived. <a href="../markera-detection.html">How that detection was arrived at, with screenshots of every approach that failed first.</a></p>
       </div>
       <img class="media" src="../assets/markera/a7_probe_tilt.jpg" alt="Four probe disks settled on the rim of a tilted target">

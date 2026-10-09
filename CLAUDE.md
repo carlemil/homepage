@@ -62,3 +62,9 @@ same way.
   sides, `.cs.text` is text only), a `.links` button row and a `.related` line.
   The full project text lives here; the card keeps only the summary. Adding a
   project means a new card and a new page.
+
+- **Click to enlarge**: every still `img.media` on a project page is wrapped in
+  `<button class="zoom" popovertarget="ID">`, followed by a
+  `<div id="ID" class="lightbox" popover>` holding a `.zoom-out` close button
+  around the same image. No JavaScript (Popover API). Each image needs its own
+  unique id (`<page>-full` or `<page>-full-N`); videos and iframes stay as they are.

@@ -31,7 +31,7 @@
         <h2>Which ring is it, really?</h2>
         <p>A YOLOv8 model finds the bullet holes, and that part worked early. The hard problem was geometry: a hole 40&nbsp;mm from the centre is a 9 or an 8 depending on where the centre actually is and how much the camera tilted — and a paper target is covered in look-alike circles.</p>
       </div>
-      <button class="zoom" popovertarget="markera-full-1" aria-label="Show full size">
+      <button class="zoom" popovertarget="markera-full-1" aria-label="Show full size: An edge fit locked onto a printed ring inside the black">
         <img class="media" src="../assets/markera/a5_ransac_clean.jpg" alt="An edge fit locked onto a printed ring inside the black">
       </button>
       <div id="markera-full-1" class="lightbox" popover>
@@ -49,7 +49,7 @@
         <p><b>ML Kit</b> text recognition on Android and <b>Apple Vision</b> on iOS are the platforms' built-in OCR engines. They read the ring digits printed on the target, and those digits give the geometry: lines through the horizontal and vertical rows cross at the true centre. Four probe disks then walk from where the digits predict the 6/7 ring to the actual black-to-white rim. Those four rim points pin down the full perspective map from photo to paper, and every hole goes through it for edge-gauged scoring.</p>
         <p>Seven approaches were tried; three pieces survived. <a href="../markera-detection.html">How that detection was arrived at, with screenshots of every approach that failed first.</a></p>
       </div>
-      <button class="zoom" popovertarget="markera-full-2" aria-label="Show full size">
+      <button class="zoom" popovertarget="markera-full-2" aria-label="Show full size: Four probe disks settled on the rim of a tilted target">
         <img class="media" src="../assets/markera/a7_probe_tilt.jpg" alt="Four probe disks settled on the rim of a tilted target">
       </button>
       <div id="markera-full-2" class="lightbox" popover>

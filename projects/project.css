@@ -83,6 +83,13 @@ img, video, iframe { display: block; max-width: 100%; }
 .media { border-radius: 10px; border: 1px solid #30363d; background: #000; justify-self: center; }
 video.media, img.media { max-height: 70vh; }
 iframe.media { width: 100%; aspect-ratio: 16 / 9; }
+.zoom, .zoom-out { display: block; padding: 0; border: 0; background: none; color: inherit; font: inherit; }
+.zoom { justify-self: center; max-width: 100%; min-width: 0; border-radius: 10px; cursor: zoom-in; }
+.zoom:focus-visible, .zoom-out:focus-visible { outline: 2px solid #58a6ff; outline-offset: 3px; }
+.lightbox { padding: 0; border: 0; background: transparent; max-width: 95vw; max-height: 95vh; overflow: visible; }
+.lightbox::backdrop { background: rgba(13, 17, 23, 0.9); }
+.zoom-out { cursor: zoom-out; }
+.lightbox img { max-width: 95vw; max-height: 95vh; border-radius: 10px; border: 1px solid #30363d; background: #000; }
 @media (max-width: 700px) {
   .cs { grid-template-columns: 1fr; }
   .cs.flip > :first-child { order: 0; }

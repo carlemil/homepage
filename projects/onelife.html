@@ -33,7 +33,14 @@
         <h2>Talk your way through</h2>
         <p>A browser-played text adventure where you talk your way past AI-driven characters in free text — one LLM speaks in character while a separate referee judges whether you earned the gate.</p>
       </div>
-      <img class="media" src="../assets/onelife.png" alt="OneLife in the browser">
+      <button class="zoom" popovertarget="onelife-full" aria-label="Show full size">
+        <img class="media" src="../assets/onelife.png" alt="OneLife in the browser">
+      </button>
+      <div id="onelife-full" class="lightbox" popover>
+        <button class="zoom-out" popovertarget="onelife-full" popovertargetaction="hide" aria-label="Close">
+          <img src="../assets/onelife.png" alt="OneLife in the browser, full size">
+        </button>
+      </div>
     </section>
 
     <section class="cs text">

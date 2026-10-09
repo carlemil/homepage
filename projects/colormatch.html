@@ -31,7 +31,14 @@
         <h2>A frame from a fixed palette</h2>
         <p>A Jetpack Compose proof-of-concept that frames each photo with the color, from a fixed 21-color palette, that best matches its most prominent hues.</p>
       </div>
-      <img class="media" src="../assets/colormatch-1.jpg" alt="ColorMatch palette and matched colors">
+      <button class="zoom" popovertarget="colormatch-full-1" aria-label="Show full size: ColorMatch palette and matched colors">
+        <img class="media" src="../assets/colormatch-1.jpg" alt="ColorMatch palette and matched colors">
+      </button>
+      <div id="colormatch-full-1" class="lightbox" popover>
+        <button class="zoom-out" popovertarget="colormatch-full-1" popovertargetaction="hide" aria-label="Close">
+          <img src="../assets/colormatch-1.jpg" alt="ColorMatch palette and matched colors, full size">
+        </button>
+      </div>
     </section>
 
     <section class="cs flip">
@@ -40,7 +47,14 @@
         <h2>Vivid beats large</h2>
         <p>Colors are matched in CIE LAB space and weighted by saturation, so vivid tones beat large neutral areas.</p>
       </div>
-      <img class="media" src="../assets/colormatch-2.jpg" alt="A framed photo in ColorMatch">
+      <button class="zoom" popovertarget="colormatch-full-2" aria-label="Show full size: A framed photo in ColorMatch">
+        <img class="media" src="../assets/colormatch-2.jpg" alt="A framed photo in ColorMatch">
+      </button>
+      <div id="colormatch-full-2" class="lightbox" popover>
+        <button class="zoom-out" popovertarget="colormatch-full-2" popovertargetaction="hide" aria-label="Close">
+          <img src="../assets/colormatch-2.jpg" alt="A framed photo in ColorMatch, full size">
+        </button>
+      </div>
     </section>
 
     <div class="links">

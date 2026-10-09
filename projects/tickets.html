@@ -31,7 +31,14 @@
         <h2>Six lanes, one SQLite file</h2>
         <p>A lane board — todo, plan, develop, test, verify, done — that sits beside Jira for the local loop. I write cards and drag them in the browser, Claude Code works the same cards over MCP, and both share one SQLite file. Each project has its own tab, and the board reloads itself the moment anyone else writes.</p>
       </div>
-      <img class="media" src="../assets/tickets.png" alt="The Tickets lane board">
+      <button class="zoom" popovertarget="tickets-full" aria-label="Show full size: The Tickets lane board">
+        <img class="media" src="../assets/tickets.png" alt="The Tickets lane board">
+      </button>
+      <div id="tickets-full" class="lightbox" popover>
+        <button class="zoom-out" popovertarget="tickets-full" popovertargetaction="hide" aria-label="Close">
+          <img src="../assets/tickets.png" alt="The Tickets lane board, full size">
+        </button>
+      </div>
     </section>
 
     <section class="cs text">

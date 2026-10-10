@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="project.css">
 </head>
 <body>
-  <header class="hero plain">
+  <header class="hero">
+    <img src="../assets/talebindery.jpg" alt="" style="object-position: center bottom">
     <div class="over wrap">
       <a class="back" href="../index.html#projects">Carl-Emil Kjellstrand</a>
       <h1>TaleBindery</h1>
@@ -24,11 +25,19 @@
       <div><b>Links</b><a href="https://talebindery.com">talebindery.com</a></div>
     </div>
 
-    <section class="cs text">
+    <section class="cs">
       <div>
         <div class="kicker">The photos</div>
         <h2>Your photos, Claude's words</h2>
         <p>Every page shows one of your own photos, cropped and colour-corrected. Claude checks each upload, suggests crops, picks and orders up to 60 photos from as many as 200, and writes each page's words around them.</p>
+      </div>
+      <button class="zoom" popovertarget="talebindery-full" aria-label="Show full size: The cover of an example TaleBindery book">
+        <img class="media" src="../assets/talebindery-book.jpg" alt="The cover of an example TaleBindery book">
+      </button>
+      <div id="talebindery-full" class="lightbox" popover>
+        <button class="zoom-out" popovertarget="talebindery-full" popovertargetaction="hide" aria-label="Close">
+          <img src="../assets/talebindery-book.jpg" alt="The cover of an example TaleBindery book, full size">
+        </button>
       </div>
     </section>
 

@@ -128,10 +128,6 @@
     .status.active::before { background: #3fb950; box-shadow: 0 0 6px rgba(63, 185, 80, 0.6); }
     .status.archived { color: #7d8590; }
     .status.archived::before { background: #7d8590; }
-    .status.halted { color: #d29922; }
-    .status.halted::before { background: #d29922; }
-    .status.dormant { color: #7d8590; }
-    .status.dormant::before { border: 1.5px solid #7d8590; box-sizing: border-box; }
     .card p { margin: 0 0 1rem; font-size: 0.95rem; opacity: 0.8; flex: 1; }
     .job {
       padding: 1rem 0;
@@ -306,16 +302,6 @@
         </div>
       </a>
 
-      <a class="card" href="projects/onelife.html">
-        <img class="thumb" src="assets/onelife.png" alt="">
-        <div class="card-body">
-          <div class="card-meta"><span class="lang">Python</span><span class="status halted">Halted</span></div>
-          <h3>OneLife</h3>
-          <p>A text adventure where you talk your way past AI-driven characters. Death is real.</p>
-          <span class="more">Read more</span>
-        </div>
-      </a>
-
       <a class="card" href="projects/kicktro.html">
         <img class="thumb" src="assets/kicktro.jpg" alt="" style="object-position: center">
         <div class="card-body">
@@ -336,10 +322,20 @@
         </div>
       </a>
 
+      <a class="card" href="projects/onelife.html">
+        <img class="thumb" src="assets/onelife.png" alt="">
+        <div class="card-body">
+          <div class="card-meta"><span class="lang">Python</span><span class="status archived">Archived</span></div>
+          <h3>OneLife</h3>
+          <p>A text adventure where you talk your way past AI-driven characters. Death is real.</p>
+          <span class="more">Read more</span>
+        </div>
+      </a>
+
       <a class="card" href="projects/appshooter.html">
         <img class="thumb" src="assets/appshooter.png" alt="" style="object-position: center 55%">
         <div class="card-body">
-          <div class="card-meta"><span class="lang">Kotlin</span><span class="status dormant">Dormant</span></div>
+          <div class="card-meta"><span class="lang">Kotlin</span><span class="status archived">Archived</span></div>
           <h3>appshooter</h3>
           <p>Companion app for webshooter.se: browse competitions, sign up, follow results and score trends.</p>
           <span class="more">Read more</span>
@@ -359,7 +355,7 @@
       <a class="card" href="projects/lsystemcamera.html">
         <video class="thumb" src="assets/lsystemcamera.mp4#t=2" muted playsinline preload="metadata"></video>
         <div class="card-body">
-          <div class="card-meta"><span class="lang">Kotlin</span><span class="status dormant">Dormant</span></div>
+          <div class="card-meta"><span class="lang">Kotlin</span><span class="status archived">Archived</span></div>
           <h3>LSystemCamera</h3>
           <p>Redraws the live viewfinder as one space-filling L-system curve, thick where the image is dark.</p>
           <span class="more">Read more</span>

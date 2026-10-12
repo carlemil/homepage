@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elev8 · Carl-Emil Kjellstrand</title>
+  <link rel="stylesheet" href="project.css">
+</head>
+<body>
+  <header class="hero plain">
+    <div class="over wrap">
+      <a class="back" href="../index.html#projects">Carl-Emil Kjellstrand</a>
+      <h1>Elev8</h1>
+      <p>A booking app for football training sessions, on the web, Android and iOS.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="glance">
+      <div><b>Stack</b>Rust, PostgreSQL, Kotlin Multiplatform</div>
+      <div><b>Platforms</b>Web · Android · iOS</div>
+      <div><b>Started</b>2026</div>
+      <div><b>Status</b><span class="status active">Active</span></div>
+    </div>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The app</div>
+        <h2>Register, pre-book, pay</h2>
+        <p>Parents sign in with Google or Apple, register their players and pre-book sessions. Each pre-booking is held for 60 minutes, and payment confirms it. Admins manage the schedule, prices, users, players and bookings, and coaches see their sessions and player rosters. The apps speak Swedish, English and Turkish.</p>
+      </div>
+    </section>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The stack</div>
+        <h2>One API, three clients</h2>
+        <p>The backend is a Rust API built on axum and sqlx over PostgreSQL, with row-locked capacity so a race for the last places ends with exactly the right number of bookings. The web, Android and iOS clients share one Kotlin Multiplatform and Compose Multiplatform codebase, checked against golden responses from the API contract.</p>
+      </div>
+    </section>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The deployment</div>
+        <h2>Docker Compose and Caddy</h2>
+        <p>The stack runs in Docker Compose behind Caddy, with separate test and production sites. Continuous WAL archiving ships encrypted backups offsite, and a restore drill checks them end to end.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer><p>Built with GitHub Pages · <a href="https://github.com/carlemil/homepage">source</a></p></footer>
+</body>
+</html>

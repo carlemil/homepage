@@ -60,8 +60,8 @@ img, video, iframe { display: block; max-width: 100%; }
 .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; }
 .status.active { color: #3fb950; }
 .status.active::before { background: #3fb950; box-shadow: 0 0 6px rgba(63, 185, 80, 0.6); }
-.status.archived { color: #7d8590; }
-.status.archived::before { background: #7d8590; }
+.status.inactive { color: #7d8590; }
+.status.inactive::before { background: #7d8590; }
 .cs { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; margin: 2.5rem 0; }
 .cs.text { grid-template-columns: 1fr; max-width: 700px; }
 .cs.flip > :first-child { order: 2; }

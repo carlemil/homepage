@@ -167,14 +167,15 @@
     .side-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; margin-top: 1.2rem; font-size: 0.9rem; }
     .sidebar .contact a { overflow-wrap: anywhere; }
     .sidebar h1 { line-height: 1.15; }
+    .identity { display: flex; align-items: center; gap: 1rem; }
     .portrait {
+      flex: none;
       display: block;
-      width: 96px;
-      height: 96px;
+      width: 88px;
+      height: 88px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid #30363d;
-      margin-bottom: 1rem;
     }
     .sidebar .info-grid {
       grid-template-columns: 1fr;
@@ -189,7 +190,7 @@
         margin: 0 auto;
         padding: 0 1.5rem;
         display: grid;
-        grid-template-columns: 260px 1fr;
+        grid-template-columns: 340px 1fr;
         gap: 2.5rem;
       }
       header.sidebar {
@@ -251,9 +252,13 @@
 <body>
   <div class="layout">
   <header class="sidebar" id="top">
-    <img class="portrait" src="assets/portrait.png" width="96" height="96" alt="Portrait of Carl-Emil Kjellstrand">
-    <h1>Carl-Emil Kjellstrand</h1>
-    <div class="role">Software Developer</div>
+    <div class="identity">
+      <img class="portrait" src="assets/portrait.png" width="88" height="88" alt="Portrait of Carl-Emil Kjellstrand">
+      <div>
+        <h1>Carl-Emil Kjellstrand</h1>
+        <div class="role">Software Developer</div>
+      </div>
+    </div>
     <div class="contact">
       <span>Södra Sandby, Sweden</span>
       <a href="mailto:carl-emil.kjellstrand@thinnikatech.se">carl-emil.kjellstrand@thinnikatech.se</a>

@@ -130,6 +130,8 @@
     .status.active::before { background: #3fb950; box-shadow: 0 0 6px rgba(63, 185, 80, 0.6); }
     .status.inactive { color: #7d8590; }
     .status.inactive::before { background: #7d8590; }
+    .status time { color: #7d8590; font-weight: 500; }
+    .status time::before { content: "\00b7"; margin-right: 0.35rem; }
     .card p { margin: 0 0 1rem; font-size: 0.95rem; opacity: 0.8; flex: 1; }
     .job {
       padding: 1rem 0;
@@ -292,107 +294,97 @@
       <a class="card" href="projects/elev8.html">
         <div class="thumb placeholder">E8</div>
         <div class="card-body">
-          <div class="card-meta"><span class="lang">Rust</span><span class="status active">Active</span></div>
+          <div class="card-meta"><span class="lang">Rust</span><span class="status active">Active<time datetime="2026-10-13" title="Last commit">2026-10-13</time></span></div>
           <h3>Elev8</h3>
           <p>A booking app for football training sessions: parents register their players, pre-book a session and pay to confirm.</p>
           <span class="more">Read more</span>
         </div>
       </a>
-
       <a class="card" href="projects/tickets.html">
         <img class="thumb" src="assets/tickets.png" alt="">
         <div class="card-body">
-          <div class="card-meta"><span class="lang">Python</span><span class="status active">Active</span></div>
+          <div class="card-meta"><span class="lang">Python</span><span class="status active">Active<time datetime="2026-10-13" title="Last commit">2026-10-13</time></span></div>
           <h3>Tickets</h3>
           <p>A personal lane board beside Jira: I hand coding tasks to Claude Code on my own machine and review what comes back.</p>
           <span class="more">Read more</span>
         </div>
       </a>
-
       <a class="card" href="projects/talebindery.html">
         <img class="thumb" src="assets/talebindery.jpg" alt="">
         <div class="card-body">
-          <div class="card-meta"><span class="lang">TypeScript</span><span class="status active">Active</span></div>
+          <div class="card-meta"><span class="lang">TypeScript</span><span class="status active">Active<time datetime="2026-10-13" title="Last commit">2026-10-13</time></span></div>
           <h3>TaleBindery</h3>
           <p>Turns a roll of your own photos into a picture book, with the story written around them.</p>
           <span class="more">Read more</span>
         </div>
       </a>
-
       <a class="card" href="projects/markera.html">
         <img class="thumb" src="assets/markera/a7_userview_tilt.jpg" alt="">
         <div class="card-body">
-          <div class="card-meta"><span class="lang">Kotlin</span><span class="status active">Active</span></div>
+          <div class="card-meta"><span class="lang">Kotlin</span><span class="status active">Active<time datetime="2026-10-13" title="Last commit">2026-10-13</time></span></div>
           <h3>Markera</h3>
           <p>Scores a precision-shooting series from one phone photo of the target — on-device YOLOv8, OCR and geometry.</p>
           <span class="more">Read more</span>
         </div>
       </a>
-
       <a class="card" href="projects/kicktro.html">
         <img class="thumb" src="assets/kicktro.jpg" alt="" style="object-position: center">
         <div class="card-body">
-          <div class="card-meta"><span class="lang">JavaScript</span><span class="status active">Active</span></div>
+          <div class="card-meta"><span class="lang">JavaScript</span><span class="status active">Active<time datetime="2026-10-07" title="Last commit">2026-10-07</time></span></div>
           <h3>KickTro</h3>
           <p>A beat-reactive WebGL2 demoscene engine with 59 effects, stackable four layers deep.</p>
           <span class="more">Read more</span>
         </div>
       </a>
-
-      <a class="card" href="projects/fieldshootingtimer.html">
-        <img class="thumb" src="assets/fieldshootingtimer.png" alt="" style="object-position: center 15%">
-        <div class="card-body">
-          <div class="card-meta"><span class="lang">Kotlin</span><span class="status active">Active</span></div>
-          <h3>FieldShootingTimer</h3>
-          <p>A shot timer that calls out Swedish field-shooting range commands. One codebase, Android and iOS.</p>
-          <span class="more">Read more</span>
-        </div>
-      </a>
-
-      <a class="card" href="projects/onelife.html">
-        <img class="thumb" src="assets/onelife.png" alt="">
-        <div class="card-body">
-          <div class="card-meta"><span class="lang">Python</span><span class="status inactive">Inactive</span></div>
-          <h3>OneLife</h3>
-          <p>A text adventure where you talk your way past AI-driven characters. Death is real.</p>
-          <span class="more">Read more</span>
-        </div>
-      </a>
-
       <a class="card" href="projects/appshooter.html">
         <img class="thumb" src="assets/appshooter.png" alt="" style="object-position: center 55%">
         <div class="card-body">
-          <div class="card-meta"><span class="lang">Kotlin</span><span class="status inactive">Inactive</span></div>
+          <div class="card-meta"><span class="lang">Kotlin</span><span class="status active">Active<time datetime="2026-10-03" title="Last commit">2026-10-03</time></span></div>
           <h3>appshooter</h3>
           <p>Companion app for webshooter.se: browse competitions, sign up, follow results and score trends.</p>
           <span class="more">Read more</span>
         </div>
       </a>
-
+      <a class="card" href="projects/fieldshootingtimer.html">
+        <img class="thumb" src="assets/fieldshootingtimer.png" alt="" style="object-position: center 15%">
+        <div class="card-body">
+          <div class="card-meta"><span class="lang">Kotlin</span><span class="status inactive">Inactive<time datetime="2026-09-17" title="Last commit">2026-09-17</time></span></div>
+          <h3>FieldShootingTimer</h3>
+          <p>A shot timer that calls out Swedish field-shooting range commands. One codebase, Android and iOS.</p>
+          <span class="more">Read more</span>
+        </div>
+      </a>
+      <a class="card" href="projects/onelife.html">
+        <img class="thumb" src="assets/onelife.png" alt="">
+        <div class="card-body">
+          <div class="card-meta"><span class="lang">Python</span><span class="status inactive">Inactive<time datetime="2026-09-09" title="Last commit">2026-09-09</time></span></div>
+          <h3>OneLife</h3>
+          <p>A text adventure where you talk your way past AI-driven characters. Death is real.</p>
+          <span class="more">Read more</span>
+        </div>
+      </a>
       <a class="card" href="projects/colormatch.html">
         <img class="thumb" src="assets/colormatch-1.jpg" alt="">
         <div class="card-body">
-          <div class="card-meta"><span class="lang">Kotlin</span><span class="status inactive">Inactive</span></div>
+          <div class="card-meta"><span class="lang">Kotlin</span><span class="status inactive">Inactive<time datetime="2026-07-08" title="Last commit">2026-07-08</time></span></div>
           <h3>ColorMatch</h3>
           <p>Frames each photo with the palette color that best matches its most prominent hues.</p>
           <span class="more">Read more</span>
         </div>
       </a>
-
       <a class="card" href="projects/lsystemcamera.html">
         <video class="thumb" src="assets/lsystemcamera.mp4#t=2" muted playsinline preload="metadata"></video>
         <div class="card-body">
-          <div class="card-meta"><span class="lang">Kotlin</span><span class="status inactive">Inactive</span></div>
+          <div class="card-meta"><span class="lang">Kotlin</span><span class="status inactive">Inactive<time datetime="2026-09-11" title="Last commit">2026-09-11</time></span></div>
           <h3>LSystemCamera</h3>
           <p>Redraws the live viewfinder as one space-filling L-system curve, thick where the image is dark.</p>
           <span class="more">Read more</span>
         </div>
       </a>
-
       <a class="card" href="projects/lmslht-web-js-client.html">
         <img class="thumb" src="assets/lmslht.png" alt="">
         <div class="card-body">
-          <div class="card-meta"><span class="lang">JavaScript</span><span class="status inactive">Inactive</span></div>
+          <div class="card-meta"><span class="lang">JavaScript</span><span class="status inactive">Inactive<time datetime="2026-04-08" title="Last commit">2026-04-08</time></span></div>
           <h3>LMSLHT-web-js-client</h3>
           <p>The browser version: a photo redrawn as a single-line L-system halftone.</p>
           <span class="more">Read more</span>

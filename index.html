@@ -167,6 +167,15 @@
     .side-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; margin-top: 1.2rem; font-size: 0.9rem; }
     .sidebar .contact a { overflow-wrap: anywhere; }
     .sidebar h1 { line-height: 1.15; }
+    .portrait {
+      display: block;
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #30363d;
+      margin-bottom: 1rem;
+    }
     .sidebar .info-grid {
       grid-template-columns: 1fr;
       gap: 1rem;
@@ -242,6 +251,7 @@
 <body>
   <div class="layout">
   <header class="sidebar" id="top">
+    <img class="portrait" src="assets/portrait.png" width="96" height="96" alt="Portrait of Carl-Emil Kjellstrand">
     <h1>Carl-Emil Kjellstrand</h1>
     <div class="role">Software Developer</div>
     <div class="contact">

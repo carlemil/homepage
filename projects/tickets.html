@@ -55,7 +55,7 @@
       <div>
         <div class="kicker">The agents</div>
         <h2>Plan, ask, build, test, land</h2>
-        <p>Each run takes every ready card through to verify, up to three at once, and every stage starts a fresh subagent with the whole card pasted in. It plans first and leaves open questions on the card as clickable options; I answer, and the next run replans with them. Then it builds on a <code>card/&lt;id&gt;</code> branch in its own worktree, ticking the card's checklist as it goes, reviews with <code>/code-review</code> plus the project's tests, merges or opens a pull request, and deploys. Verify is mine.</p>
+        <p>Each run takes every ready card through to verify, up to two at once by default, with a fresh subagent per stage carrying the whole card. It plans first and leaves open questions on the card as clickable options; I answer, and the same agent goes on to build a small card, while a large one hands off to a fresh one on a <code>card/&lt;id&gt;</code> branch in its own worktree, ticking the card's checklist as it goes. A separate agent reviews with <code>/code-review</code> plus the project's tests, merges or opens a pull request, and deploys. Verify is mine.</p>
       </div>
     </section>
 

@@ -23,20 +23,53 @@
       <div><b>Platforms</b>Web · Android · iOS</div>
       <div><b>Started</b>2026</div>
       <div><b>Status</b><span class="status active">Active<time datetime="2026-10-26" title="Last commit">2026-10-26</time></span></div>
+      <div><b>Links</b><a href="https://elev88.duckdns.org/">elev88.duckdns.org</a></div>
     </div>
 
     <section class="cs">
       <div>
-        <div class="kicker">The app</div>
-        <h2>Register, pre-book, pay</h2>
-        <p>Parents sign in with Google or Apple, register their players and pre-book sessions. Each pre-booking is held for 60 minutes, and a card payment through Stripe confirms it. Admins manage the schedule, prices, users, players and bookings, and coaches see their sessions and player rosters. The apps speak Swedish, English and Turkish.</p>
+        <div class="kicker">The site</div>
+        <h2>Training for every player</h2>
+        <p>The public site presents the training sessions for children and young players in Malmö, with the schedule, the training, the prices and the common questions, and sends parents on to book in the app or in the browser.</p>
       </div>
-      <button class="zoom" popovertarget="elev8-full" aria-label="Show full size: The Elev8 schedule listing upcoming training sessions with time, place, price and free places">
-        <img class="media" src="../assets/elev8.jpg" alt="The Elev8 schedule listing upcoming training sessions with time, place, price and free places">
+      <button class="zoom" popovertarget="elev8-full-3" aria-label="Show full size: The Elev8 landing page">
+        <img class="media" src="../assets/elev8.jpg" alt="The Elev8 landing page">
+      </button>
+      <div id="elev8-full-3" class="lightbox" popover>
+        <button class="zoom-out" popovertarget="elev8-full-3" popovertargetaction="hide" aria-label="Close">
+          <img src="../assets/elev8.jpg" alt="The Elev8 landing page, full size">
+        </button>
+      </div>
+    </section>
+
+    <section class="cs flip">
+      <div>
+        <div class="kicker">The app</div>
+        <h2>Register and pre-book</h2>
+        <p>Parents sign in with Google or Apple, register their players and pick sessions from the schedule, filtered to what their players may book. Choosing a player pre-books the place and holds it for 60 minutes. The apps speak Swedish, English and Turkish.</p>
+      </div>
+      <button class="zoom" popovertarget="elev8-full" aria-label="Show full size: The Elev8 schedule and the player picker that pre-books a session">
+        <img class="media" src="../assets/elev8-booking.jpg" alt="The Elev8 schedule and the player picker that pre-books a session">
       </button>
       <div id="elev8-full" class="lightbox" popover>
         <button class="zoom-out" popovertarget="elev8-full" popovertargetaction="hide" aria-label="Close">
-          <img src="../assets/elev8.jpg" alt="The Elev8 schedule listing upcoming training sessions with time, place, price and free places, full size">
+          <img src="../assets/elev8-booking.jpg" alt="The Elev8 schedule and the player picker that pre-books a session, full size">
+        </button>
+      </div>
+    </section>
+
+    <section class="cs">
+      <div>
+        <div class="kicker">The checkout</div>
+        <h2>Pay to confirm</h2>
+        <p>The checkout gathers every pre-booking with the time left on its hold, and a card payment through Stripe confirms them all at once. Admins manage the schedule, prices, users, players and bookings, and coaches see their sessions and player rosters.</p>
+      </div>
+      <button class="zoom" popovertarget="elev8-full-2" aria-label="Show full size: The Elev8 checkout and the payment confirmation">
+        <img class="media" src="../assets/elev8-checkout.jpg" alt="The Elev8 checkout and the payment confirmation">
+      </button>
+      <div id="elev8-full-2" class="lightbox" popover>
+        <button class="zoom-out" popovertarget="elev8-full-2" popovertargetaction="hide" aria-label="Close">
+          <img src="../assets/elev8-checkout.jpg" alt="The Elev8 checkout and the payment confirmation, full size">
         </button>
       </div>
     </section>
@@ -56,6 +89,10 @@
         <p>The stack runs in Docker Compose behind Caddy, with separate test and production sites. Continuous WAL archiving ships encrypted backups offsite, and a restore drill checks them end to end.</p>
       </div>
     </section>
+
+    <div class="links">
+      <a class="btn primary" href="https://elev88.duckdns.org/">Visit Elev8</a>
+    </div>
   </main>
 
   <footer><p>Built with GitHub Pages · <a href="https://github.com/carlemil/homepage">source</a></p></footer>

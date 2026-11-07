@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="../assets/favicon-180.png">
+  <title>LongTail · Carl-Emil Kjellstrand</title>
+  <link rel="stylesheet" href="project.css">
+</head>
+<body>
+  <header class="hero">
+    <img src="../assets/longtail.jpg" alt="" style="object-position: center 40%">
+    <div class="over wrap">
+      <a class="back" href="../index.html#projects">Carl-Emil Kjellstrand</a>
+      <h1>LongTail</h1>
+      <p>A 3D runner down the Mekong in a longtail boat, from the Golden Triangle to the sea.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="glance">
+      <div><b>Stack</b>TypeScript, three.js, Vite, Node.js</div>
+      <div><b>Platforms</b>Browser · desktop and phone</div>
+      <div><b>Started</b>2026</div>
+      <div><b>Status</b><span class="status active">Active<time datetime="2026-11-07" title="Last commit">2026-11-07</time></span></div>
+      <div><b>Links</b><a href="https://carlemil.github.io/LongTail/">Play it</a></div>
+    </div>
+
+    <section class="cs">
+      <div>
+        <div class="kicker">The river</div>
+        <h2>Ten stages to the sea</h2>
+        <p>The river drives; you steer and work the throttle. The run passes through ten stages, from Bokeo in Laos through Luang Prabang, Vientiane, the braided channels of Si Phan Don, Phnom Penh and Cần Thơ, out to the South China Sea. Each stage has its own banks, towns, boats and hazards: fishing nets, snags, barges, sandbars and eddies. The speed climbs from 52 to 160 km/h, and the passengers you carry weigh the boat down.</p>
+      </div>
+      <button class="zoom" popovertarget="longtail-full" aria-label="Show full size: The longtail boat on the Mekong in the middle of Phnom Penh">
+        <img class="media" src="../assets/longtail-city.jpg" alt="The longtail boat on the Mekong in the middle of Phnom Penh">
+      </button>
+      <div id="longtail-full" class="lightbox" popover>
+        <button class="zoom-out" popovertarget="longtail-full" popovertargetaction="hide" aria-label="Close">
+          <img src="../assets/longtail-city.jpg" alt="The longtail boat on the Mekong in the middle of Phnom Penh, full size">
+        </button>
+      </div>
+    </section>
+
+    <section class="cs flip">
+      <div>
+        <div class="kicker">The highscores</div>
+        <h2>One river a week</h2>
+        <p>Everyone sails the same river each week, and the world boards rank the best attempts, the finished runs and the daily champions. The game is deterministic, so the server replays each run from its seed and inputs and ranks only the score it computed itself.</p>
+      </div>
+      <button class="zoom" popovertarget="longtail-full-2" aria-label="Show full size: The LongTail start screen with this week's world highscores">
+        <img class="media" src="../assets/longtail-highscores.jpg" alt="The LongTail start screen with this week's world highscores">
+      </button>
+      <div id="longtail-full-2" class="lightbox" popover>
+        <button class="zoom-out" popovertarget="longtail-full-2" popovertargetaction="hide" aria-label="Close">
+          <img src="../assets/longtail-highscores.jpg" alt="The LongTail start screen with this week's world highscores, full size">
+        </button>
+      </div>
+    </section>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The build</div>
+        <h2>A pure simulation under three.js</h2>
+        <p>The river is a channel graph grown from a grammar of reaches: bends, hairpins, open water and splits round islands that always rejoin. A fixed 120 Hz simulation holds the game rules apart from the three.js renderer, and the engine sound and effects are synthesised in the browser.</p>
+      </div>
+    </section>
+
+    <div class="links">
+      <a class="btn primary" href="https://carlemil.github.io/LongTail/">Play LongTail</a>
+    </div>
+    <p class="related">Related: <a href="kicktro.html">KickTro</a></p>
+  </main>
+
+  <footer><p>Built with GitHub Pages · <a href="https://github.com/carlemil/homepage">source</a></p></footer>
+</body>
+</html>

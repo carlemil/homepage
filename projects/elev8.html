@@ -19,11 +19,11 @@
 
   <main class="wrap">
     <div class="glance">
-      <div><b>Stack</b>Rust, PostgreSQL, Kotlin Multiplatform, Stripe</div>
+      <div><b>Stack</b>Rust, PostgreSQL, Kotlin Multiplatform, Stripe, Swish</div>
       <div><b>Platforms</b>Web · Android · iOS</div>
       <div><b>Started</b>2026</div>
-      <div><b>Status</b><span class="status active">Active<time datetime="2026-10-26" title="Last commit">2026-10-26</time></span></div>
-      <div><b>Links</b><a href="https://elev88.duckdns.org/">elev88.duckdns.org</a></div>
+      <div><b>Status</b><span class="status active">Active<time datetime="2026-11-19" title="Last commit">2026-11-19</time></span></div>
+      <div><b>Links</b><a href="https://e8elevate.com/">e8elevate.com</a></div>
     </div>
 
     <section class="cs">
@@ -62,7 +62,7 @@
       <div>
         <div class="kicker">The checkout</div>
         <h2>Pay to confirm</h2>
-        <p>The checkout gathers every pre-booking with the time left on its hold, and a card payment through Stripe confirms them all at once. Admins manage the schedule, prices, users, players and bookings, and coaches see their sessions and player rosters.</p>
+        <p>The checkout gathers every pre-booking with the time left on its hold, and one payment confirms them all at once: by card, Apple Pay or Google Pay through Stripe, or with Swish, which hands over to the Swish app and back. A visit pass of five sessions can pay for bookings too. Admins manage the schedule, prices, users, players, bookings and passes, and can pin notes for the developer to any text, button or image in the app; coaches see their sessions and player rosters.</p>
       </div>
       <button class="zoom" popovertarget="elev8-full-2" aria-label="Show full size: The Elev8 checkout and the payment confirmation">
         <img class="media" src="../assets/elev8-checkout.jpg" alt="The Elev8 checkout and the payment confirmation">
@@ -86,12 +86,12 @@
       <div>
         <div class="kicker">The deployment</div>
         <h2>Docker Compose and Caddy</h2>
-        <p>The stack runs in Docker Compose behind Caddy, with separate test and production sites. Continuous WAL archiving ships encrypted backups offsite, and a restore drill checks them end to end.</p>
+        <p>Production runs in Docker Compose behind Caddy on a VPS at e8elevate.com, with its own test site beside it. Continuous WAL archiving ships encrypted backups offsite every minute, a NAS pulls its own copy with immutable snapshots, and a point-in-time restore drill checks them end to end.</p>
       </div>
     </section>
 
     <div class="links">
-      <a class="btn primary" href="https://elev88.duckdns.org/">Visit Elev8</a>
+      <a class="btn primary" href="https://e8elevate.com/">Visit Elev8</a>
     </div>
   </main>
 

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="../assets/favicon-180.png">
+  <title>Markera: finding the holes · Carl-Emil Kjellstrand</title>
+  <link rel="stylesheet" href="project.css">
+</head>
+<body>
+  <header class="hero">
+    <img src="../assets/markera/series-5-holes.jpg" alt="">
+    <div class="over wrap">
+      <a class="back" href="markera.html">Markera</a>
+      <h1>Markera: finding the holes</h1>
+      <p>Part 1 of 2, the full description: the hole detector, the training data shooters provide, and what training on it achieved.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="glance">
+      <div><b>Model</b><a href="https://docs.ultralytics.com/models/yolo11/">YOLO11m</a>, one class: the hole</div>
+      <div><b>Runs as</b><a href="https://en.wikipedia.org/wiki/Open_Neural_Network_Exchange">ONNX</a> on the phone, Android and iOS</div>
+      <div><b>Input</b>1536 × 1536 px</div>
+      <div><b>Training set</b>574 photos, 2933 holes</div>
+      <div><b>Other part</b><a href="../markera-detection.html">Finding the centre and the rings</a></div>
+    </div>
+
+    <section class="cs">
+      <div>
+        <div class="kicker">The detector</div>
+        <h2>A box around every hole</h2>
+        <p>The first step of every scan is a <a href="https://docs.ultralytics.com/models/yolo11/">YOLO11</a> object detector trained on a single class, the bullet hole. It looks at the photo at 1536 × 1536 pixels and returns a <a href="https://en.wikipedia.org/wiki/Minimum_bounding_box">bounding box</a> and a confidence for each hole it sees. The app keeps the boxes at 45 percent confidence or more.</p>
+        <p>The model is exported to <a href="https://en.wikipedia.org/wiki/Open_Neural_Network_Exchange">ONNX</a>, so one file runs on both Android and iOS, on the phone's CPU. The box carries more than a position: its size is the hole's size, and scoring uses it to gauge by the hole's edge, so a shot whose edge breaks a line counts as the higher ring, as it does on paper.</p>
+      </div>
+      <button class="zoom" popovertarget="markera-holes-full-1" aria-label="Show full size: Holes boxed and labelled with their ring value, and the series scored 46">
+        <img class="media" src="../assets/markera/a7_probe_clean.jpg" alt="Holes boxed and labelled with their ring value, and the series scored 46">
+      </button>
+      <div id="markera-holes-full-1" class="lightbox" popover>
+        <button class="zoom-out" popovertarget="markera-holes-full-1" popovertargetaction="hide" aria-label="Close">
+          <img src="../assets/markera/a7_probe_clean.jpg" alt="Holes boxed and labelled with their ring value, and the series scored 46, full size">
+        </button>
+      </div>
+    </section>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The start</div>
+        <h2>74 hand-labelled photos</h2>
+        <p>The first detector, in June 2026, was a <a href="https://docs.ultralytics.com/models/yolov8/">YOLOv8</a> model trained on 74 photos with every hole marked by hand. It worked early and stayed the first step of the pipeline while the geometry around it was rebuilt several times, which the <a href="../markera-detection.html">second part</a> describes.</p>
+      </div>
+    </section>
+
+    <section class="cs flip">
+      <div>
+        <div class="kicker">The training data</div>
+        <h2>Approve series for training</h2>
+        <p>Every scan that syncs to the backend can become training data. Photos and hole positions are anonymized, and each series is checked by hand before it joins the training set; the app's privacy page tells users that saved photos and holes help improve hole detection.</p>
+        <p>A review page serves a random unreviewed series beside the verdicts so far: A approves it, R rejects it, and holes can be fixed on a training copy while the user's own series stays as they left it. The training export then zips the approved series only.</p>
+      </div>
+      <button class="zoom" popovertarget="markera-holes-full-2" aria-label="Show full size: The admin page for approving series for training">
+        <img class="media" src="../assets/markera/admin-curate.jpg" alt="The admin page for approving series for training">
+      </button>
+      <div id="markera-holes-full-2" class="lightbox" popover>
+        <button class="zoom-out" popovertarget="markera-holes-full-2" popovertargetaction="hide" aria-label="Close">
+          <img src="../assets/markera/admin-curate.jpg" alt="The admin page for approving series for training, full size">
+        </button>
+      </div>
+    </section>
+
+    <section class="cs">
+      <div>
+        <div class="kicker">The admin</div>
+        <h2>Every series on its photo</h2>
+        <p>Each series opens on its photo with the detected holes, the four rim probes and the centre drawn on it, beside a table of every hole's position, detected and manual score and distance. Scores, holes and the rim can be corrected in place; every edit saves at once and lands in a tracked change history.</p>
+      </div>
+      <button class="zoom" popovertarget="markera-holes-full-3" aria-label="Show full size: An admin series page with the scored holes drawn on the photo">
+        <img class="media" src="../assets/markera/admin-series.jpg" alt="An admin series page with the scored holes drawn on the photo">
+      </button>
+      <div id="markera-holes-full-3" class="lightbox" popover>
+        <button class="zoom-out" popovertarget="markera-holes-full-3" popovertargetaction="hide" aria-label="Close">
+          <img src="../assets/markera/admin-series.jpg" alt="An admin series page with the scored holes drawn on the photo, full size">
+        </button>
+      </div>
+    </section>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The training</div>
+        <h2>A sharper detector from approved series</h2>
+        <p>Since November the hole detector learns from the series shooters save in the app. Three batches of approved series grew the set from the original 74 hand-labelled photos to 574 photos with 2933 holes, each model trained as <a href="https://docs.ultralytics.com/models/yolo11/">YOLO11m</a> on one class, the hole, at 1536&nbsp;px.</p>
+        <p>On the same 96 <a href="https://en.wikipedia.org/wiki/Training,_validation,_and_test_data_sets">held-out</a> photos with 548 holes, at the app's 45 percent confidence threshold, the latest model finds 529 holes where the June model found 497, and gets 78 photos exactly right — every hole found and nothing extra — where the June model got 55.</p>
+        <p>Box fit matters because Markera reads a hole's size from its box to judge edge hits. It rose from 0.573 to 0.673 <a href="https://docs.ultralytics.com/guides/yolo-performance-metrics/">mAP50-95</a> for the trained model, and the <a href="https://en.wikipedia.org/wiki/Half-precision_floating-point_format">half-precision</a> ONNX file the app runs on the phone keeps that lead over the model it replaced.</p>
+      </div>
+    </section>
+
+    <div class="links">
+      <a class="btn primary" href="markera.html">&larr; Markera summary</a>
+      <a class="btn" href="../markera-detection.html">Part 2: finding the centre and the rings &rarr;</a>
+      <a class="btn" href="https://github.com/carlemil/Markera">GitHub</a>
+    </div>
+    <p class="related">Related: <a href="fieldshootingtimer.html">FieldShootingTimer</a> · <a href="appshooter.html">appshooter</a></p>
+  </main>
+
+  <footer><p>Built with GitHub Pages · <a href="https://github.com/carlemil/homepage">source</a></p></footer>
+</body>
+</html>

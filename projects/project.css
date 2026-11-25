@@ -103,5 +103,14 @@ iframe.media { width: 100%; aspect-ratio: 16 / 9; }
 }
 .btn:hover { background: #21262d; text-decoration: none; }
 .btn.primary { border-color: #238636; color: #3fb950; }
+.parts { margin: 2.5rem 0; padding: 1.2rem 1.4rem; background: #161b22; border: 1px solid #30363d; border-left: 3px solid #58a6ff; border-radius: 10px; }
+.parts > p { margin: 0 0 1rem; }
+.parts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.9rem; }
+.part { display: block; padding: 1rem 1.1rem; background: #0d1117; border: 1px solid #30363d; border-radius: 8px; color: #e6edf3; }
+.part:hover { border-color: #58a6ff; text-decoration: none; }
+.part b { display: block; font-size: 1.05rem; margin: 0.15rem 0 0.3rem; }
+.part span { display: block; opacity: 0.8; font-size: 0.92rem; }
+.part .go { color: #58a6ff; opacity: 1; font-weight: 600; margin-top: 0.6rem; }
+.more { margin-top: 1rem; }
 .related { font-size: 0.9rem; color: #7d8590; margin: 0 0 3rem; }
 footer { max-width: 960px; margin: 0 auto; padding: 0 1.5rem 3rem; opacity: 0.5; font-size: 0.85rem; }

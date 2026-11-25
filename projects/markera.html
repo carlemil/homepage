@@ -27,29 +27,57 @@
       <div><b>Links</b><a href="https://play.google.com/store/apps/details?id=se.kjellstrand.markera">Play</a> · <a href="https://github.com/carlemil/Markera">GitHub</a></div>
     </div>
 
-    <section class="cs">
+    <section class="cs text">
       <div>
         <div class="kicker">The problem</div>
-        <h2>Which ring is it, really?</h2>
-        <p>A <a href="https://docs.ultralytics.com/models/yolo11/">YOLO11</a> model finds the bullet holes, and that part worked early. The hard problem was geometry: a hole 40&nbsp;mm from the centre is a 9 or an 8 depending on where the centre actually is and how much the camera tilted — and a paper target is covered in look-alike circles.</p>
+        <h2>Two parts: the holes, and the rings they land in</h2>
+        <p>Scoring a series from a photo takes two things. The app has to find every bullet hole, and it has to find the centre and the rings of the target, seen at whatever angle the phone was held, to measure each hole against. This page sums up both.</p>
       </div>
-      <button class="zoom" popovertarget="markera-full-1" aria-label="Show full size: An edge fit locked onto a printed ring inside the black">
-        <img class="media" src="../assets/markera/a5_ransac_clean.jpg" alt="An edge fit locked onto a printed ring inside the black">
+    </section>
+
+    <nav class="parts" aria-label="Full descriptions">
+      <p><b>Each part has its own page with the full description</b>, with every step, number and screenshot behind the summaries below.</p>
+      <div class="parts-grid">
+        <a class="part" href="markera-holes.html">
+          <span class="kicker">Part 1 · full description</span>
+          <b>Finding the holes</b>
+          <span>The YOLO11 hole detector, the admin pages that approve training data, and how training on approved series improved it.</span>
+          <span class="go">Read the full description &rarr;</span>
+        </a>
+        <a class="part" href="../markera-detection.html">
+          <span class="kicker">Part 2 · full description</span>
+          <b>Finding the centre and the rings</b>
+          <span>Seven ways to find a target, each with screenshots, from the first blob fit to the four probe disks in the app today.</span>
+          <span class="go">Read the full description &rarr;</span>
+        </a>
+      </div>
+    </nav>
+
+    <section class="cs">
+      <div>
+        <div class="kicker">Part 1 · summary</div>
+        <h2>Finding the holes</h2>
+        <p>A <a href="https://docs.ultralytics.com/models/yolo11/">YOLO11</a> model, exported to <a href="https://en.wikipedia.org/wiki/Open_Neural_Network_Exchange">ONNX</a> so the same file runs on Android and iOS, draws a <a href="https://en.wikipedia.org/wiki/Minimum_bounding_box">bounding box</a> around every bullet hole, and the size of each box tells the scoring how far the hole's edge reaches.</p>
+        <p>Since November the detector learns from series that shooters save in the app, checked by hand on an admin page. The training set grew from 74 hand-labelled photos to 574, and on the same held-out photos the detector now finds 529 of 548 holes, up from 497.</p>
+        <p class="more"><a class="btn primary" href="markera-holes.html">Full description: finding the holes &rarr;</a></p>
+      </div>
+      <button class="zoom" popovertarget="markera-full-1" aria-label="Show full size: Holes boxed and labelled with their ring value, and the series scored 46">
+        <img class="media" src="../assets/markera/a7_probe_clean.jpg" alt="Holes boxed and labelled with their ring value, and the series scored 46">
       </button>
       <div id="markera-full-1" class="lightbox" popover>
         <button class="zoom-out" popovertarget="markera-full-1" popovertargetaction="hide" aria-label="Close">
-          <img src="../assets/markera/a5_ransac_clean.jpg" alt="An edge fit locked onto a printed ring inside the black, full size">
+          <img src="../assets/markera/a7_probe_clean.jpg" alt="Holes boxed and labelled with their ring value, and the series scored 46, full size">
         </button>
       </div>
     </section>
 
     <section class="cs flip">
       <div>
-        <div class="kicker">The approach</div>
-        <h2>Let the printed digits decide</h2>
-        <p>Two on-device models split the work. <b><a href="https://docs.ultralytics.com/models/yolo11/">YOLO11</a></b>, exported to <a href="https://en.wikipedia.org/wiki/Open_Neural_Network_Exchange">ONNX</a> so the same model runs on both Android and iOS, finds the bullet holes and returns a <a href="https://en.wikipedia.org/wiki/Minimum_bounding_box">bounding box</a> around each one. It says where the holes are, but not what they score.</p>
-        <p><b><a href="https://developers.google.com/ml-kit/vision/text-recognition/v2">ML Kit</a></b> text recognition on Android and <b><a href="https://developer.apple.com/documentation/vision">Apple Vision</a></b> on iOS are the platforms' built-in <a href="https://en.wikipedia.org/wiki/Optical_character_recognition">OCR</a> engines. They read the ring digits printed on the target, and those digits give the geometry: lines through the horizontal and vertical rows cross at the true centre. Four probe disks then walk from where the digits predict the 6/7 ring to the actual black-to-white rim. Those four rim points pin down the full <a href="https://en.wikipedia.org/wiki/Homography_(computer_vision)">perspective map</a> from photo to paper, and every hole goes through it for edge-gauged scoring.</p>
-        <p>Seven approaches were tried; three pieces survived. <a href="../markera-detection.html">How that detection was arrived at, with screenshots of every approach that failed first.</a></p>
+        <div class="kicker">Part 2 · summary</div>
+        <h2>Finding the centre and the rings</h2>
+        <p>A hole 40&nbsp;mm from the centre is a 9 or an 8 depending on where the centre is and how much the camera tilted, and a paper target is covered in look-alike circles. Markera lets the printed ring digits decide: on-device <a href="https://en.wikipedia.org/wiki/Optical_character_recognition">OCR</a> reads them, and lines through the digit rows cross at the true centre.</p>
+        <p>Four probe disks then start where the digits predict the black 6/7 ring and walk to its rim. Those four points pin down the full <a href="https://en.wikipedia.org/wiki/Homography_(computer_vision)">perspective map</a> from photo to paper, and every hole goes through it for edge-gauged scoring. On a real phone every probe reached the rim in 40 of 42 scans. Seven approaches were tried to get there.</p>
+        <p class="more"><a class="btn primary" href="../markera-detection.html">Full description: finding the centre and the rings &rarr;</a></p>
       </div>
       <button class="zoom" popovertarget="markera-full-2" aria-label="Show full size: Four probe disks settled on the rim of a tilted target">
         <img class="media" src="../assets/markera/a7_probe_tilt.jpg" alt="Four probe disks settled on the rim of a tilted target">
@@ -64,10 +92,8 @@
     <section class="cs">
       <div>
         <div class="kicker">The result</div>
-        <h2>40 of 42 scans on the rim</h2>
-        <p>The last step made the difference. The earlier attempts fitted the black 6/7 boundary from the whole image at once, and a target is covered in look-alike circles, so they kept locking onto the wrong one. An edge fit hit the true ring on about 30 percent of real scans, and snapping the whole rim at once landed on it only about 3 times in 37, because one crease or paster on the edge dragged the entire fit.</p>
-        <p>The probes measure the 6/7 circle at just four points instead. Each one starts where that side's digits say the rim should be, then walks in or out until it sits exactly on the black-to-white edge. Other printed rings, pasters inside the black and the paper edge are never sampled, so they cannot pull the result away.</p>
-        <p>In the first run on a real phone every probe landed on the rim in 40 of 42 scans. When the probe ellipse looks implausible, the app shows no automatic score rather than a wrong one. The five best hits pre-fill the pickers and stay editable, because the shooter is the final authority on their own series.</p>
+        <h2>A scored series from one photo</h2>
+        <p>Together the two parts score the series on the spot. The five best hits pre-fill the pickers and stay editable, because the shooter is the final authority on their own series. When the ring fit looks implausible, the app leaves the scoring to the shooter.</p>
       </div>
       <video class="media" src="../assets/markera.mp4" controls muted playsinline preload="metadata"></video>
     </section>
@@ -81,51 +107,11 @@
       </div>
     </section>
 
-    <section class="cs">
-      <div>
-        <div class="kicker">The admin</div>
-        <h2>Approve series for training</h2>
-        <p>Every scan that syncs to the backend can become training data for the hole detector. A review page serves a random unreviewed series beside the verdicts so far: A approves it, R rejects it, and holes can be fixed on a training copy while the user's own series stays as they left it. The training export then zips the approved series only.</p>
-      </div>
-      <button class="zoom" popovertarget="markera-full-3" aria-label="Show full size: The admin page for approving series for training">
-        <img class="media" src="../assets/markera/admin-curate.jpg" alt="The admin page for approving series for training">
-      </button>
-      <div id="markera-full-3" class="lightbox" popover>
-        <button class="zoom-out" popovertarget="markera-full-3" popovertargetaction="hide" aria-label="Close">
-          <img src="../assets/markera/admin-curate.jpg" alt="The admin page for approving series for training, full size">
-        </button>
-      </div>
-    </section>
-
-    <section class="cs flip">
-      <div>
-        <div class="kicker">The admin</div>
-        <h2>Every series on its photo</h2>
-        <p>Each series opens on its photo with the detected holes, the four rim probes and the centre drawn on it, beside a table of every hole's position, detected and manual score and distance. Scores, holes and the rim can be corrected in place; every edit saves at once and lands in a tracked change history.</p>
-      </div>
-      <button class="zoom" popovertarget="markera-full-4" aria-label="Show full size: An admin series page with the scored holes drawn on the photo">
-        <img class="media" src="../assets/markera/admin-series.jpg" alt="An admin series page with the scored holes drawn on the photo">
-      </button>
-      <div id="markera-full-4" class="lightbox" popover>
-        <button class="zoom-out" popovertarget="markera-full-4" popovertargetaction="hide" aria-label="Close">
-          <img src="../assets/markera/admin-series.jpg" alt="An admin series page with the scored holes drawn on the photo, full size">
-        </button>
-      </div>
-    </section>
-
-    <section class="cs text">
-      <div>
-        <div class="kicker">The training</div>
-        <h2>A sharper detector from approved series</h2>
-        <p>Since November the hole detector learns from the series shooters save in the app. Their photos and hole positions are anonymized and checked by hand, one series at a time on the review page, and only approved series join the training set; the app's privacy page tells users that saved photos and holes help improve hole detection. Three batches of approved series grew the set from the original 74 hand-labelled photos to 574 photos with 2933 holes, each model trained as <a href="https://docs.ultralytics.com/models/yolo11/">YOLO11m</a> on one class, the hole, at 1536&nbsp;px.</p>
-        <p>On the same 96 <a href="https://en.wikipedia.org/wiki/Training,_validation,_and_test_data_sets">held-out</a> photos with 548 holes, at the app's 45 percent confidence threshold, the latest model finds 529 holes where the June model found 497, and gets 78 photos exactly right — every hole found and nothing extra — where the June model got 55. Box fit, which matters because Markera reads a hole's size from its box to judge edge hits, rose from 0.573 to 0.673 <a href="https://docs.ultralytics.com/guides/yolo-performance-metrics/">mAP50-95</a> for the trained model, and the <a href="https://en.wikipedia.org/wiki/Half-precision_floating-point_format">half-precision</a> ONNX file the app runs on the phone keeps that lead over the model it replaced.</p>
-      </div>
-    </section>
-
     <div class="links">
       <a class="btn primary" href="https://play.google.com/store/apps/details?id=se.kjellstrand.markera">Google Play</a>
       <a class="btn" href="https://github.com/carlemil/Markera">GitHub</a>
-      <a class="btn" href="../markera-detection.html">Detection write-up</a>
+      <a class="btn" href="markera-holes.html">Full description: the holes</a>
+      <a class="btn" href="../markera-detection.html">Full description: the centre and rings</a>
     </div>
     <p class="related">Related: <a href="fieldshootingtimer.html">FieldShootingTimer</a> · <a href="appshooter.html">appshooter</a></p>
   </main>

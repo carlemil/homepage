@@ -131,7 +131,7 @@
   </header>
 
   <main>
-    <p class="lede"><a href="https://github.com/carlemil/Markera">Markera</a> turns a phone photo of a paper target into a scored series. A YOLOv8 model finds the bullet holes, and that part worked early and never really stopped working. The hard problem was geometry. A hole 40 mm from the centre is a 9 or an 8 depending on where the centre actually is and how much the camera tilt has squashed the rings, and a millimetre of error in the centre moves a borderline shot a whole ring.</p>
+    <p class="lede"><a href="https://github.com/carlemil/Markera">Markera</a> turns a phone photo of a paper target into a scored series. A <a href="https://docs.ultralytics.com/models/yolov8/">YOLOv8</a> model finds the bullet holes, and that part worked early and never really stopped working. The hard problem was geometry. A hole 40 mm from the centre is a 9 or an 8 depending on where the centre actually is and how much the camera tilt has squashed the rings, and a millimetre of error in the centre moves a borderline shot a whole ring.</p>
 
     <p>Every screenshot below is a real run on an Android emulator. Each historical version was checked out into its own git worktree, given a frame source that replays the same three photographs instead of a camera, and extended with debug drawing so a still frame shows what the algorithm was actually looking at. Two of the approaches never ran on a phone at all when they were written, and had to be wired onto the scan path to be photographed. That is noted where it applies.</p>
 
@@ -142,7 +142,7 @@
 
     <h2><span class="verdict partial">Partly shipped &middot; June 2026</span>1. Holes plus a detected centre</h2>
 
-    <p>The first pipeline thresholded the image, took the largest dark blob, fit an ellipse to it by pixel moments, and treated that ellipse as the black 6/7 ring. From the ellipse it recovered a camera pose and warped the whole photo flat before measuring distances. It is a clean idea: a circle seen at an angle projects to an ellipse, so recovering the ellipse recovers the tilt.</p>
+    <p>The first pipeline <a href="https://en.wikipedia.org/wiki/Thresholding_(image_processing)">thresholded</a> the image, took the largest dark <a href="https://en.wikipedia.org/wiki/Blob_detection">blob</a>, fit an ellipse to it by <a href="https://en.wikipedia.org/wiki/Image_moment">pixel moments</a>, and treated that ellipse as the black 6/7 ring. From the ellipse it recovered a <a href="https://en.wikipedia.org/wiki/Pose_(computer_vision)">camera pose</a> and warped the whole photo flat before measuring distances. It is a clean idea: a circle seen at an angle projects to an ellipse, so recovering the ellipse recovers the tilt.</p>
 
     <div class="pair">
       <figure>
@@ -159,11 +159,11 @@
 
     <h2><span class="verdict dropped">Dropped</span>2. Train the model to output scores directly</h2>
 
-    <p>The tempting shortcut: skip geometry entirely and train the detector to emit a ring value per hole. It scored well on held-out validation images and poorly in real use. Low scores are rare in a dataset of decent shooting, so the model essentially guessed them, and the only fix is a much larger dataset of bad targets, which is slow and unpleasant to collect. There is nothing to photograph because it never reached the app.</p>
+    <p>The tempting shortcut: skip geometry entirely and train the detector to emit a ring value per hole. It scored well on <a href="https://en.wikipedia.org/wiki/Training,_validation,_and_test_data_sets">held-out validation</a> images and poorly in real use. Low scores are rare in a dataset of decent shooting, so the model essentially guessed them, and the only fix is a much larger dataset of bad targets, which is slow and unpleasant to collect. There is nothing to photograph because it never reached the app.</p>
 
     <h2><span class="verdict shipped">Shipped &middot; in use today</span>3. The centre from the printed digits</h2>
 
-    <p>Paper targets have their ring values printed on them, in a horizontal row and a vertical row that cross at the centre. On-device OCR reads them, the outer 6 to 9 are kept because they sit at well-aligned positions, a line is fitted through each row, and the two lines are intersected.</p>
+    <p>Paper targets have their ring values printed on them, in a horizontal row and a vertical row that cross at the centre. On-device <a href="https://en.wikipedia.org/wiki/Optical_character_recognition">OCR</a> reads them, the outer 6 to 9 are kept because they sit at well-aligned positions, a line is fitted through each row, and the two lines are intersected.</p>
 
     <figure>
       <img src="assets/markera/a3_digits_tilt.jpg" alt="Target with cyan boxes around each printed digit and two yellow lines crossing at a red cross">
@@ -174,7 +174,7 @@
 
     <h2><span class="verdict dropped">Dropped</span>4. The 6/7 ring from the dark blob</h2>
 
-    <p>With the centre solved, the remaining unknown was the scale, which means finding the black 6/7 boundary. The first attempt reused the idea from approach 1 but with a size prior: threshold, find connected dark components, and pick the blob whose radius is closest to what the viewfinder guide implies.</p>
+    <p>With the centre solved, the remaining unknown was the scale, which means finding the black 6/7 boundary. The first attempt reused the idea from approach 1 but with a size prior: threshold, find <a href="https://en.wikipedia.org/wiki/Connected-component_labeling">connected dark components</a>, and pick the blob whose radius is closest to what the viewfinder guide implies.</p>
 
     <figure>
       <img src="assets/markera/a4_blob_tilt.jpg" alt="Target with a small amber rectangle around the inner rings and a faint large rectangle spanning the frame">
@@ -190,7 +190,7 @@
 
     <h2><span class="verdict dropped">Dropped</span>5. Fitting the edge with RANSAC</h2>
 
-    <p>The obvious correction is to fit the edge directly. This version estimated the disc radius from a brightness profile, collected gradient edge pixels in a band around it, and ran RANSAC to fit a conic through them, rejecting outliers. It is a much better-posed problem and the fits are geometrically excellent.</p>
+    <p>The obvious correction is to fit the edge directly. This version estimated the disc radius from a brightness profile, collected <a href="https://en.wikipedia.org/wiki/Image_gradient">gradient</a> edge pixels in a band around it, and ran <a href="https://en.wikipedia.org/wiki/Random_sample_consensus">RANSAC</a> to fit a <a href="https://en.wikipedia.org/wiki/Conic_section">conic</a> through them, rejecting outliers. It is a much better-posed problem and the fits are geometrically excellent.</p>
 
     <div class="pair">
       <figure>
@@ -231,7 +231,7 @@
 
     <h2><span class="verdict shipped">Shipped &middot; in use today</span>7. Four probe disks that walk to the rim</h2>
 
-    <p>The version that works gives up on fitting the boundary globally and measures it at exactly four points instead. From the digit centre, four starting points are placed left, right, up and down along the digit rows, each at the 6/7 distance that side's own digits predict, so a tilted target's near side starts further out. A 50 pixel disk sits on each start and counts its dark pixels. A disk centred exactly on the rim comes out very slightly more light than dark, because the black curves away from it. Each disk steps in or out by the amount that ratio implies until it stops moving. The four final centres are the photo's image of four known points on the paper, 100 mm left, right, above and below the centre, and four known points are exactly what it takes to pin down the full perspective map from photo to target, a homography. The 6/7 ellipse is that map's image of the 100 mm circle.</p>
+    <p>The version that works gives up on fitting the boundary globally and measures it at exactly four points instead. From the digit centre, four starting points are placed left, right, up and down along the digit rows, each at the 6/7 distance that side's own digits predict, so a tilted target's near side starts further out. A 50 pixel disk sits on each start and counts its dark pixels. A disk centred exactly on the rim comes out very slightly more light than dark, because the black curves away from it. Each disk steps in or out by the amount that ratio implies until it stops moving. The four final centres are the photo's image of four known points on the paper, 100 mm left, right, above and below the centre, and four known points are exactly what it takes to pin down the full perspective map from photo to target, a <a href="https://en.wikipedia.org/wiki/Homography_(computer_vision)">homography</a>. The 6/7 ellipse is that map's image of the 100 mm circle.</p>
 
     <figure>
       <img src="assets/markera/a7_probe_tilt.jpg" alt="Tilted target with four magenta disks on the black rim and a green ellipse exactly on the boundary">
@@ -249,7 +249,7 @@
 
     <p>With a centre, the homography and a set of hole boxes, the rest is arithmetic. Each hole is mapped through the full perspective into millimetres on the target, measured against the published specification, a 100 mm radius to the black edge and a ring every 25 mm outward. Scoring gauges by the hole's edge, so a shot whose edge breaks a line counts as the higher ring, which is how it is done on paper. The rings drawn on the photo come from the same map, so what is drawn and what is scored always agree.</p>
 
-    <p>The first version of this step was simpler: rotate each hole's offset onto the ellipse axes and stretch the short axis back out. That is the weak-perspective model, and it holds near the centre. A real tilted camera also slides each ring's ellipse towards the near side, more the bigger the ring, roughly with the radius squared. In the history view that showed up plainly: the outer rings drew further and further outside the printed lines, and far-out holes measured slightly off. The fix, in October 2026, was the true homography. New scans get it straight from the four probes. Older saved series kept only the ellipse and the centre, and they recover the same map from those two: the centre's polar line with respect to the ellipse is the target's vanishing line, and sending that line to infinity flattens the plane. On the phone the outer rings now sit on the printed lines, and old series keep the scores they were saved with.</p>
+    <p>The first version of this step was simpler: rotate each hole's offset onto the ellipse axes and stretch the short axis back out. That is the <a href="https://en.wikipedia.org/wiki/3D_projection#Weak_perspective_projection">weak-perspective model</a>, and it holds near the centre. A real tilted camera also slides each ring's ellipse towards the near side, more the bigger the ring, roughly with the radius squared. In the history view that showed up plainly: the outer rings drew further and further outside the printed lines, and far-out holes measured slightly off. The fix, in October 2026, was the true homography. New scans get it straight from the four probes. Older saved series kept only the ellipse and the centre, and they recover the same map from those two: the centre's polar line with respect to the ellipse is the target's vanishing line, and sending that line to infinity flattens the plane. On the phone the outer rings now sit on the printed lines, and old series keep the scores they were saved with.</p>
 
     <figure>
       <img src="assets/markera/a7_userview_tilt.jpg" alt="Target with only a green ring and a red centre cross, no debug graphics">

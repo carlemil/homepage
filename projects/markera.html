@@ -20,7 +20,7 @@
 
   <main class="wrap">
     <div class="glance">
-      <div><b>Stack</b>Kotlin Multiplatform, Compose, YOLO11 ONNX, ML Kit / Apple Vision</div>
+      <div><b>Stack</b><a href="https://kotlinlang.org/docs/multiplatform.html">Kotlin Multiplatform</a>, <a href="https://www.jetbrains.com/compose-multiplatform/">Compose</a>, <a href="https://docs.ultralytics.com/models/yolo11/">YOLO11</a> <a href="https://en.wikipedia.org/wiki/Open_Neural_Network_Exchange">ONNX</a>, <a href="https://developers.google.com/ml-kit/vision/text-recognition/v2">ML Kit</a> / <a href="https://developer.apple.com/documentation/vision">Apple Vision</a></div>
       <div><b>Platforms</b>Android (Google Play) · iOS (TestFlight)</div>
       <div><b>Started</b>2026</div>
       <div><b>Status</b><span class="status active">Active<time datetime="2026-11-24" title="Last commit">2026-11-24</time></span></div>
@@ -31,7 +31,7 @@
       <div>
         <div class="kicker">The problem</div>
         <h2>Which ring is it, really?</h2>
-        <p>A YOLO11 model finds the bullet holes, and that part worked early. The hard problem was geometry: a hole 40&nbsp;mm from the centre is a 9 or an 8 depending on where the centre actually is and how much the camera tilted — and a paper target is covered in look-alike circles.</p>
+        <p>A <a href="https://docs.ultralytics.com/models/yolo11/">YOLO11</a> model finds the bullet holes, and that part worked early. The hard problem was geometry: a hole 40&nbsp;mm from the centre is a 9 or an 8 depending on where the centre actually is and how much the camera tilted — and a paper target is covered in look-alike circles.</p>
       </div>
       <button class="zoom" popovertarget="markera-full-1" aria-label="Show full size: An edge fit locked onto a printed ring inside the black">
         <img class="media" src="../assets/markera/a5_ransac_clean.jpg" alt="An edge fit locked onto a printed ring inside the black">
@@ -47,8 +47,8 @@
       <div>
         <div class="kicker">The approach</div>
         <h2>Let the printed digits decide</h2>
-        <p>Two on-device models split the work. <b>YOLO11</b>, exported to ONNX so the same model runs on both Android and iOS, finds the bullet holes and returns a box around each one. It says where the holes are, but not what they score.</p>
-        <p><b>ML Kit</b> text recognition on Android and <b>Apple Vision</b> on iOS are the platforms' built-in OCR engines. They read the ring digits printed on the target, and those digits give the geometry: lines through the horizontal and vertical rows cross at the true centre. Four probe disks then walk from where the digits predict the 6/7 ring to the actual black-to-white rim. Those four rim points pin down the full perspective map from photo to paper, and every hole goes through it for edge-gauged scoring.</p>
+        <p>Two on-device models split the work. <b><a href="https://docs.ultralytics.com/models/yolo11/">YOLO11</a></b>, exported to <a href="https://en.wikipedia.org/wiki/Open_Neural_Network_Exchange">ONNX</a> so the same model runs on both Android and iOS, finds the bullet holes and returns a <a href="https://en.wikipedia.org/wiki/Minimum_bounding_box">bounding box</a> around each one. It says where the holes are, but not what they score.</p>
+        <p><b><a href="https://developers.google.com/ml-kit/vision/text-recognition/v2">ML Kit</a></b> text recognition on Android and <b><a href="https://developer.apple.com/documentation/vision">Apple Vision</a></b> on iOS are the platforms' built-in <a href="https://en.wikipedia.org/wiki/Optical_character_recognition">OCR</a> engines. They read the ring digits printed on the target, and those digits give the geometry: lines through the horizontal and vertical rows cross at the true centre. Four probe disks then walk from where the digits predict the 6/7 ring to the actual black-to-white rim. Those four rim points pin down the full <a href="https://en.wikipedia.org/wiki/Homography_(computer_vision)">perspective map</a> from photo to paper, and every hole goes through it for edge-gauged scoring.</p>
         <p>Seven approaches were tried; three pieces survived. <a href="../markera-detection.html">How that detection was arrived at, with screenshots of every approach that failed first.</a></p>
       </div>
       <button class="zoom" popovertarget="markera-full-2" aria-label="Show full size: Four probe disks settled on the rim of a tilted target">
@@ -77,7 +77,7 @@
         <div class="kicker">The app</div>
         <h2>History and statistics</h2>
         <p>Each series is tagged with a caliber, from a shared list of 24 that also scales the hit-dot overlay, and an optional free-text label. Series sync to its own backend and build a local history grouped by day and filterable by caliber, tag and date range, with zip export.</p>
-        <p>A statistics screen plots filtered groups on a zoomable drawn target with mean and median impact markers, or charts any measure over time with trend, mean and ±1 SD lines. An Insights tab turns that history into coaching: eight finding types — offset, stretched groups, fliers, wide or low days, trend and session fatigue — each carrying a confidence and a plain-language cause, surfaced on Statistics, as a Home card for the strongest recent one, and as a sight helper that turns a stable offset into a click correction. Settings add a language switch, light/dark theme and an insights on/off switch. <a href="../markera-sikte.html">One sight adjustment between two .22 competitions, read off those markers</a> (in Swedish).</p>
+        <p>A statistics screen plots filtered groups on a zoomable drawn target with mean and median impact markers, or charts any measure over time with trend, mean and ±1&nbsp;<a href="https://en.wikipedia.org/wiki/Standard_deviation">SD</a> lines. An Insights tab turns that history into coaching: eight finding types — offset, stretched groups, fliers, wide or low days, trend and session fatigue — each carrying a confidence and a plain-language cause, surfaced on Statistics, as a Home card for the strongest recent one, and as a sight helper that turns a stable offset into a click correction. Settings add a language switch, light/dark theme and an insights on/off switch. <a href="../markera-sikte.html">One sight adjustment between two .22 competitions, read off those markers</a> (in Swedish).</p>
       </div>
     </section>
 
@@ -117,8 +117,8 @@
       <div>
         <div class="kicker">The training</div>
         <h2>A sharper detector from approved series</h2>
-        <p>Since November the hole detector learns from the series shooters save in the app. Their photos and hole positions are anonymized and checked by hand, one series at a time on the review page, and only approved series join the training set; the app's privacy page tells users that saved photos and holes help improve hole detection. Three batches of approved series grew the set from the original 74 hand-labelled photos to 574 photos with 2933 holes, each model trained as YOLO11m on one class, the hole, at 1536&nbsp;px.</p>
-        <p>On the same 96 held-out photos with 548 holes, at the app's 45 percent confidence threshold, the latest model finds 529 holes where the June model found 497, and gets 78 photos exactly right — every hole found and nothing extra — where the June model got 55. Box fit, which matters because Markera reads a hole's size from its box to judge edge hits, rose from 0.573 to 0.673 mAP50-95 for the trained model, and the half-precision ONNX file the app runs on the phone keeps that lead over the model it replaced.</p>
+        <p>Since November the hole detector learns from the series shooters save in the app. Their photos and hole positions are anonymized and checked by hand, one series at a time on the review page, and only approved series join the training set; the app's privacy page tells users that saved photos and holes help improve hole detection. Three batches of approved series grew the set from the original 74 hand-labelled photos to 574 photos with 2933 holes, each model trained as <a href="https://docs.ultralytics.com/models/yolo11/">YOLO11m</a> on one class, the hole, at 1536&nbsp;px.</p>
+        <p>On the same 96 <a href="https://en.wikipedia.org/wiki/Training,_validation,_and_test_data_sets">held-out</a> photos with 548 holes, at the app's 45 percent confidence threshold, the latest model finds 529 holes where the June model found 497, and gets 78 photos exactly right — every hole found and nothing extra — where the June model got 55. Box fit, which matters because Markera reads a hole's size from its box to judge edge hits, rose from 0.573 to 0.673 <a href="https://docs.ultralytics.com/guides/yolo-performance-metrics/">mAP50-95</a> for the trained model, and the <a href="https://en.wikipedia.org/wiki/Half-precision_floating-point_format">half-precision</a> ONNX file the app runs on the phone keeps that lead over the model it replaced.</p>
       </div>
     </section>
 

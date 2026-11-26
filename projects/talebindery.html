@@ -22,7 +22,7 @@
       <div><b>Stack</b>TypeScript, Next.js, Fastify, BullMQ, Postgres, S3</div>
       <div><b>Models</b>Claude</div>
       <div><b>Billing</b>Stripe, printing by Peecho</div>
-      <div><b>Status</b><span class="status active">Active<time datetime="2026-11-19" title="Last commit">2026-11-19</time></span></div>
+      <div><b>Status</b><span class="status active">Active<time datetime="2026-11-26" title="Last commit">2026-11-26</time></span></div>
       <div><b>Links</b><a href="https://talebindery.com">talebindery.com</a></div>
     </div>
 
@@ -46,7 +46,7 @@
       <div>
         <div class="kicker">The book</div>
         <h2>Edit until it reads right, then print</h2>
-        <p>Revise by instruction ("make the ending quieter"), rewrite or swap a single page, reorder freely, and pick a design, font, layout, paper and frame; every change is a new storyboard version, so the history is the undo. Your first book is a free preview with the cover and first 15 pages written; one payment by its size finishes it and unlocks the PDF, and Peecho prints and ships copies through its own checkout. Next.js web, a Fastify API and BullMQ workers over Postgres and S3, with Claude writing the story and Stripe billing.</p>
+        <p>Revise by instruction ("make the ending quieter"), rewrite or swap a single page, reorder freely, and pick a design, font, layout, paper and frame; every change is a new storyboard version, so the history is the undo. Your first book is a free preview, planned whole with the cover and first 6 pages written, also for a visitor who has not signed up yet; one payment by its size finishes it and unlocks the PDF, and Peecho prints and ships copies through its own checkout. Next.js web, a Fastify API and BullMQ workers over Postgres and S3, with Claude writing the story and Stripe billing.</p>
       </div>
       <button class="zoom" popovertarget="talebindery-full-2" aria-label="Show full size: Two pages of an example TaleBindery book, each with a photo and a few lines of story">
         <img class="media" src="../assets/talebindery-spread.jpg" alt="Two pages of an example TaleBindery book, each with a photo and a few lines of story">
@@ -55,6 +55,22 @@
         <button class="zoom-out" popovertarget="talebindery-full-2" popovertargetaction="hide" aria-label="Close">
           <img src="../assets/talebindery-spread.jpg" alt="Two pages of an example TaleBindery book, full size">
         </button>
+      </div>
+    </section>
+    <section class="cs text">
+      <div>
+        <div class="kicker">The site</div>
+        <h2>Nine languages, one page per occasion</h2>
+        <p>The site speaks English, Swedish, German, French, Spanish, Italian, Dutch, Polish and Finnish, each at its own address. Twelve pages cover what people search for, from a Christmas book or a children's book to birthdays, weddings, pets and grandparents, and each opens the new-book page with its occasion already picked. Three example books, among them a mushroom hunt told in 24 pages from 36 photos, open in the reader as real books with a cover and two pages across the spine, in the visitor's language. Before Christmas the front page and the order dialog name Peecho's last day to order for delivery in time, by region.</p>
+      </div>
+    </section>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The testing</div>
+        <h2>One local gate for every change</h2>
+        <p>About 400 <a href="https://vitest.dev/">Vitest</a> files cover the web app, the API, the workers and the shared packages. A small unit project runs the audited rules for credits, languages and crops with no database at all; the rest run against Postgres, Redis and storage, each test worker in its own copy of a migrated template database, so tests that sweep every row only ever see their own fixtures.</p>
+        <p>One command is the whole CI: it builds the packages, applies the migrations and fails on a schema change without its migration, then runs the typecheck, lint, format check, a scan of every tracked file for keys, a check of the Docker and Caddy configuration, the tests and a production build of the web app. Every provider key is blanked first and the model key replaced by one that is not a key, so the tests run on fakes and recorded answers from the printers' APIs, and any call that slips through to a paid service is refused unbilled. An end-to-end test walks through the free preview, and another signs a guest in from the same browser and checks that the book they started follows them to the account.</p>
       </div>
     </section>
   </main>

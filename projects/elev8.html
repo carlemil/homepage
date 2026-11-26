@@ -22,7 +22,7 @@
       <div><b>Stack</b>Rust, PostgreSQL, Kotlin Multiplatform, Stripe, Swish</div>
       <div><b>Platforms</b>Web · Android · iOS</div>
       <div><b>Started</b>2026</div>
-      <div><b>Status</b><span class="status active">Active<time datetime="2026-11-19" title="Last commit">2026-11-19</time></span></div>
+      <div><b>Status</b><span class="status active">Active<time datetime="2026-11-25" title="Last commit">2026-11-25</time></span></div>
       <div><b>Links</b><a href="https://e8elevate.com/">e8elevate.com</a></div>
     </div>
 
@@ -62,7 +62,7 @@
       <div>
         <div class="kicker">The checkout</div>
         <h2>Pay to confirm</h2>
-        <p>The checkout gathers every pre-booking with the time left on its hold, and one payment confirms them all at once: by card, Apple Pay or Google Pay through Stripe, or with Swish, which hands over to the Swish app and back. A visit pass of five sessions can pay for bookings too. Admins manage the schedule, prices, users, players, bookings and passes, and can pin notes for the developer to any text, button or image in the app; coaches see their sessions and player rosters.</p>
+        <p>The checkout gathers every pre-booking with the time left on its hold, and one payment confirms them all at once: by card, Apple Pay or Google Pay through Stripe, or with Swish, also through Stripe, which hands over to the Swish app and back. A visit pass of five sessions can pay for bookings too. Admins manage the schedule, prices, users, players, bookings and passes, and can pin notes for the developer to any text, button or image in the app; coaches see their sessions and player rosters.</p>
       </div>
       <button class="zoom" popovertarget="elev8-full-2" aria-label="Show full size: The Elev8 checkout and the payment confirmation">
         <img class="media" src="../assets/elev8-checkout.jpg" alt="The Elev8 checkout and the payment confirmation">
@@ -87,6 +87,16 @@
         <div class="kicker">The deployment</div>
         <h2>Docker Compose and Caddy</h2>
         <p>Production runs in Docker Compose behind Caddy on a VPS at e8elevate.com, with its own test site beside it. Continuous WAL archiving ships encrypted backups offsite every minute, a NAS pulls its own copy with immutable snapshots, and a point-in-time restore drill checks them end to end.</p>
+      </div>
+    </section>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The testing</div>
+        <h2>Checked at every layer before each push</h2>
+        <p>Every change passes the same checks before it reaches the main branch: formatting, <a href="https://doc.rust-lang.org/clippy/">Clippy</a> with every warning as an error, and the backend tests, which run against a real PostgreSQL with a fresh database per test. The shared Kotlin layer has its view models, repositories and API client under unit test, with strict contract tests that read the backend's golden responses, so the apps and the server hold to one contract.</p>
+        <p>A screen matrix renders 16 screens, 13 dialogs and 8 editors in Swedish, English and Turkish, light and dark, at three text sizes, under <a href="https://robolectric.org/">Robolectric</a>, and checks each one for overflowing text, broken words, a leaked language and contrast; 32 committed screenshots are compared on every run, and the three translations must match key for key. A <a href="https://playwright.dev/">Playwright</a> suite books through the web app, and iOS input tests type into the real fields on the simulator.</p>
+        <p>A <a href="https://k6.io/">k6</a> load test sends 50 parents browsing the schedule while 50 more race for the last 5 places of one session: about 970 requests a second at an 87&nbsp;ms 95th percentile on a two-core debug build, and exactly 5 bookings at the end. Before go-live a security audit scans the dependencies, the container images and the history for secrets, and the restore drill proves the backups.</p>
       </div>
     </section>
 

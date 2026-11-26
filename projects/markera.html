@@ -118,7 +118,17 @@
       <div>
         <div class="kicker">The engineering</div>
         <h2>A day of fixes, then version 1.17</h2>
-        <p>On 23 November 2026 a review of the whole codebase became 49 issues, each fixed on its own branch and merged the same day. Edits and deletes reach the server under the right id, a failed save keeps the frame, sync carries on past one stuck upload, every counted string has its plural forms in all 37 languages, and the iOS session token lives in the Keychain. The server gained quotas, login throttling, security headers and a non-root container. <a href="https://docs.github.com/en/actions">GitHub Actions</a> runs the unit tests, a debug build and the server tests on every push, Dependabot keeps the dependencies current, and the release refuses a store upload until the UI tests pass. Version 1.17.0 shipped with them.</p>
+        <p>On 23 November 2026 a review of the whole codebase became 49 issues, each fixed on its own branch and merged the same day. Edits and deletes reach the server under the right id, a failed save keeps the frame, sync carries on past one stuck upload, every counted string has its plural forms in all 37 languages, and the iOS session token lives in the Keychain. The server gained quotas, login throttling, security headers and a non-root container. <a href="https://docs.github.com/en/actions">GitHub Actions</a> runs the unit tests, a debug build and the server tests on every push, and Dependabot keeps the dependencies current. Version 1.17.0 shipped with them.</p>
+      </div>
+    </section>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The testing</div>
+        <h2>Tested on the phone before every release</h2>
+        <p>The geometry and scoring live in a shared library whose seven test suites run on the JVM, on Android and on the iOS simulator under Kotlin/Native, so both apps are checked on the code they actually ship. Unit tests cover the app and the server, and the CI run builds the app on every push and pull request.</p>
+        <p>On a real phone, a UI test suite drives the whole app against a mock backend and an in-memory database. A drawn target stands in for the camera, the OCR and the hole model, so the real centre, ring and scoring code run on every scan. The tests save, edit and delete series, sign in and out, filter History, read Statistics and Insights, import photos, switch the language and theme, and walk every Back step. Every UI bug that turns up gets a test there.</p>
+        <p>A passing run records its commit, and uploads to Google Play and TestFlight go out only from that same clean commit, so any later change, even to the docs, means a new run. iOS shares the tested code, so the same run clears both stores. Accuracy is measured apart from this: an evaluation module scores the hole model on held-out photos and checks the centre and ring against the hand-labelled ones.</p>
       </div>
     </section>
 

@@ -31,7 +31,7 @@
       <div>
         <div class="kicker">The board</div>
         <h2>Six lanes, one SQLite file</h2>
-        <p>A lane board — todo, plan, develop, test, verify, done — that sits beside Jira for the local loop. I write cards and drag them in the browser, Claude Code works the same cards over MCP, and both share one SQLite file. Each project has its own tab, and the board reloads itself the moment anyone else writes.</p>
+        <p>A lane board — todo, plan, develop, test, verify, done — that sits beside Jira for the local loop. I write cards and drag them in the browser, Claude Code works the same cards over MCP, and both share one SQLite file. Each project has its own tab, and the board reloads itself within five seconds of anyone else writing.</p>
       </div>
       <button class="zoom" popovertarget="tickets-full" aria-label="Show full size: The Tickets lane board">
         <img class="media" src="../assets/tickets.png" alt="The Tickets lane board">
@@ -47,7 +47,7 @@
       <div>
         <div class="kicker">The skills</div>
         <h2>Start, stop, open</h2>
-        <p>Running <code>/tickets-start</code> in a Claude Code session opened in a project sets the repo up where needed — the MCP server, the test and deploy rules in its <code>CLAUDE.md</code>, the project on the board — and then works the board every 15 minutes for as long as the session stays open. <code>/tickets-stop</code> ends the loop, and <code>/tickets-open-board</code> brings the board up in the browser.</p>
+        <p>Running <code>/tickets-start</code> in a Claude Code session opened in a project sets the repo up where needed — the MCP server, the test and deploy rules in its <code>CLAUDE.md</code>, the project on the board — and then works the board every 15 minutes, for up to twelve hours or until a second quiet tick in a row. A small hook answers the quiet ticks before they reach the model, so an idle board costs next to nothing. <code>/tickets-plan</code> works only the planning lanes, one agent per card. <code>/tickets-stop</code> ends the loop, and <code>/tickets-open-board</code> brings the board up in the browser.</p>
       </div>
     </section>
 
@@ -64,6 +64,15 @@
         <div class="kicker">The log</div>
         <h2>Who did what</h2>
         <p>Every write appends an event with its actor, so each card carries who did what and links to the Claude Code session that worked it, ready to resume. One local process and two dependencies — and this page is built on it, card by card.</p>
+      </div>
+    </section>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The testing</div>
+        <h2>A real browser and a real agent on one card</h2>
+        <p>About 590 <a href="https://pytest.org/">pytest</a> tests cover the board, the core, the web app, the idle hook and the usage report. Each test gets a fresh temporary SQLite database, and the browser tests start the server in a thread and drive the system Chrome through <a href="https://playwright.dev/">Playwright</a>.</p>
+        <p>The end-to-end test puts both kinds of user on one card: a person drags it in Chrome while an agent moves it and comments on it over MCP, and the card's history must name both. While a card is being built only the tests mapped to the files it touched run; the test stage and every deploy run the full suite.</p>
       </div>
     </section>
 

@@ -20,7 +20,7 @@
 
   <main class="wrap">
     <div class="glance">
-      <div><b>Stack</b>Python, LLMs</div>
+      <div><b>Stack</b>Python, FastAPI, Svelte, PostgreSQL with pgvector, LLMs</div>
       <div><b>Platform</b>Browser</div>
       <div><b>Started</b>2026</div>
       <div><b>Status</b><span class="status inactive">Inactive<time datetime="2026-09-09" title="Last commit">2026-09-09</time></span></div>
@@ -48,6 +48,22 @@
         <div class="kicker">The rule</div>
         <h2>One life</h2>
         <p>Your log is your progress: death is real, and rolling it back costs you on the leaderboard.</p>
+      </div>
+    </section>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The world</div>
+        <h2>Three games, one lobby</h2>
+        <p>Three games run side by side behind a lobby, each with its own save. Every location gets a generated image and a soundtrack the model picks from Spotify, the world and its cities have maps to travel by, and the characters remember what players told them. Players sign in with email, password and a TOTP code. The characters run on Claude, or on a small model in the player's own browser through <a href="https://webllm.mlc.ai/">WebLLM</a>.</p>
+      </div>
+    </section>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The testing</div>
+        <h2>Every story proved finishable</h2>
+        <p>Each game's YAML passes a validating seeder before it loads: it checks every reference and proves that every place the story can reach still leads to an ending. A playtest script then walks every reachable state the way the engine offers choices, looking for soft-locks, dead content and broken references, and a second one plays the game live through the API to catch characters asking for things the story cannot follow.</p>
       </div>
     </section>
 

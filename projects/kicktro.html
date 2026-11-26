@@ -39,6 +39,16 @@
         <div class="kicker">The gallery</div>
         <h2>Publish a scene</h2>
         <p>Scenes can be published to a public gallery anyone can browse, and a built-in AI-generated collection ships with the app.</p>
+        <p>Two or more layers can share one 3D world, so their geometry is ray-traced together and a glass shape in one refracts the shapes of another. Auto-cycle moves from scene to scene on its own, blending each change while both scenes keep running, and plays only the scenes you have hearted once you sign in. Profiles sign in with Google or Apple and live on KickTro's own small API server.</p>
+      </div>
+    </section>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The testing</div>
+        <h2>Probes on every push, the GPU before every release</h2>
+        <p>35 Node probes check the effects, the scenes, the controls and the server, a build check confirms the shipped page matches the source, and another keeps the README's list of effects complete. GitHub Actions runs them all on every push to main and every pull request.</p>
+        <p>Before each release two more checks run on a real graphics card: a startup gate fails the build if the first frame takes longer than 20 seconds, and about 17 headless browser checks render the effects and fail on any draw the driver rejects.</p>
       </div>
     </section>
 

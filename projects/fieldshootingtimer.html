@@ -31,10 +31,20 @@
         <div class="kicker">The app</div>
         <h2>Set the dial, hear the commands</h2>
         <p>The timer calls out the standardized range commands from a dial you set by pinch and drag, with training and competition modes. One Kotlin/Compose Multiplatform codebase shipped to both Google Play and the App Store.</p>
+        <p>Numbered flags on the dial mark each part of a series and can be dragged into place, with a haptic tick as they snap. Tapping a command jumps the timer to it, competition mode asks the range questions — ready to load, all done, inspection — before it starts, and a short tutorial walks a first-time user through the dial. The commands are spoken in Swedish by a voice that works offline, and everything the app knows stays on the phone.</p>
       </div>
     </section>
 
     <iframe class="media" src="https://www.youtube-nocookie.com/embed/tJ_SbIakruw" title="FieldShootingTimer video" allow="encrypted-media; picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+
+    <section class="cs text">
+      <div>
+        <div class="kicker">The testing</div>
+        <h2>Every gesture tested on both platforms</h2>
+        <p>About 150 shared tests check the commands, the timer plans, the dial geometry, the tutorial and the state machine that drives a run. 54 Compose UI tests perform the real gestures — pinching the dial, scrubbing the hand, dragging the flags, the menus and confirmations — and run on the JVM and in the iOS simulator.</p>
+        <p>GitHub Actions builds and tests Android on Linux and iOS on macOS for every change, and the App Store screenshots are taken by a UI test.</p>
+      </div>
+    </section>
 
     <div class="links">
       <a class="btn primary" href="https://carlemil.github.io/FieldShootingTimer/">iOS/Android</a>

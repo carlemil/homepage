@@ -258,7 +258,7 @@
 
     <h2><span class="verdict shipped">In the scan &middot; November 2026</span>9. Sharpening the centre with the white lines</h2>
 
-    <p>The probes measure the black edge at four points, and the black holds more to measure: thin white lines at 75, 50 and 25 mm and the inner X ring at 12.5 mm. To tell whether a refinement really helps, an admin page now serves random series in the editor's ring mode, and a hand-corrected centre and 6/7 ring are saved as <a href="https://en.wikipedia.org/wiki/Ground_truth">ground truth</a> in a table of their own, beside the production data. Seven photos were labelled for the first experiment, in November 2026.</p>
+    <p>The probes measure the black edge at four points, and the black holds more to measure: thin white lines at 75, 50 and 25 mm and the inner X ring at 12.5 mm. To tell whether a refinement really helps, an admin page now serves random series in the editor's ring mode, and a hand-corrected centre and 6/7 ring are saved as <a href="https://en.wikipedia.org/wiki/Ground_truth">ground truth</a> in a table of their own, beside the production data. Seven photos were labelled for the first experiment, in November 2026, and 27 by the time the refinement shipped.</p>
 
     <p>The refinement starts from the app's detection and adjusts the homography until the sampled black edge and white lines land on their printed radii, along 720 rays out from the centre, with a <a href="https://en.wikipedia.org/wiki/Huber_loss">robust loss</a> and <a href="https://en.wikipedia.org/wiki/Levenberg%E2%80%93Marquardt_algorithm">Levenberg&ndash;Marquardt</a> steps so that pasters and holes count for little. Against the seven labels the mean centre error fell from 0.80 to 0.20 mm, and the worst from 2.06 to 0.35 mm, while the 6/7 ring stayed within 0.35 mm on average. The concentric lines are what pin the centre: a fit to the black edge alone, one circle under perspective, ran 62 mm away.</p>
 
@@ -268,6 +268,8 @@
     </figure>
 
     <p>Started from deliberately worse guesses, it converged from every start up to 6 mm off and from 17 of 21 at 10 mm; further out it locks onto the neighbouring line, 12.5 mm away. The app's own centre lands within 6.6 mm in every sample, so there is margin. On 60 random unlabelled series it moved the centre by a median 0.47 mm, and in the five it moved more than 3 mm its rings sit on the white lines. In the app it runs right after the probes, keeps the digit centre and probe ring when the photo gives too few agreeing line points, and leaves geometry a shooter placed by hand as it is.</p>
+
+    <p>In the app the refinement runs alongside the hole model, so it adds next to nothing to the wait, and the holes are scored against its result. One map spreads its error over all the lines and leaves the 6/7 ring a little off the black's edge, so three passes of a plain <a href="https://en.wikipedia.org/wiki/Least_squares">least-squares</a> ellipse fit through edge points around the refined centre then put the ring back on the edge, with the centre unchanged. On the 27 labelled photos the mean centre error went from 0.99 to 0.20 mm and the worst from 5.35 to 0.47 mm, and the ring refit took the mean worst gap between the drawn and the printed 6/7 ring from 0.82 to 0.66 mm. A test in the app's evaluation module checks both against the labels.</p>
 
     <h2><span class="verdict partial">Tested &middot; November 2026</span>10. The outer rings</h2>
 

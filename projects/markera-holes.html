@@ -57,7 +57,8 @@
         <div class="kicker">The training data</div>
         <h2>Approve series for training</h2>
         <p>Every scan that syncs to the backend can become training data. Photos and hole positions are anonymized, and each series is checked by hand before it joins the training set; the app's privacy page tells users that saved photos and holes help improve hole detection.</p>
-        <p>A review page serves a random unreviewed series beside the verdicts so far: A approves it, R rejects it, and holes can be fixed on a training copy while the user's own series stays as they left it. The training export then zips the approved series only.</p>
+        <p>A review page serves a random unreviewed series beside the verdicts so far: A approves it, R rejects it, and Skip sets it aside for good. Holes can be fixed on a training copy while the user's own series stays as they left it, and a Revert per hole puts it back where the detector found it. A switch limits the pick to series where the shooter moved or deleted a hole, the ones the detector got wrong.</p>
+        <p>The training export zips the approved series, each one once, in numbered batches that download again exactly as they went out. Every real hole is labelled as the one class, at its last position; a box the detector reported at an implausible size is set aside. A second format writes the same photos as a <a href="https://www.cvat.ai/">CVAT</a> 1.1 annotation file for review in a labelling tool.</p>
       </div>
       <button class="zoom" popovertarget="markera-holes-full-2" aria-label="Show full size: The admin page for approving series for training">
         <img class="media" src="../assets/markera/admin-curate.jpg" alt="The admin page for approving series for training">

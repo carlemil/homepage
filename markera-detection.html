@@ -256,11 +256,35 @@
       <figcaption>What a user actually sees, with the debug overlay switched off. The five best hits pre-fill the pickers and stay editable, because the user is the final authority on their own series.</figcaption>
     </figure>
 
+    <h2><span class="verdict shipped">In the scan &middot; November 2026</span>9. Sharpening the centre with the white lines</h2>
+
+    <p>The probes measure the black edge at four points, and the black holds more to measure: thin white lines at 75, 50 and 25 mm and the inner X ring at 12.5 mm. To tell whether a refinement really helps, an admin page now serves random series in the editor's ring mode, and a hand-corrected centre and 6/7 ring are saved as <a href="https://en.wikipedia.org/wiki/Ground_truth">ground truth</a> in a table of their own, beside the production data. Seven photos were labelled for the first experiment, in November 2026.</p>
+
+    <p>The refinement starts from the app's detection and adjusts the homography until the sampled black edge and white lines land on their printed radii, along 720 rays out from the centre, with a <a href="https://en.wikipedia.org/wiki/Huber_loss">robust loss</a> and <a href="https://en.wikipedia.org/wiki/Levenberg%E2%80%93Marquardt_algorithm">Levenberg&ndash;Marquardt</a> steps so that pasters and holes count for little. Against the seven labels the mean centre error fell from 0.80 to 0.20 mm, and the worst from 2.06 to 0.35 mm, while the 6/7 ring stayed within 0.35 mm on average. The concentric lines are what pin the centre: a fit to the black edge alone, one circle under perspective, ran 62 mm away.</p>
+
+    <figure>
+      <img src="assets/markera/a9_refine_547.jpg" alt="Close-up of a pasted target with red rings from the app's detection and green rings from the refinement, the green ones on the faint white lines">
+      <figcaption>Series 547, the one the refinement moved most. Red is the detection before it, green after, drawn at 12.5, 25 and 50 mm. The centre moved 6.6 mm, and the green rings follow the faint white 25 and 50 mm lines at the top where the red ones cut across them.</figcaption>
+    </figure>
+
+    <p>Started from deliberately worse guesses, it converged from every start up to 6 mm off and from 17 of 21 at 10 mm; further out it locks onto the neighbouring line, 12.5 mm away. The app's own centre lands within 6.6 mm in every sample, so there is margin. On 60 random unlabelled series it moved the centre by a median 0.47 mm, and in the five it moved more than 3 mm its rings sit on the white lines. In the app it runs right after the probes, keeps the digit centre and probe ring when the photo gives too few agreeing line points, and leaves geometry a shooter placed by hand as it is.</p>
+
+    <h2><span class="verdict partial">Tested &middot; November 2026</span>10. The outer rings</h2>
+
+    <p>A second experiment fitted every ring, from 12.5 mm out to the ring-1 line at 250 mm, on the same 67 photos. Its main finding was about the targets themselves: most are two sheets. A centre patch carries the black, its white lines and its own 125 mm line, glued onto a backing sheet printed with the 150 to 250 mm rings. The backing sits a median 4 mm off the black's centre, up to 16 mm, and is printed about 1.6 percent smaller.</p>
+
+    <figure>
+      <img src="assets/markera/a10_eleven_446.jpg" alt="Target with green rings in the black, cyan rings on the centre patch and magenta rings on the backing sheet">
+      <figcaption>Series 446, a centre patch on a full backing. Green are the inner rings, cyan the rings on the same sheet as the black, magenta the rings of the backing sheet, fitted as a circle set of its own.</figcaption>
+    </figure>
+
+    <p>For the centre and the 6/7 ring the inner rings carry the result. Modelling two sheets, or giving every outer ring its own circle, matched the inner-only fit to within the noise of seven labels, and forcing all eleven rings onto one map at their printed radii moved the 6/7 ring error from 0.35 to 0.56 mm. The outer rings helped only from starts 15 mm off, where 9 of 21 converged against 4. So rings 1 to 6 stay on the printed model, and the scan uses the inner-line refinement. One detail held on every photo: the white lines measure about 0.2 mm inside their nominal radius and the black edge 0.15 mm outside, either a small bias in the edge detector or a black disc printed slightly large. More labels, favouring tilted and heavily pasted targets, will separate the methods more finely.</p>
+
     <h2 style="border-top:1px solid #30363d">What the detour was worth</h2>
 
     <p>Approaches 1, 4, 5 and 6 all tried to recover the ring boundary from the image as a whole, and every one of them was defeated by the same thing: a paper target is covered in circles, and an algorithm that only understands edges and blobs has no way to know which circle it has found. The fix was not a better fitter. It was noticing that the target prints the answer on itself, and using the digits to decide both where to look and what to look for.</p>
 
-    <p>The surviving pieces are the hole detector from the very first version, the digit-based centre, the four probe disks, and the homography built from them. Everything else was deleted.</p>
+    <p>The surviving pieces are the hole detector from the very first version, the digit-based centre, the four probe disks, the homography built from them, and the white-line refinement that sharpens it. Everything else was deleted.</p>
   </main>
 
   <footer>
